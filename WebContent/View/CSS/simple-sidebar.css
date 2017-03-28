@@ -1,0 +1,75 @@
+/* make sidebar nav vertical */ 
+@media (min-width: 768px) {
+	.sidebar-nav .navbar .navbar-collapse {
+		padding: 0;
+		max-height: none;
+	}
+	.sidebar-nav .navbar ul {
+		float: none;
+	}
+	.sidebar-nav .navbar ul:not {
+		display: block;
+	}
+	.sidebar-nav .navbar li {
+		float: none;
+		display: block;
+	}
+	.sidebar-nav .navbar li a {
+		padding-top: 12px;
+		padding-bottom: 12px;
+	}
+	li{
+		border : solid 1px black;
+	}
+	ul{
+		border : solid 1px black;
+	}
+	#SiteTitle{
+		color:white;
+		background-color: rgb(13,97,136);
+		font-size: 150%;
+		text-align: center;
+	}
+	.NoBorder{
+		border: none;
+	}
+	.dropdown{
+		clear:both;
+	}
+	#UserType{
+		border: none;
+		width:50%;
+		border-left:1px #ccc solid;
+		flex: 1 1 100;	
+			
+	}.UserTypeLi{
+		border: none;
+		color: rgb(13,97,136);
+	}
+	#UserInfo{
+		border: none;
+		width:50%;
+		border-left:1px #ccc solid;
+		flex: 1 1 100;
+		
+
+	}.UserInfoLi{
+		border: none;
+	}
+	.MaxHeight{
+		height:100%;
+		
+	}
+	#pot{
+		border: solid red 15px;
+	}
+	#UserInfoParent{
+		height:auto;
+		display: flex;
+		flex-flow: row column;
+	}
+	#pototo{
+		border: 1px solid red;
+	}
+	
+}
