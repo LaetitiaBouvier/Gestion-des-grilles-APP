@@ -2,11 +2,17 @@ package gestiondesgrillesapp.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Grille {
 	
 	/*
 	 * ATTRIBUTS
 	 */
+	@Id @GeneratedValue
 	private Eleve eleve;
 	private ArrayList<Competence> competences;
 	// est-ce qu'on créé un objet supp pour pouvoir éditer un titre etc ?

@@ -2,11 +2,17 @@ package gestiondesgrillesapp.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class SousGroupe {
 	
 	/*
 	 * ATTRIBUTS
 	 */
+	@Id @GeneratedValue
 	private Groupe groupe;
 	private ArrayList<Eleve> eleves;
 	private String nom;
