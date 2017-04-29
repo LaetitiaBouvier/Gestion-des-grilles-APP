@@ -1,10 +1,17 @@
 package gestiondesgrillesapp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class CommentaireSousCompetenceSousGroupe {
 	
 	/*
 	 * ATTRIBUTS
 	 */
+	@Id @GeneratedValue
+	Long id;
 	private String contenu;
 
 	/*

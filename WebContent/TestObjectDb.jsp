@@ -12,18 +12,18 @@
     <body>
         <form method="POST" action="ObjectDbTestServlet">
             Name: <input type="text" name="test" />
-            <input type="submit" value="grilleTest" />
+            <input type="submit" value="Add" />
         </form>
  
-        <hr><ol> <%
+        <%-- <hr><ol> <%
             @SuppressWarnings("unchecked") 
-            List<Grille> grilles = (List<Grille>)request.getAttribute("guests");
+            List<CommentaireSousCompetenceSousGroupe> coms = (List<Grille>)request.getAttribute("grilles");
             for (Grille grille : grilles) { %>
                 <li> <%= grille %> </li> <%
             } %>
-        </ol><hr>
+        </ol><hr> --%>
  
-        <iframe src="http://www.objectdb.com/pw.html?web-eclipse"
-            frameborder="0" scrolling="no" width="100%" height="30"> </iframe>
+        <!-- <iframe src="http://www.objectdb.com/pw.html?web-eclipse"
+            frameborder="0" scrolling="no" width="100%" height="30"> </iframe> -->
      </body>
  </html>

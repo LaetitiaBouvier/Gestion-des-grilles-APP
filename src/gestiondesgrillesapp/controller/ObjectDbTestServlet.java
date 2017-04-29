@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gestiondesgrillesapp.model.Grille;
+import gestiondesgrillesapp.model.*;
 
 /**
  * Servlet implementation class ObjectDbTestServlet
@@ -44,16 +44,16 @@ public class ObjectDbTestServlet extends HttpServlet {
 			String name = request.getParameter("test");
 			if (name != null) {
 				em.getTransaction().begin();
-				em.persist(new Grille());
+				em.persist(new CommentaireSousCompetenceSousGroupe());
 				em.getTransaction().commit();
 			}
 
-//			// Display the list of guests:
-//				List<Grille> grilleList = em.createQuery(
-//						"SELECT g FROM Guest g", Grille.class).getResultList();
-//				request.setAttribute("grilles", grilleList);
-//				request.getRequestDispatcher("/guest.jsp")
-//				.forward(request, response);
+			// Display the list of guests:
+				List<CommentaireSousCompetenceSousGroupe> comsList = em.createQuery(
+						"SELECT c FROM CommentaireSousCompetenceSousGroupe c", CommentaireSousCompetenceSousGroupe.class).getResultList();
+				request.setAttribute("coms", comsList);
+				request.getRequestDispatcher("/WebContent/TestObjectDb.jsp")
+				.forward(request, response);
 
 		} finally {
 			// Close the database connection:

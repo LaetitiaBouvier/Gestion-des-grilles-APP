@@ -3,18 +3,23 @@ package gestiondesgrillesapp.controller;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
-public class ObjectDbListener {
+import gestiondesgrillesapp.model.CommentaireSousCompetenceSousGroupe;
+
+public class ObjectDbListener implements ServletContextListener {
 
 	// Prepare the EntityManagerFactory & Enhance:
+	@Override
     public void contextInitialized(ServletContextEvent e) {
-        com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.*");  // Ici on indique où se trouvent 
+        com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.CommentaireSousCompetenceSousGroupe");  // Ici on indique où se trouvent les classes du model "mappées" avec @Entity
         EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("$objectdb/db/gestiondesgrillesapp.odb");
         e.getServletContext().setAttribute("emf", emf);
     }
  
     // Release the EntityManagerFactory:
+	@Override
     public void contextDestroyed(ServletContextEvent e) {
         EntityManagerFactory emf =
             (EntityManagerFactory)e.getServletContext().getAttribute("emf");
