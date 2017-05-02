@@ -1,0 +1,15 @@
+/*
+ * Specific styles of signin component
+ */
+/*
+ * General styles
+ */
+ .forecast {
+ 	background-color:blue;
+ }
+
+.chart {
+	height: 90vh; /*style="height: 400px"*/
+	width: 80%;
+	margin: 5vh 10%;
+}

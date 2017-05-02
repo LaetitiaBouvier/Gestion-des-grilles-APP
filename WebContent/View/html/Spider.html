@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link
+	href="../css/Spider.css"
+	rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Force Mobile device not to zoom -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spider</title>
+</head>
+
+<body>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/highcharts-more.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+	<nav class="col-lg-2"></nav>
+	<div class="col-lg-10 forecast">
+		<div id="chart" class="chart" ></div>
+	</div>
+	<script>
+$(function () { 
+    var myChart = Highcharts.chart('chart', {
+
+        chart: {
+            polar: true,
+            type: 'line'
+        },
+
+        title: {
+            text: 'Aperçu des compétences',
+            x: -80
+        },
+
+        pane: {
+            size: '80%'
+        },
+
+        xAxis: {
+            categories: ['Informatique', 'Marketing', 'Reseaux', 'Math',
+                    'Art plastique', 'Electronique'],
+            tickmarkPlacement: 'on',
+            lineWidth: 0
+        },
+
+        yAxis: {
+            gridLineInterpolation: 'polygon',
+            lineWidth: 0,
+            min: 0
+        },
+
+        tooltip: {
+            shared: true,
+            pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}/100</b><br/>'
+        },
+
+        legend: {
+            align: 'right',
+            verticalAlign: 'top',
+            y: 70,
+            layout: 'vertical'
+        },
+
+        series: [{
+            name: 'Simon',
+            data: [45, 95, 55, 30, 70, 80],
+            pointPlacement: 'on'
+        }, {
+            name: 'Jaqueline',
+            data: [50, 39, 42, 100, 60, 40],
+            pointPlacement: 'on'
+        }]
+
+    }); 
+});
+</script>
+
+</body>
+</html>
