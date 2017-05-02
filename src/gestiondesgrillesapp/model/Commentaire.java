@@ -12,7 +12,7 @@ public class Commentaire {
 	 */
 	
 	@Id @GeneratedValue
-	long id;
+	private long id;
 	private String contenu;
 	
 	private long eleveID;

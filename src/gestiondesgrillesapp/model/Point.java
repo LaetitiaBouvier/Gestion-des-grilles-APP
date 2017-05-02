@@ -1,24 +1,34 @@
 package gestiondesgrillesapp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Point {
 	/*
 	 * ATTRIBUTS
 	 */
-	private SousCompetence sousCompetence;
+	@Id @GeneratedValue
+	private long id;
+	private long sousCompetenceID;
+	private long sousPointID;
 	private String titre;
-	private String commentaireEleve;
-	private Validation validation;
 	
+	
+
+	/*
+	 * CONSTRUCTEURS
+	 */
+	
+	public Point(long sousCompetenceID, long sousPointID, String titre){
+		this.sousCompetenceID = sousCompetenceID;
+		this.sousPointID = sousPointID;
+		this.titre = titre;
+	}
 	/*
 	 * GETTERS and SETTERS
 	 */
-	public SousCompetence getSousCompetence() {
-		return sousCompetence;
-	}
-	
-	public void setSousCompetence(SousCompetence sousCompetence) {
-		this.sousCompetence = sousCompetence;
-	}
 
 	public String getTitre() {
 		return titre;
@@ -28,20 +38,20 @@ public class Point {
 		this.titre = titre;
 	}
 
-	public String getCommentaireEleve() {
-		return commentaireEleve;
+	public long getSousCompetenceID() {
+		return sousCompetenceID;
 	}
 
-	public void setCommentaireEleve(String commentaireEleve) {
-		this.commentaireEleve = commentaireEleve;
+	public void setSousCompetenceID(long sousCompetenceID) {
+		this.sousCompetenceID = sousCompetenceID;
 	}
 
-	public Validation getValidation() {
-		return validation;
+	public long getSousPointID() {
+		return sousPointID;
 	}
 
-	public void setValidation(Validation validation) {
-		this.validation = validation;
+	public void setSousPointID(long sousPointID) {
+		this.sousPointID = sousPointID;
 	}
 
 }

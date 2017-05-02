@@ -7,13 +7,13 @@ public class SousCompetence {
 	/*
 	 * ATTRIBUTS
 	 */
-	private Competence competence;
-	private String titre;
-	private Commentaire commentaireSousGroupe; // On dit que c'est possible ! qu'il n'y a pas de problèmes d'instances etc
-	private String commentaireEleve;
-
-	private Evaluation evaluation;
-	private Double coefficient;
+	private long competenceID;
+	private long pointID;
+	private String contenu;
+	private long eleveID;
+	private long commentaireID;
+	private String evaluation;
+	private double coefficient;
 	
 	private ArrayList<Objectif> objectifs;
 
