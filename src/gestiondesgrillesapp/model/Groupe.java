@@ -10,7 +10,8 @@ public class Groupe {
 	private Promotion promotion;
 	private ArrayList<SousGroupe> sousGroupes;
 	private String nom;
-	// + tuteur associé
+	private ArrayList<Long> TuteursIDs;
+
 	/*
 	 * GETTERS and SETTERS
 	 */
@@ -36,5 +37,13 @@ public class Groupe {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public ArrayList<Long> getTuteursIDs() {
+		return TuteursIDs;
+	}
+
+	public void setTuteursIDs(ArrayList<Long> tuteursIDs) {
+		TuteursIDs = tuteursIDs;
 	}
 }
