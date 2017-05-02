@@ -24,15 +24,46 @@ public class Commentaire {
 	/*
 	 * CONSTRUCTEURS
 	 */
-
-	public Commentaire(String contenu){
-		this.contenu = contenu;
+//
+//	public Commentaire(String contenu){
+//		this.contenu = contenu;
+//	}
+	
+	public Commentaire(String contenu, long destinataireID, long objectifID, String code){
+		
+		if(code.equals("eleveSousPoint")){
+			this.contenu = contenu;
+			this.eleveID = destinataireID;
+			this.sousGroupeID = -1;
+			this.sousPointID = objectifID;
+			this.sousCompetenceID = -1;
+		}
+		else if (code.equals("eleveSousCompetence")){
+			this.contenu = contenu;
+			this.eleveID = destinataireID;
+			this.sousGroupeID = -1;
+			this.sousPointID = -1;
+			this.sousCompetenceID = objectifID;
+		}
+		else if (code.equals("sousGroupeSousPoint")){
+			this.contenu = contenu;
+			this.eleveID = -1;
+			this.sousGroupeID = destinataireID;
+			this.sousPointID = objectifID;
+			this.sousCompetenceID = -1;
+		}
+		else if (code.equals("sousGroupeSousCompetence")){
+			this.contenu = contenu;
+			this.eleveID = -1;
+			this.sousGroupeID = destinataireID;
+			this.sousPointID = -1;
+			this.sousCompetenceID = objectifID;
+		}
+		else {
+			 throw new IllegalArgumentException("Le code n'est pas bon! Ask Steph ou Laeti");
+		}
 	}
 	
-	public Commentaire(String contenu, long sousPointID){
-		this.contenu = contenu;
-		this.sousPointID = sousPointID;
-	}
 	
 	/*
 	 * GETTERS and SETTERS
