@@ -15,12 +15,9 @@ public class Point {
 	private long sousPointID;
 	private String titre;
 	
-	
-
 	/*
 	 * CONSTRUCTEURS
 	 */
-	
 	public Point(long sousCompetenceID, long sousPointID, String titre){
 		this.sousCompetenceID = sousCompetenceID;
 		this.sousPointID = sousPointID;

@@ -7,7 +7,8 @@ public class Competence {
 	/*
 	 * ATTRIBUTS
 	 */
-	private Grille grille;
+	private long grilleID;
+	private long sousCompetenceID;
 	private String titre;
 	private String description;
 	private ArrayList<SousCompetence> sousCompetences;

@@ -16,18 +16,21 @@ public class SousPoint {
 	private String contenu;
 	private long pointID;
 	private long eleveID;
-	private long commentaireID;
+	private long commentaireEleveID;
+	private long commentaireSousGroupeID;
 	private String isValidate; //a confirmer
 	
 	/*
 	 * CONSTRUCTEURS
 	 */
 	
-	public SousPoint(String contenu, long pointID, long eleveID, long commentaireID){
+	public SousPoint(String contenu, long pointID, long eleveID){
 		this.contenu = contenu;
 		this.pointID = pointID;
 		this.eleveID = eleveID;
-		this.commentaireID = commentaireID;
+		
+		this.commentaireEleveID = -1;
+		this.commentaireSousGroupeID = -1;
 		this.isValidate = null;
 	}
 	
@@ -63,12 +66,20 @@ public class SousPoint {
 		this.eleveID = eleveID;
 	}
 
-	public long getCommentaireID() {
-		return commentaireID;
+	public long getCommentaireEleveID() {
+		return commentaireEleveID;
 	}
 
-	public void setCommentaireID(long commentaireID) {
-		this.commentaireID = commentaireID;
+	public void setCommentaireEleveID(long commentaireEleveID) {
+		this.commentaireEleveID = commentaireEleveID;
+	}
+	
+	public long getCommentaireSousGroupeID() {
+		return commentaireSousGroupeID;
+	}
+
+	public void setCommentaireSousGroupeID(long commentaireSousGroupeID) {
+		this.commentaireSousGroupeID = commentaireSousGroupeID;
 	}
 
 	public String getIsValidate() {
@@ -78,5 +89,4 @@ public class SousPoint {
 	public void setIsValidate(String isValidate) {
 		this.isValidate = isValidate;
 	}
-	
 }

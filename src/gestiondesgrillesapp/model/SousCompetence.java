@@ -1,79 +1,105 @@
 package gestiondesgrillesapp.model;
 
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
 public class SousCompetence {
 	
 	/*
 	 * ATTRIBUTS
 	 */
+	@Id @GeneratedValue
+	private long id;
 	private long competenceID;
 	private long pointID;
 	private String contenu;
 	private long eleveID;
-	private long commentaireID;
+	private long commentaireEleveID;
+	private long commentaireSousGroupeID;
 	private String evaluation;
 	private double coefficient;
 	
-	private ArrayList<Objectif> objectifs;
-
+	/*
+	 * CONSTRUCTEURS
+	 */
+	public SousCompetence(String contenu, long competenceID, long pointID, long eleveID){
+		this.contenu = contenu;
+		this.competenceID = competenceID;
+		this.pointID = pointID;
+		this.eleveID = eleveID;
+		
+		this.commentaireEleveID = -1;
+		this.commentaireSousGroupeID = -1;
+		this.coefficient = 0.;
+		this.evaluation = null;
+	}
+	
 	/*
 	 * GETTERS and SETTERS
 	 */
-	public String getTitre() {
-		return titre;
+	public long getCompetenceID() {
+		return competenceID;
+	}
+	
+	public void setCompetenceID(long competenceID) {
+		this.competenceID = competenceID;
 	}
 
-	public void setTitre(String titre) {
-		this.titre = titre;
+	public long getPointID() {
+		return pointID;
 	}
 
-	public Commentaire getCommentaireSousGroupe() {
-		return commentaireSousGroupe;
+	public void setPointID(long pointID) {
+		this.pointID = pointID;
 	}
 
-	public void setCommentaireSousGroupe(Commentaire commentaireSousGroupe) {
-		this.commentaireSousGroupe = commentaireSousGroupe;
+	public String getContenu() {
+		return contenu;
 	}
 
-	public Evaluation getEval() {
+	public void setContenu(String contenu) {
+		this.contenu = contenu;
+	}
+
+	public long getEleveID() {
+		return eleveID;
+	}
+
+	public void setEleveID(long eleveID) {
+		this.eleveID = eleveID;
+	}
+
+	public long getCommentaireEleveID() {
+		return commentaireEleveID;
+	}
+
+	public void setCommentaireEleveID(long commentaireEleveID) {
+		this.commentaireEleveID = commentaireEleveID;
+	}
+	
+	public long getCommentaireSousGroupeID() {
+		return commentaireSousGroupeID;
+	}
+
+	public void setCommentaireSousGroupeID(long commentaireSousGroupeID) {
+		this.commentaireSousGroupeID = commentaireSousGroupeID;
+	}
+
+	public String getEvaluation() {
 		return evaluation;
 	}
 
-	public void setEval(Evaluation eval) {
-		this.evaluation = eval;
+	public void setEvaluation(String evaluation) {
+		this.evaluation = evaluation;
 	}
 
-	public ArrayList<Objectif> getObjectifs() {
-		return objectifs;
-	}
-
-	public void setObjectifs(ArrayList<Objectif> objectifs) {
-		this.objectifs = objectifs;
-	}
-
-	public String getCommentaireEleve() {
-		return commentaireEleve;
-	}
-
-	public void setCommentaireEleve(String commentaireEleve) {
-		this.commentaireEleve = commentaireEleve;
-	}
-
-	public Competence getCompetence() {
-		return competence;
-	}
-
-	public void setCompetence(Competence competence) {
-		this.competence = competence;
-	}
-
-	public Double getCoefficient() {
+	public double getCoefficient() {
 		return coefficient;
 	}
 
-	public void setCoefficient(Double coefficient) {
+	public void setCoefficient(double coefficient) {
 		this.coefficient = coefficient;
 	}
-
 }
