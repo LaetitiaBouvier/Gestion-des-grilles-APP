@@ -13,12 +13,12 @@
 <title>Simple Sidebar - Start Bootstrap Template</title>
 
 <!-- Bootstrap Core CSS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<script src="../css/bootstrap/js/jquery.js"></script>
+<script src="../css/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Custom CSS -->
-<link href="css/simple-sidebar.css" rel="stylesheet">
+<link href="../css/simple-sidebar.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,17 +31,6 @@
 
 <body>
 
-    <script type="text/javascript">
-      $(document).ready(function(){
-        if (jQuery) {  
-          // jQuery is loaded  
-          alert("Yeah!");
-        } else {
-          // jQuery is not loaded
-          alert("Doesn't Work");
-        }
-      });
-    </script>
 	<div class="row">
 		<div class="col-sm-2">
 			<div class="sidebar-nav">
@@ -74,12 +63,10 @@
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" aria-expanded="false">Vue d'ensemble
 									<b class="caret"></b>
-							</a>
-								<ul class="NoBorder">
+							</a> <!--ul class="NoBorder">
 									<li class="NoBorder"><a href="#" class="">le groupe</a></li>
-									<li class="NoBorder"><a href="#" class="">mes
-											compétences</a></li>
-								</ul></li>
+									<li class="NoBorder"><a href="#" class="">mes compétences</a></li>
+								</ul--></li>
 							<li><a href="#" class=".nav">Communication</a></li>
 							<li><a href="#" class=".nav">travail en equipe</a></li>
 							<li><a href="#" class=".nav">conduite de projet</a></li>
@@ -300,7 +287,12 @@
 
 				</tbody>
 			</table>
+
+
+
 		</div>
 	</div>
+
 </body>
+
 </html>

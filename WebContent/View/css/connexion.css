@@ -4,10 +4,18 @@
 /*
  * General styles
  */
-body, html {
+ 
+html {
     height: 100%;
+}
+ 
+body, html {
+    height: 100vh;
     background-repeat: no-repeat;
-    background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+/*     background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33)); */
+ 	background-image: url("../ressources/ndl.jpg");
+ 	background-position: center top;
+ 	background-size: auto 100%;
 }
 
 .card-container.card {
@@ -43,7 +51,7 @@ body, html {
 }
 
 .profile-img-card {
-    width: 96px;
+    width: auto; // 96px;
     height: 96px;
     margin: 0 auto 10px;
     display: block;
@@ -131,12 +139,6 @@ body, html {
     background-color: rgb(12, 97, 33);
 }
 
-.forgot-password {
-    color: rgb(104, 145, 162);
-}
-
-.forgot-password:hover,
-.forgot-password:active,
-.forgot-password:focus{
-    color: rgb(12, 97, 33);
+.false-information  {
+    color: red;
 }
