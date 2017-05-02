@@ -11,17 +11,19 @@
  
     <body>
         <form method="POST" action="ObjectDbTestServlet">
-            Name: <input type="text" name="test" />
+            Content : <input type="text" name="content" />
             <input type="submit" value="Add" />
         </form>
  
-        <%-- <hr><ol> <%
+        <hr><ol> <%
             @SuppressWarnings("unchecked") 
-            List<CommentaireSousCompetenceSousGroupe> coms = (List<Grille>)request.getAttribute("grilles");
-            for (Grille grille : grilles) { %>
-                <li> <%= grille %> </li> <%
-            } %>
-        </ol><hr> --%>
+            List<CommentaireSousCompetenceSousGroupe> cscsgList = (List<CommentaireSousCompetenceSousGroupe>)request.getAttribute("cscsgList");
+        	if(cscsgList != null){
+	            for (CommentaireSousCompetenceSousGroupe cscsg : cscsgList) { %>
+	                <li> <%= cscsg.getContenu() %> </li> <%
+	            }
+        	}%>
+        </ol><hr>
  
         <!-- <iframe src="http://www.objectdb.com/pw.html?web-eclipse"
             frameborder="0" scrolling="no" width="100%" height="30"> </iframe> -->

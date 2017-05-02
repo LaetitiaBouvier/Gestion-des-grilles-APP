@@ -5,13 +5,17 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gestiondesgrillesapp.model.*;
+import gestiondesgrillesapp.model.CommentaireSousCompetenceSousGroupe;
 
 /**
  * Servlet implementation class ObjectDbTestServlet
@@ -41,17 +45,33 @@ public class ObjectDbTestServlet extends HttpServlet {
 
 		try {
 			// Handle a new guest (if any):
-			String name = request.getParameter("test");
-			if (name != null) {
+			String content = request.getParameter("content");
+			
+			if (content != null) {
+				CommentaireSousCompetenceSousGroupe cscsg = new CommentaireSousCompetenceSousGroupe();
+				cscsg.setContenu(content);
+				
 				em.getTransaction().begin();
-				em.persist(new CommentaireSousCompetenceSousGroupe());
+				em.persist(cscsg);
 				em.getTransaction().commit();
 			}
+			
+			// _____________
+			// Requete Objet
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<CommentaireSousCompetenceSousGroupe> q = cb.createQuery(CommentaireSousCompetenceSousGroupe.class);
+			Root<CommentaireSousCompetenceSousGroupe> c = q.from(CommentaireSousCompetenceSousGroupe.class);
+			q.select(c);
+			
+			TypedQuery<CommentaireSousCompetenceSousGroupe> query = em.createQuery(q);
+			List<CommentaireSousCompetenceSousGroupe> cscsgList = query.getResultList();
 
-			// Display the list of guests:
-				List<CommentaireSousCompetenceSousGroupe> comsList = em.createQuery(
-						"SELECT c FROM CommentaireSousCompetenceSousGroupe c", CommentaireSousCompetenceSousGroupe.class).getResultList();
-				request.setAttribute("coms", comsList);
+			// ____________
+			// Requete SQL
+//				List<CommentaireSousCompetenceSousGroupe> cscsgList = em.createQuery(
+//						"SELECT c FROM CommentaireSousCompetenceSousGroupe c", CommentaireSousCompetenceSousGroupe.class).getResultList();
+				
+				request.setAttribute("cscsgList", cscsgList);
 				request.getRequestDispatcher("/View/jsp/TestObjectDb.jsp")
 				.forward(request, response);
 
