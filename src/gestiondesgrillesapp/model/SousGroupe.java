@@ -2,13 +2,20 @@ package gestiondesgrillesapp.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class SousGroupe {
 	
 	/*
 	 * ATTRIBUTS
 	 */
+	@Id @GeneratedValue
+	Long id;
 	private Groupe groupe;
-	private ArrayList<Eleve> eleves;
+	private ArrayList<Long> eleves;
 	private String nom;
 	
 	/*
@@ -22,11 +29,11 @@ public class SousGroupe {
 		this.groupe = groupe;
 	}
 
-	public ArrayList<Eleve> getEleves() {
+	public ArrayList<Long> getEleves() {
 		return eleves;
 	}
 
-	public void setEleves(ArrayList<Eleve> eleves) {
+	public void setEleves(ArrayList<Long> eleves) {
 		this.eleves = eleves;
 	}
 
