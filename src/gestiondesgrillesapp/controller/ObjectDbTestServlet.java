@@ -5,17 +5,14 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gestiondesgrillesapp.model.CommentaireSousCompetenceSousGroupe;
+import gestiondesgrillesapp.model.Commentaire;
+import gestiondesgrillesapp.model.SousPoint;
 
 /**
  * Servlet implementation class ObjectDbTestServlet
@@ -29,49 +26,53 @@ public class ObjectDbTestServlet extends HttpServlet {
 	 */
 	public ObjectDbTestServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		// Obtain a database connection:
-		EntityManagerFactory emf =
-				(EntityManagerFactory)getServletContext().getAttribute("emf");
+		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
 		EntityManager em = emf.createEntityManager();
 
 		try {
 			// Handle a new guest (if any):
 			String content = request.getParameter("content");
 			
+			SousPoint sp = new SousPoint("titre sous point test", "description sous point test");
+			
+			em.getTransaction().begin();	//
+			em.persist(sp);					//
+			em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+											//
+			long spID = sp.getID();			// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+
 			if (content != null) {
-				CommentaireSousCompetenceSousGroupe cscsg = new CommentaireSousCompetenceSousGroupe();
-				cscsg.setContenu(content);
-				
+				Commentaire cscsg = new Commentaire(content, spID);
 				em.getTransaction().begin();
 				em.persist(cscsg);
 				em.getTransaction().commit();
 			}
-			
 			// _____________
 			// Requete Objet
-			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<CommentaireSousCompetenceSousGroupe> q = cb.createQuery(CommentaireSousCompetenceSousGroupe.class);
-			Root<CommentaireSousCompetenceSousGroupe> c = q.from(CommentaireSousCompetenceSousGroupe.class);
-			q.select(c);
-			
-			TypedQuery<CommentaireSousCompetenceSousGroupe> query = em.createQuery(q);
-			List<CommentaireSousCompetenceSousGroupe> cscsgList = query.getResultList();
+//			CriteriaBuilder cb = em.getCriteriaBuilder();
+//			CriteriaQuery<Commentaire> q = cb.createQuery(Commentaire.class);
+//			Root<Commentaire> c = q.from(Commentaire.class);
+//			q.select(c);
+//			
+//			TypedQuery<Commentaire> query = em.createQuery(q);
+//			List<Commentaire> cscsgList = query.getResultList();
 
 			// ____________
 			// Requete SQL
-//				List<CommentaireSousCompetenceSousGroupe> cscsgList = em.createQuery(
-//						"SELECT c FROM CommentaireSousCompetenceSousGroupe c", CommentaireSousCompetenceSousGroupe.class).getResultList();
+//				String query = "SELECT c FROM SousPoint c WHERE c.id == "+spID;
+//				String query = "SELECT c FROM SousPoint c WHERE id="+spID;
+//				String query = "SELECT c FROM SousPoint c";
+				List<SousPoint> spList = em.createQuery("SELECT c FROM SousPoint c WHERE id="+spID, SousPoint.class).getResultList();
 				
-				request.setAttribute("cscsgList", cscsgList);
+				request.setAttribute("spList", spList);
 				request.getRequestDispatcher("/View/jsp/TestObjectDb.jsp")
 				.forward(request, response);
 
@@ -87,7 +88,6 @@ public class ObjectDbTestServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 }

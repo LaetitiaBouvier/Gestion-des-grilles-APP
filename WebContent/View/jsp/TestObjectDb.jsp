@@ -16,11 +16,11 @@
         </form>
  
         <hr><ol> <%
-            @SuppressWarnings("unchecked") 
-            List<CommentaireSousCompetenceSousGroupe> cscsgList = (List<CommentaireSousCompetenceSousGroupe>)request.getAttribute("cscsgList");
-        	if(cscsgList != null){
-	            for (CommentaireSousCompetenceSousGroupe cscsg : cscsgList) { %>
-	                <li> <%= cscsg.getContenu() %> </li> <%
+            @SuppressWarnings("unchecked")
+            List<SousPoint> spList = (List<SousPoint>) request.getAttribute("spList");
+        	if(spList != null){
+	            for (SousPoint sp : spList) { %>
+	                <li> <%= sp.getTitre()%> : <%= sp.getID()%> </li> <%
 	            }
         	}%>
         </ol><hr>

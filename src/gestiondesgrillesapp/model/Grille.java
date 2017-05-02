@@ -13,7 +13,7 @@ public class Grille {
 	 * ATTRIBUTS
 	 */
 	@Id @GeneratedValue
-	private Eleve eleve;
+	private Long eleve;
 	private ArrayList<Competence> competences;
 	// est-ce qu'on créé un objet supp pour pouvoir éditer un titre etc ?
 	
@@ -28,11 +28,11 @@ public class Grille {
 		this.competences = competences;
 	}
 
-	public Eleve getEleve() {
+	public Long getEleve() {
 		return eleve;
 	}
 
-	public void setEleve(Eleve eleve) {
+	public void setEleve(Long eleve) {
 		this.eleve = eleve;
 	}
 }

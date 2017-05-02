@@ -9,7 +9,7 @@ public class SousCompetence {
 	 */
 	private Competence competence;
 	private String titre;
-	private CommentaireSousCompetenceSousGroupe commentaireSousGroupe; // On dit que c'est possible ! qu'il n'y a pas de problèmes d'instances etc
+	private Commentaire commentaireSousGroupe; // On dit que c'est possible ! qu'il n'y a pas de problèmes d'instances etc
 	private String commentaireEleve;
 
 	private Evaluation evaluation;
@@ -28,11 +28,11 @@ public class SousCompetence {
 		this.titre = titre;
 	}
 
-	public CommentaireSousCompetenceSousGroupe getCommentaireSousGroupe() {
+	public Commentaire getCommentaireSousGroupe() {
 		return commentaireSousGroupe;
 	}
 
-	public void setCommentaireSousGroupe(CommentaireSousCompetenceSousGroupe commentaireSousGroupe) {
+	public void setCommentaireSousGroupe(Commentaire commentaireSousGroupe) {
 		this.commentaireSousGroupe = commentaireSousGroupe;
 	}
 
