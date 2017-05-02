@@ -1,5 +1,7 @@
 package gestiondesgrillesapp.model;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,21 +14,25 @@ public class Point {
 	@Id @GeneratedValue
 	private long id;
 	private long sousCompetenceID;
-	private long sousPointID;
+	private ArrayList<Long> sousPointsIDs;
 	private String titre;
 	
 	/*
 	 * CONSTRUCTEURS
 	 */
-	public Point(long sousCompetenceID, long sousPointID, String titre){
+	public Point(long sousCompetenceID, ArrayList<Long> sousPointsIDs, String titre){
 		this.sousCompetenceID = sousCompetenceID;
-		this.sousPointID = sousPointID;
+		this.sousPointsIDs = sousPointsIDs;
 		this.titre = titre;
 	}
 	/*
 	 * GETTERS and SETTERS
 	 */
 
+	public long getID(){
+		return this.id;
+	}
+	
 	public String getTitre() {
 		return titre;
 	}
@@ -43,12 +49,11 @@ public class Point {
 		this.sousCompetenceID = sousCompetenceID;
 	}
 
-	public long getSousPointID() {
-		return sousPointID;
+	public ArrayList<Long> getSousPointsIDs() {
+		return sousPointsIDs;
 	}
 
-	public void setSousPointID(long sousPointID) {
-		this.sousPointID = sousPointID;
+	public void setSousPointsIDs(ArrayList<Long> sousPointsIDs) {
+		this.sousPointsIDs = sousPointsIDs;
 	}
-
 }

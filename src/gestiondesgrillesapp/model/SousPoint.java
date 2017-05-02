@@ -1,5 +1,7 @@
 package gestiondesgrillesapp.model;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,6 +22,9 @@ public class SousPoint {
 	private long commentaireSousGroupeID;
 	private String isValidate; //a confirmer
 	
+	public long[] tabTest;	// TEST ! ne fait pas vraiment parti du model !
+	public ArrayList<Long> listTest;
+	
 	/*
 	 * CONSTRUCTEURS
 	 */
@@ -28,6 +33,12 @@ public class SousPoint {
 		this.contenu = contenu;
 		this.pointID = pointID;
 		this.eleveID = eleveID;
+		
+		this.tabTest = new long[1];
+		this.tabTest[0] = 0;
+		
+		this.listTest = new ArrayList<>();
+		listTest.add(1l);
 		
 		this.commentaireEleveID = -1;
 		this.commentaireSousGroupeID = -1;

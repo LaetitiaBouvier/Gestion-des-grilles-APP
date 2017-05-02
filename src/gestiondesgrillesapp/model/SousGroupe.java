@@ -13,7 +13,7 @@ public class SousGroupe {
 	 * ATTRIBUTS
 	 */
 	@Id @GeneratedValue
-	Long id;
+	private long id;
 	private Groupe groupe;
 	private ArrayList<Long> eleves;
 	private String nom;

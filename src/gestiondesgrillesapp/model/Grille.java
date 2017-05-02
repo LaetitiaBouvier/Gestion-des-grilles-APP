@@ -13,26 +13,50 @@ public class Grille {
 	 * ATTRIBUTS
 	 */
 	@Id @GeneratedValue
-	private Long eleve;
-	private ArrayList<Competence> competences;
-	// est-ce qu'on créé un objet supp pour pouvoir éditer un titre etc ?
+	private long id;
+	private long eleveID;
+	private ArrayList<Long> competencesIDs;
+	private String titre;
+	
+	/*
+	 * CONSTRUCTEURS
+	 */
+	
+	public Grille(long eleveID, ArrayList<Long> competencesIDs, String titre){
+		this.eleveID = eleveID;
+		this.competencesIDs = competencesIDs;
+		this.titre = titre;
+	}
 	
 	/*
 	 * GETTERS and SETTERS
 	 */
-	public ArrayList<Competence> getCompetences() {
-		return competences;
+	
+	public long getID(){
+		return this.id;
+	}
+	
+	public long getEleveID() {
+		return eleveID;
+	}
+	
+	public void setEleveID(long eleveID) {
+		this.eleveID = eleveID;
 	}
 
-	public void setCompetences(ArrayList<Competence> competences) {
-		this.competences = competences;
+	public ArrayList<Long> getCompetencesIDs() {
+		return competencesIDs;
 	}
 
-	public Long getEleve() {
-		return eleve;
+	public void setCompetenceID(ArrayList<Long> competencesIDs) {
+		this.competencesIDs = competencesIDs;
 	}
 
-	public void setEleve(Long eleve) {
-		this.eleve = eleve;
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
 	}
 }
