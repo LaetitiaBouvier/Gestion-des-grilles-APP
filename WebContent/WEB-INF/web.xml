@@ -6,12 +6,22 @@
 			
 	<display-name>Gestion-des-grilles-APP</display-name>
 	<welcome-file-list>
-		<welcome-file>TestObjectDb.jsp</welcome-file>
+		<welcome-file>/View/jsp/TestObjectDb.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<!-- <servlet>
+      <servlet-name>ObjectDbTestServlet</servlet-name>
+      <servlet-class>gestiondesgrillesapp.controller.ObjectDbTestServlet</servlet-class>
+    </servlet>
+  
+    <servlet-mapping>
+      <servlet-name>ObjectDbTestServlet</servlet-name>
+      <url-pattern>/ObjectDbTestServlet</url-pattern>
+    </servlet-mapping>
    
 	<listener>
 		<listener-class>
 			gestiondesgrillesapp.controller.ObjectDbListener
 		</listener-class>
-	</listener>
+	</listener> -->
 </web-app>

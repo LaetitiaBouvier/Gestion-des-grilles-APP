@@ -52,7 +52,7 @@ public class ObjectDbTestServlet extends HttpServlet {
 				List<CommentaireSousCompetenceSousGroupe> comsList = em.createQuery(
 						"SELECT c FROM CommentaireSousCompetenceSousGroupe c", CommentaireSousCompetenceSousGroupe.class).getResultList();
 				request.setAttribute("coms", comsList);
-				request.getRequestDispatcher("/WebContent/TestObjectDb.jsp")
+				request.getRequestDispatcher("/View/jsp/TestObjectDb.jsp")
 				.forward(request, response);
 
 		} finally {
