@@ -30,29 +30,31 @@ public class Commentaire {
 	
 	public Commentaire(String contenu, long destinataireID, long objectifID, String code){
 		
-		if(code.equals("eleveSousPoint")){
+		if(contenu == null || contenu.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'un commentaire possède un contenu !");
+		}else{
 			this.contenu = contenu;
+		}
+		
+		if(("eleveSousPoint").equals(code)){
 			this.eleveID = destinataireID;
 			this.sousGroupeID = -1;
 			this.sousPointID = objectifID;
 			this.sousCompetenceID = -1;
 		}
-		else if (code.equals("eleveSousCompetence")){
-			this.contenu = contenu;
+		else if (("eleveSousCompetence").equals(code)){
 			this.eleveID = destinataireID;
 			this.sousGroupeID = -1;
 			this.sousPointID = -1;
 			this.sousCompetenceID = objectifID;
 		}
-		else if (code.equals("sousGroupeSousPoint")){
-			this.contenu = contenu;
+		else if (("sousGroupeSousPoint").equals(code)){
 			this.eleveID = -1;
 			this.sousGroupeID = destinataireID;
 			this.sousPointID = objectifID;
 			this.sousCompetenceID = -1;
 		}
-		else if (code.equals("sousGroupeSousCompetence")){
-			this.contenu = contenu;
+		else if (("sousGroupeSousCompetence").equals(code)){
 			this.eleveID = -1;
 			this.sousGroupeID = destinataireID;
 			this.sousPointID = -1;
@@ -62,7 +64,6 @@ public class Commentaire {
 			 throw new IllegalArgumentException("Le code n'est pas bon! Ask Steph ou Laeti");
 		}
 	}
-	
 	
 	/*
 	 * GETTERS and SETTERS

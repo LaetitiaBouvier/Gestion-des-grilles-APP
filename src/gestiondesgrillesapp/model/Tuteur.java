@@ -12,6 +12,7 @@ public class Tuteur {
 	/*
 	 * ATTRIBUTS
 	 */
+	
 	@Id @GeneratedValue
 	private long id;
 	private String nom;
@@ -20,17 +21,20 @@ public class Tuteur {
 	private String email;
 	private String bureau;
 	private boolean isRespoModule;
-	private ArrayList<Long> elevesIDs;
+//	private ArrayList<Long> elevesIDs;		//
+//	private ArrayList<Long> sousGroupesIDs;	// TODO : Est-ce que "elevesIDs" et "sousGroupesIDs" sont pertinents ici ? Dans la mesure où on peut déjà y accéder via "groupesIDs"
+											//        Au-delà du boublon (qui peut être suffisamment pratique pour se justifier), ça ajoute pas mal de difficulter pour répercuter
+											//		  une modification. Par exemple se je veux transférer un élève d'un groupe à un autre, il faut potentiellement modifier le groupe d'origine
+											//        puis le groupe d'arrivé, mais aussi le tuteur d'origine, le tuteur d'arrivé etc... Je sais pas trop si ça vaut le coup ...
 	private ArrayList<Long> groupesIDs;
-	private ArrayList<Long> sousGroupesIDs;
 	// login pwd? => LDAP
-
 	
 	/*
-	 * CONSTRUCTEURS
+	 * CONSTRUCTEUR(S)
 	 */
 
-	public Tuteur(String nom, String prenom, String numero, String email, String bureau, boolean isRespoModule, ArrayList<Long> elevesIDs, ArrayList<Long> groupesIDs, ArrayList<Long> sousGroupesIDs){
+	public Tuteur(String nom, String prenom, String numero, String email, String bureau, boolean isRespoModule, ArrayList<Long> groupesIDs){
+//							, ArrayList<Long> sousGroupesIDs,ArrayList<Long> elevesIDs){
 		
 		if(groupesIDs != null){
 			this.groupesIDs = groupesIDs;
@@ -45,17 +49,20 @@ public class Tuteur {
 			this.prenom = prenom;
 			this.numero = numero;
 			this.email = email;
-			this.bureau = null;
+			this.bureau = "";
 			this.isRespoModule = isRespoModule;
-			this.elevesIDs = elevesIDs;
-			this.groupesIDs = groupesIDs;
-			this.sousGroupesIDs = sousGroupesIDs;
+//			this.elevesIDs = elevesIDs;
+//			this.sousGroupesIDs = sousGroupesIDs;
 		}
 	}
 	
 	/*
 	 * GETTERS and SETTERS
 	 */
+	
+	public long getID(){
+		return this.id;
+	}
 	
 	public void addGroupeID(long groupeID){
 		this.groupesIDs.add(groupeID);
@@ -65,51 +72,62 @@ public class Tuteur {
 		this.groupesIDs.remove(groupeID);
 	}
 	
-	public long getID(){
-		return this.id;
-	}
 	public String getNom() {
 		return nom;
 	}
+	
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	
 	public String getPrenom() {
 		return prenom;
 	}
+	
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+	
 	public String getNumero() {
 		return numero;
 	}
+	
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public ArrayList<Long> getElevesIDs() {
-		return elevesIDs;
-	}
-	public void setElevesIDs(ArrayList<Long> elevesIDs) {
-		this.elevesIDs = elevesIDs;
-	}
+	
+//	public ArrayList<Long> getElevesIDs() {
+//		return elevesIDs;
+//	}
+//	
+//	public void setElevesIDs(ArrayList<Long> elevesIDs) {
+//		this.elevesIDs = elevesIDs;
+//	}
+	
 	public ArrayList<Long> getGroupesIDs() {
 		return groupesIDs;
 	}
+	
 	public void setGroupesIDs(ArrayList<Long> groupesIDs) {
 		this.groupesIDs = groupesIDs;
 	}
-	public ArrayList<Long> getSousGroupesIDs() {
-		return sousGroupesIDs;
-	}
-	public void setSousGroupesIDs(ArrayList<Long> sousGroupesIDs) {
-		this.sousGroupesIDs = sousGroupesIDs;
-	}
+	
+//	public ArrayList<Long> getSousGroupesIDs() {
+//		return sousGroupesIDs;
+//	}
+//	
+//	public void setSousGroupesIDs(ArrayList<Long> sousGroupesIDs) {
+//		this.sousGroupesIDs = sousGroupesIDs;
+//	}
+	
 	public String getBureau() {
 		return bureau;
 	}
