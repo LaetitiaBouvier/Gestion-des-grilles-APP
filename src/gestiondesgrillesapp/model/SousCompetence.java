@@ -44,7 +44,7 @@ public class SousCompetence {
 		this.commentaireEleveID = -1;
 		this.commentaireSousGroupeID = -1;
 		this.coefficient = 0.;
-		this.evaluation = null;
+		this.evaluation = null;	// TODO : je préfèrerai l'initialiser à "" plutôt que null... Mettre des attributs null dans la BDD c'est plutôt mal !
 	}
 	
 	/*

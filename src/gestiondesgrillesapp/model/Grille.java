@@ -24,7 +24,9 @@ public class Grille {
 	 */
 	
 	public Grille(long eleveID, ArrayList<Long> competencesIDs, String titre){
+		
 		this.eleveID = eleveID;
+		
 		if(competencesIDs == null){
 			this.competencesIDs = new ArrayList<Long>();
 		}else{

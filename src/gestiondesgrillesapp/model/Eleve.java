@@ -12,6 +12,7 @@ public class Eleve {
 	/*
 	 * ATTRIBUTS
 	 */
+	
 	@Id @GeneratedValue
 	private long id;
 	private String nom;
@@ -22,15 +23,19 @@ public class Eleve {
 	private ArrayList<Long> grillesIDs;
 	// login pwd? => LDAP
 
-	
 	/*
-	 * CONSTRUCTEURS
+	 * CONSTRUCTEUR(S)
 	 */
+	
 	public Eleve (String nom, String prenom, String numero, String email, long sousGroupeID, ArrayList<Long> grillesIDs){
 
-		
 		this.sousGroupeID = sousGroupeID;
-		this.grillesIDs = grillesIDs;
+		
+		if(grillesIDs == null){
+			this.grillesIDs = new ArrayList<Long>();
+		}else{
+			this.grillesIDs = grillesIDs;
+		}
 		
 		if((nom == null || nom.isEmpty()) || (prenom == null || prenom.isEmpty()) || (numero == null || numero.isEmpty()) || (email == null || email.isEmpty())){
 			throw new IllegalArgumentException("Il faut absoluement qu'un élève possède un nom, un prenom, un numéro (étudiant) ET un email !");
@@ -45,33 +50,51 @@ public class Eleve {
 	/*
 	 * GETTERS and SETTERS
 	 */
+	
 	public long getID(){
 		return this.id;
 	}
+	
+	public void addGrilleID(long grilleID){
+		this.grillesIDs.add(grilleID);
+	}
+	
+	public void removeGrilleID(long grilleID){
+		this.grillesIDs.remove(grilleID);
+	}
+	
 	public String getNom() {
 		return nom;
 	}
+	
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	
 	public String getPrenom() {
 		return prenom;
 	}
+	
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+	
 	public String getNumero() {
 		return numero;
 	}
+	
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+	
 	public long getSousGroupeID() {
 		return sousGroupeID;
 	}
+	
 	public void setSousGroupeID(long sousGroupeID) {
 		this.sousGroupeID = sousGroupeID;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
