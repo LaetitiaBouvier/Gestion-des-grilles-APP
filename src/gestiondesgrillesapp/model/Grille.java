@@ -17,6 +17,7 @@ public class Grille {
 	private long eleveID;
 	private ArrayList<Long> competencesIDs;
 	private String titre;
+	//private String dateCreation;
 	
 	/*
 	 * CONSTRUCTEURS
@@ -26,6 +27,7 @@ public class Grille {
 		this.eleveID = eleveID;
 		this.competencesIDs = competencesIDs;
 		this.titre = titre;
+		//this.dateCreation = null;
 	}
 	
 	/*
@@ -59,4 +61,12 @@ public class Grille {
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
+
+	//public String getDateCreation() {
+	//	return dateCreation;
+	//}
+
+	//public void setDateCreation(String dateCreation) {
+	//	this.dateCreation = dateCreation;
+	//}
 }
