@@ -8,29 +8,42 @@ import javax.persistence.Id;
 
 @Entity
 public class Point {
+	
 	/*
 	 * ATTRIBUTS
 	 */
+	
 	@Id @GeneratedValue
 	private long id;
+	
 	private long sousCompetenceID;
 	private ArrayList<Long> sousPointsIDs;
 	private String titre;
 	
 	/*
-	 * CONSTRUCTEURS
+	 * CONSTRUCTEUR(S)
 	 */
+	
 	public Point(long sousCompetenceID, ArrayList<Long> sousPointsIDs, String titre){
 		this.sousCompetenceID = sousCompetenceID;
 		this.sousPointsIDs = sousPointsIDs;
 		this.titre = titre;
 	}
+	
 	/*
 	 * GETTERS and SETTERS
 	 */
 
 	public long getID(){
 		return this.id;
+	}
+	
+	public void addSousPointID(long sousPointID){
+		this.sousPointsIDs.add(sousPointID);
+	}
+	
+	public void removeSousPointID(long sousPointID){
+		this.sousPointsIDs.remove(sousPointID);
 	}
 	
 	public String getTitre() {

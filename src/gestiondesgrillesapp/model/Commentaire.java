@@ -13,16 +13,15 @@ public class Commentaire {
 	
 	@Id @GeneratedValue
 	private long id;
-	private String contenu;
 	
 	private long eleveID;
 	private long sousGroupeID;
-	
 	private long sousCompetenceID;
 	private long sousPointID;
+	private String contenu;
 	
 	/*
-	 * CONSTRUCTEURS
+	 * CONSTRUCTEUR(S)
 	 */
 //
 //	public Commentaire(String contenu){

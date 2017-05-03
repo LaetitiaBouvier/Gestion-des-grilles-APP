@@ -12,26 +12,39 @@ public class SousGroupe {
 	/*
 	 * ATTRIBUTS
 	 */
+	
 	@Id @GeneratedValue
 	private long id;
+	
 	private long groupeID;
 	private ArrayList<Long> elevesIDs;
 	private String nom;
-	
 
 	/*
-	 * CONSTRUCTEURS
+	 * CONSTRUCTEUR(S)
 	 */
+	
 	public SousGroupe (long groupeID, ArrayList<Long> elevesIDs, String nom){
 		this.groupeID = groupeID;
 		this.elevesIDs = elevesIDs;
 		this.nom = nom;
 	}
 	
-	
 	/*
 	 * GETTERS and SETTERS
 	 */
+	
+	public long getID(){
+		return this.id;
+	}
+	
+	public void addEleveID(long eleveID){
+		this.elevesIDs.add(eleveID);
+	}
+	
+	public void removeEleveID(long eleveID){
+		this.elevesIDs.remove(eleveID);
+	}
 	
 	public String getNom() {
 		return nom;

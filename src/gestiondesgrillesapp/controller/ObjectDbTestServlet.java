@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gestiondesgrillesapp.model.Commentaire;
 import gestiondesgrillesapp.model.SousPoint;
 
 /**

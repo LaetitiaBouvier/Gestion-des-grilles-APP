@@ -12,14 +12,16 @@ public class Grille {
 	/*
 	 * ATTRIBUTS
 	 */
+	
 	@Id @GeneratedValue
 	private long id;
+	
 	private long eleveID;
 	private ArrayList<Long> competencesIDs;
 	private String titre;
 	
 	/*
-	 * CONSTRUCTEURS
+	 * CONSTRUCTEUR(S)
 	 */
 	
 	public Grille(long eleveID, ArrayList<Long> competencesIDs, String titre){
@@ -34,6 +36,14 @@ public class Grille {
 	
 	public long getID(){
 		return this.id;
+	}
+	
+	public void addCompetenceID(long competenceID){
+		this.competencesIDs.add(competenceID);
+	}
+	
+	public void removeCompetenceID(long competenceID){
+		this.competencesIDs.remove(competenceID);
 	}
 	
 	public long getEleveID() {
