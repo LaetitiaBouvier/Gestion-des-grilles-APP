@@ -29,16 +29,28 @@ public class Tuteur {
 	/*
 	 * CONSTRUCTEURS
 	 */
-	public Tuteur (String nom, String prenom, String numero, String email, String bureau, boolean isRespoModule, ArrayList<Long> elevesIDs, ArrayList<Long> groupesIDs, ArrayList<Long> sousGroupesIDs){
-		this.nom = nom;
-		this.prenom = prenom;
-		this.numero = numero;
-		this.email = email;
-		this.bureau = null;
-		this.isRespoModule = isRespoModule;
-		this.elevesIDs = elevesIDs;
-		this.groupesIDs = groupesIDs;
-		this.sousGroupesIDs = sousGroupesIDs;
+
+	public Tuteur(String nom, String prenom, String numero, String email, String bureau, boolean isRespoModule, ArrayList<Long> elevesIDs, ArrayList<Long> groupesIDs, ArrayList<Long> sousGroupesIDs){
+		
+		if(groupesIDs != null){
+			this.groupesIDs = groupesIDs;
+		}else{
+			this.groupesIDs = new ArrayList<Long>();
+		}
+		
+		if((nom == null || nom.isEmpty()) || (prenom == null || prenom.isEmpty()) || (email == null || email.isEmpty())){
+			throw new IllegalArgumentException("Il faut absoluement qu'un tuteur possède un nom, un prenom ET un email !");
+		}else{
+			this.nom = nom;
+			this.prenom = prenom;
+			this.numero = numero;
+			this.email = email;
+			this.bureau = null;
+			this.isRespoModule = isRespoModule;
+			this.elevesIDs = elevesIDs;
+			this.groupesIDs = groupesIDs;
+			this.sousGroupesIDs = sousGroupesIDs;
+		}
 	}
 	
 	/*

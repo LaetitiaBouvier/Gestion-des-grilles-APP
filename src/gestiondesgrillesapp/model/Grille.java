@@ -25,8 +25,17 @@ public class Grille {
 	
 	public Grille(long eleveID, ArrayList<Long> competencesIDs, String titre){
 		this.eleveID = eleveID;
-		this.competencesIDs = competencesIDs;
-		this.titre = titre;
+		if(competencesIDs == null){
+			this.competencesIDs = new ArrayList<Long>();
+		}else{
+			this.competencesIDs = competencesIDs;
+		}
+		
+		if(titre == null || titre.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'une grille possède un titre !");
+		}else{
+			this.titre = titre;
+		}
 		//this.dateCreation = null;
 	}
 	
@@ -69,6 +78,7 @@ public class Grille {
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
+	
 
 	//public String getDateCreation() {
 	//	return dateCreation;

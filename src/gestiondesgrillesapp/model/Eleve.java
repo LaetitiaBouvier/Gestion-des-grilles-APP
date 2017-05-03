@@ -27,12 +27,19 @@ public class Eleve {
 	 * CONSTRUCTEURS
 	 */
 	public Eleve (String nom, String prenom, String numero, String email, long sousGroupeID, ArrayList<Long> grillesIDs){
-		this.nom = nom;
-		this.prenom = prenom;
-		this.numero = numero;
-		this.email = email;
+
+		
 		this.sousGroupeID = sousGroupeID;
 		this.grillesIDs = grillesIDs;
+		
+		if((nom == null || nom.isEmpty()) || (prenom == null || prenom.isEmpty()) || (numero == null || numero.isEmpty()) || (email == null || email.isEmpty())){
+			throw new IllegalArgumentException("Il faut absoluement qu'un élève possède un nom, un prenom, un numéro (étudiant) ET un email !");
+		}else{
+			this.nom = nom;
+			this.prenom = prenom;
+			this.numero = numero;
+			this.email = email;
+		}
 	}
 	
 	/*
@@ -79,6 +86,4 @@ public class Eleve {
 	public void setGrillesIDs(ArrayList<Long> grillesIDs) {
 		this.grillesIDs = grillesIDs;
 	}
-
-	
 }
