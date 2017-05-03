@@ -23,9 +23,14 @@ public class RespoModule {
 	 */
 	
 	public RespoModule(String nom, String prenom, String email){
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
+		
+		if((nom == null || nom.isEmpty()) || (prenom == null || prenom.isEmpty()) || (email == null || email.isEmpty())){
+			throw new IllegalArgumentException("Il faut absoluement qu'un responsable module possède un nom, un prenom ET un email !");
+		}else{
+			this.nom = nom;
+			this.prenom = prenom;
+			this.email = email;
+		}
 	}
 	
 	/*

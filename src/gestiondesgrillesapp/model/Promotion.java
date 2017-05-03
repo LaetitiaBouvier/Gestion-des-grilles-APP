@@ -25,9 +25,20 @@ public class Promotion {
 	 */
 	
 	public Promotion(long anneeObtensionDiplome, ArrayList<Long> groupesIDs, ArrayList<Long> elevesIDs){
+		
 		this.anneeObtensionDiplome = anneeObtensionDiplome;
-		this.groupesIDs = groupesIDs;
-		this.elevesIDs = elevesIDs;
+		
+		if(groupesIDs == null){
+			this.groupesIDs = new ArrayList<Long>();
+		}else{
+			this.groupesIDs = groupesIDs;
+		}
+		
+		if(elevesIDs == null){
+			this.elevesIDs = new ArrayList<Long>();
+		}else{
+			this.elevesIDs = elevesIDs;
+		}
 	}
 
 	/*

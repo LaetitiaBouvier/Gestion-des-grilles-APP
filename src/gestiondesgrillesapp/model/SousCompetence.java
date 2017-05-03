@@ -31,7 +31,12 @@ public class SousCompetence {
 	 */
 	
 	public SousCompetence(String contenu, long competenceID, ArrayList<Long> pointsIDs, long eleveID){
-		this.contenu = contenu;
+		
+		if(contenu == null || contenu.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'une sous-compétence possède un contenu !");
+		}else{
+			this.contenu = contenu;
+		}
 		this.competenceID = competenceID;
 		this.pointsIDs = pointsIDs;
 		this.eleveID = eleveID;

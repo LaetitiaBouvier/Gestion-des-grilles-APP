@@ -12,31 +12,36 @@ public class Grille {
 	/*
 	 * ATTRIBUTS
 	 */
-	
 	@Id @GeneratedValue
 	private long id;
-	
 	private long eleveID;
 	private ArrayList<Long> competencesIDs;
 	private String titre;
+	//private String dateCreation;
 	
 	/*
-	 * CONSTRUCTEUR(S)
+	 * CONSTRUCTEURS
 	 */
 	
 	public Grille(long eleveID, ArrayList<Long> competencesIDs, String titre){
 		this.eleveID = eleveID;
-		this.competencesIDs = competencesIDs;
-		this.titre = titre;
+		if(competencesIDs == null){
+			this.competencesIDs = new ArrayList<Long>();
+		}else{
+			this.competencesIDs = competencesIDs;
+		}
+		
+		if(titre == null || titre.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'une grille possède un titre !");
+		}else{
+			this.titre = titre;
+		}
+		//this.dateCreation = null;
 	}
 	
 	/*
 	 * GETTERS and SETTERS
 	 */
-	
-	public long getID(){
-		return this.id;
-	}
 	
 	public void addCompetenceID(long competenceID){
 		this.competencesIDs.add(competenceID);
@@ -44,6 +49,10 @@ public class Grille {
 	
 	public void removeCompetenceID(long competenceID){
 		this.competencesIDs.remove(competenceID);
+	}
+	
+	public long getID(){
+		return this.id;
 	}
 	
 	public long getEleveID() {
@@ -69,4 +78,13 @@ public class Grille {
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
+	
+
+	//public String getDateCreation() {
+	//	return dateCreation;
+	//}
+
+	//public void setDateCreation(String dateCreation) {
+	//	this.dateCreation = dateCreation;
+	//}
 }

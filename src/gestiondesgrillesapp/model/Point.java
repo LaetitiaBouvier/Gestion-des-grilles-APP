@@ -25,9 +25,20 @@ public class Point {
 	 */
 	
 	public Point(long sousCompetenceID, ArrayList<Long> sousPointsIDs, String titre){
+		
 		this.sousCompetenceID = sousCompetenceID;
-		this.sousPointsIDs = sousPointsIDs;
-		this.titre = titre;
+		
+		if(sousPointsIDs == null){
+			this.sousPointsIDs = new ArrayList<Long>();
+		}else{
+			this.sousPointsIDs = sousPointsIDs;
+		}
+		
+		if(titre == null || titre.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'un point possède un titre !");
+		}else{
+			this.titre = titre;
+		}
 	}
 	
 	/*
