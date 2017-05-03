@@ -15,18 +15,19 @@ public class SousPoint {
 	
 	@Id @GeneratedValue
 	private long id;
-	private String contenu;
+	
 	private long pointID;
 	private long eleveID;
 	private long commentaireEleveID;
 	private long commentaireSousGroupeID;
+	private String contenu;
 	private String isValidate; //a confirmer
 	
-	public long[] tabTest;	// TEST ! ne fait pas vraiment parti du model !
-	public ArrayList<Long> listTest;
+	public long[] tabTest;				// TEST ! ne fait pas vraiment parti du model !
+	public ArrayList<Long> listTest;	// TEST ! ne fait pas vraiment parti du model !
 	
 	/*
-	 * CONSTRUCTEURS
+	 * CONSTRUCTEUR(S)
 	 */
 	
 	public SousPoint(String contenu, long pointID, long eleveID){

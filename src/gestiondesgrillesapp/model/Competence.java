@@ -12,8 +12,10 @@ public class Competence {
 	/*
 	 * ATTRIBUTS
 	 */
+	
 	@Id @GeneratedValue
 	private long id;
+	
 	private long grilleID;
 	private ArrayList<Long> sousCompetencesIDs;
 	
@@ -22,7 +24,7 @@ public class Competence {
 	private double coefficient;
 	
 	/*
-	 * CONSTRUCTEURS
+	 * CONSTRUCTEUR(S)
 	 */
 	
 	public Competence(long grilleID, ArrayList<Long> sousCompetencesIDs, String titre, String description){
@@ -41,6 +43,14 @@ public class Competence {
 	
 	public long getID(){
 		return this.id;
+	}
+	
+	public void addSousCompetenceID(long sousCompetenceID){
+		this.sousCompetencesIDs.add(sousCompetenceID);
+	}
+	
+	public void removeSousCompetenceID(long sousCompetenceID){
+		this.sousCompetencesIDs.remove(sousCompetenceID);
 	}
 	
 	public String getTitre() {

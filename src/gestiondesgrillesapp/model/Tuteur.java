@@ -44,6 +44,15 @@ public class Tuteur {
 	/*
 	 * GETTERS and SETTERS
 	 */
+	
+	public void addGroupeID(long groupeID){
+		this.groupesIDs.add(groupeID);
+	}
+	
+	public void removeGroupeID(long groupeID){
+		this.groupesIDs.remove(groupeID);
+	}
+	
 	public long getID(){
 		return this.id;
 	}

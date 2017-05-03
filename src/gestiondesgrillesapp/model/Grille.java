@@ -34,6 +34,14 @@ public class Grille {
 	 * GETTERS and SETTERS
 	 */
 	
+	public void addCompetenceID(long competenceID){
+		this.competencesIDs.add(competenceID);
+	}
+	
+	public void removeCompetenceID(long competenceID){
+		this.competencesIDs.remove(competenceID);
+	}
+	
 	public long getID(){
 		return this.id;
 	}

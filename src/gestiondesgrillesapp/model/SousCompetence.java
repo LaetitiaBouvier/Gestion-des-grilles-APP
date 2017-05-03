@@ -12,20 +12,24 @@ public class SousCompetence {
 	/*
 	 * ATTRIBUTS
 	 */
+	
 	@Id @GeneratedValue
 	private long id;
+	
 	private long competenceID;
 	private ArrayList<Long> pointsIDs;
-	private String contenu;
+	
 	private long eleveID;
 	private long commentaireEleveID;
 	private long commentaireSousGroupeID;
+	private String contenu;
 	private String evaluation;
 	private double coefficient;
 	
 	/*
-	 * CONSTRUCTEURS
+	 * CONSTRUCTEUR(S)
 	 */
+	
 	public SousCompetence(String contenu, long competenceID, ArrayList<Long> pointsIDs, long eleveID){
 		this.contenu = contenu;
 		this.competenceID = competenceID;
@@ -44,6 +48,14 @@ public class SousCompetence {
 	
 	public long getID(){
 		return this.id;
+	}
+	
+	public void addPointID(long pointID){
+		this.pointsIDs.add(pointID);
+	}
+	
+	public void removePointID(long pointID){
+		this.pointsIDs.remove(pointID);
 	}
 	
 	public long getCompetenceID() {
