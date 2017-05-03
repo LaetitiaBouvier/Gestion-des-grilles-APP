@@ -2,33 +2,63 @@ package gestiondesgrillesapp.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Competence {
 	
 	/*
 	 * ATTRIBUTS
 	 */
-	private Grille grille;
+	
+	@Id @GeneratedValue
+	private long id;
+	
+	private long grilleID;
+	private ArrayList<Long> sousCompetencesIDs;
+	
 	private String titre;
 	private String description;
-	private ArrayList<SousCompetence> sousCompetences;
-
+	private double coefficient;
+	
+	/*
+	 * CONSTRUCTEUR(S)
+	 */
+	
+	public Competence(long grilleID, ArrayList<Long> sousCompetencesIDs, String titre, String description){
+		this.grilleID = grilleID;
+		this.sousCompetencesIDs = sousCompetencesIDs;
+		this.titre = titre;
+		this.description = description;
+		
+		this.coefficient = 0.;
+	}
+	
+	
 	/*
 	 * GETTERS and SETTERS
 	 */
+	
+	public long getID(){
+		return this.id;
+	}
+	
+	public void addSousCompetenceID(long sousCompetenceID){
+		this.sousCompetencesIDs.add(sousCompetenceID);
+	}
+	
+	public void removeSousCompetenceID(long sousCompetenceID){
+		this.sousCompetencesIDs.remove(sousCompetenceID);
+	}
+	
 	public String getTitre() {
 		return titre;
 	}
 
 	public void setTitre(String titre) {
 		this.titre = titre;
-	}
-
-	public ArrayList<SousCompetence> getSousCompetences() {
-		return sousCompetences;
-	}
-
-	public void setSousCompetences(ArrayList<SousCompetence> sousCompetences) {
-		this.sousCompetences = sousCompetences;
 	}
 
 	public String getDescription() {
@@ -39,11 +69,27 @@ public class Competence {
 		this.description = description;
 	}
 
-	public Grille getGrille() {
-		return grille;
+	public long getGrilleID() {
+		return grilleID;
 	}
 
-	public void setGrille(Grille grille) {
-		this.grille = grille;
+	public void setGrilleID(long grilleID) {
+		this.grilleID = grilleID;
+	}
+
+	public ArrayList<Long> getSousCompetencesIDs() {
+		return sousCompetencesIDs;
+	}
+
+	public void setSousCompetenceID(ArrayList<Long> sousCompetencesIDs) {
+		this.sousCompetencesIDs = sousCompetencesIDs;
+	}
+
+	public double getCoefficient() {
+		return coefficient;
+	}
+
+	public void setCoefficient(double coefficient) {
+		this.coefficient = coefficient;
 	}
 }

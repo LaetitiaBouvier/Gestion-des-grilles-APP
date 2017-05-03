@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gestiondesgrillesapp.model.Commentaire;
 import gestiondesgrillesapp.model.SousPoint;
 
 /**
@@ -41,7 +40,7 @@ public class ObjectDbTestServlet extends HttpServlet {
 			// Handle a new guest (if any):
 			String content = request.getParameter("content");
 			
-			SousPoint sp = new SousPoint("titre sous point test", "description sous point test");
+			SousPoint sp = new SousPoint(content, 42, 42);
 			
 			em.getTransaction().begin();	//
 			em.persist(sp);					//
@@ -49,12 +48,6 @@ public class ObjectDbTestServlet extends HttpServlet {
 											//
 			long spID = sp.getID();			// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 
-			if (content != null) {
-				Commentaire cscsg = new Commentaire(content, spID);
-				em.getTransaction().begin();
-				em.persist(cscsg);
-				em.getTransaction().commit();
-			}
 			// _____________
 			// Requete Objet
 //			CriteriaBuilder cb = em.getCriteriaBuilder();

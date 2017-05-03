@@ -1,25 +1,51 @@
 package gestiondesgrillesapp.model;
 
+import java.util.ArrayList;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Point {
+	
 	/*
 	 * ATTRIBUTS
 	 */
-	private SousCompetence sousCompetence;
+	
+	@Id @GeneratedValue
+	private long id;
+	
+	private long sousCompetenceID;
+	private ArrayList<Long> sousPointsIDs;
 	private String titre;
-	private String commentaireEleve;
-	private Validation validation;
+	
+	/*
+	 * CONSTRUCTEUR(S)
+	 */
+	
+	public Point(long sousCompetenceID, ArrayList<Long> sousPointsIDs, String titre){
+		this.sousCompetenceID = sousCompetenceID;
+		this.sousPointsIDs = sousPointsIDs;
+		this.titre = titre;
+	}
 	
 	/*
 	 * GETTERS and SETTERS
 	 */
-	public SousCompetence getSousCompetence() {
-		return sousCompetence;
+
+	public long getID(){
+		return this.id;
 	}
 	
-	public void setSousCompetence(SousCompetence sousCompetence) {
-		this.sousCompetence = sousCompetence;
+	public void addSousPointID(long sousPointID){
+		this.sousPointsIDs.add(sousPointID);
 	}
-
+	
+	public void removeSousPointID(long sousPointID){
+		this.sousPointsIDs.remove(sousPointID);
+	}
+	
 	public String getTitre() {
 		return titre;
 	}
@@ -28,20 +54,19 @@ public class Point {
 		this.titre = titre;
 	}
 
-	public String getCommentaireEleve() {
-		return commentaireEleve;
+	public long getSousCompetenceID() {
+		return sousCompetenceID;
 	}
 
-	public void setCommentaireEleve(String commentaireEleve) {
-		this.commentaireEleve = commentaireEleve;
+	public void setSousCompetenceID(long sousCompetenceID) {
+		this.sousCompetenceID = sousCompetenceID;
 	}
 
-	public Validation getValidation() {
-		return validation;
+	public ArrayList<Long> getSousPointsIDs() {
+		return sousPointsIDs;
 	}
 
-	public void setValidation(Validation validation) {
-		this.validation = validation;
+	public void setSousPointsIDs(ArrayList<Long> sousPointsIDs) {
+		this.sousPointsIDs = sousPointsIDs;
 	}
-
 }
