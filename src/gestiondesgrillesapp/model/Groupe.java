@@ -26,10 +26,26 @@ public class Groupe {
 	 */
 	
 	public Groupe(long promotionID, ArrayList<Long> sousGroupesIDs, ArrayList<Long> tuteursIDs, String nom){
+		
 		this.promotionID = promotionID;
-		this.sousGroupesIDs = sousGroupesIDs;
-		this.tuteursIDs = tuteursIDs;
-		this.nom = nom;
+		
+		if(sousGroupesIDs == null){
+			this.sousGroupesIDs = new ArrayList<Long>();
+		}else{
+			this.sousGroupesIDs = sousGroupesIDs;
+		}
+		
+		if(tuteursIDs == null){
+			this.tuteursIDs = new ArrayList<Long>();
+		}else{
+			this.tuteursIDs = tuteursIDs;
+		}
+		
+		if(nom == null || nom.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'une groupe possède un nom !");
+		}else{
+			this.nom = nom;
+		}
 	}
 
 	/*

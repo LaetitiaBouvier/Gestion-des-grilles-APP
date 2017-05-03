@@ -25,9 +25,20 @@ public class SousGroupe {
 	 */
 	
 	public SousGroupe (long groupeID, ArrayList<Long> elevesIDs, String nom){
+		
 		this.groupeID = groupeID;
-		this.elevesIDs = elevesIDs;
-		this.nom = nom;
+		
+		if(nom == null || nom.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'un sous-groupe possède un nom !");
+		}else{
+			this.nom = nom;
+		}
+		
+		if(elevesIDs == null){
+			this.elevesIDs = new ArrayList<Long>();
+		}else{
+			this.elevesIDs = elevesIDs;
+		}
 	}
 	
 	/*

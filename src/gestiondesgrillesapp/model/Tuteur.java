@@ -26,10 +26,20 @@ public class Tuteur {
 	 */
 	
 	public Tuteur(ArrayList<Long> groupesIDs, String nom, String prenom, String email){
-		this.groupesIDs = groupesIDs;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
+		
+		if(groupesIDs != null){
+			this.groupesIDs = groupesIDs;
+		}else{
+			this.groupesIDs = new ArrayList<Long>();
+		}
+		
+		if((nom == null || nom.isEmpty()) || (prenom == null || prenom.isEmpty()) || (email == null || email.isEmpty())){
+			throw new IllegalArgumentException("Il faut absoluement qu'un tuteur possède un nom, un prenom ET un email !");
+		}else{
+			this.nom = nom;
+			this.prenom = prenom;
+			this.email = email;
+		}
 	}
 	
 	/*

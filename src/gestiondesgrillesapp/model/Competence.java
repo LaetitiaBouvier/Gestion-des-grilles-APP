@@ -28,10 +28,21 @@ public class Competence {
 	 */
 	
 	public Competence(long grilleID, ArrayList<Long> sousCompetencesIDs, String titre, String description){
+		
 		this.grilleID = grilleID;
-		this.sousCompetencesIDs = sousCompetencesIDs;
-		this.titre = titre;
-		this.description = description;
+		
+		if(sousCompetencesIDs == null){
+			this.sousCompetencesIDs = new ArrayList<Long>();
+		}else{
+			this.sousCompetencesIDs = sousCompetencesIDs;
+		}
+		
+		if((titre == null || titre.isEmpty()) || (description == null || description.isEmpty())){
+			throw new IllegalArgumentException("Il faut absoluement qu'une compétence possède un titre ET une description !");
+		}else{
+			this.titre = titre;
+			this.description = description;
+		}
 		
 		this.coefficient = 0.;
 	}

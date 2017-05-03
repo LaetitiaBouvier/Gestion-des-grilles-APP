@@ -1,7 +1,5 @@
 package gestiondesgrillesapp.model;
 
-import java.util.ArrayList;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,23 +21,19 @@ public class SousPoint {
 	private String contenu;
 	private String isValidate; //a confirmer
 	
-	public long[] tabTest;				// TEST ! ne fait pas vraiment parti du model !
-	public ArrayList<Long> listTest;	// TEST ! ne fait pas vraiment parti du model !
-	
 	/*
 	 * CONSTRUCTEUR(S)
 	 */
 	
 	public SousPoint(String contenu, long pointID, long eleveID){
-		this.contenu = contenu;
+		
+		if(contenu == null || contenu.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'un sous-point possède un contenu !");
+		}else{
+			this.contenu = contenu;
+		}
 		this.pointID = pointID;
 		this.eleveID = eleveID;
-		
-		this.tabTest = new long[1];
-		this.tabTest[0] = 0;
-		
-		this.listTest = new ArrayList<>();
-		listTest.add(1l);
 		
 		this.commentaireEleveID = -1;
 		this.commentaireSousGroupeID = -1;

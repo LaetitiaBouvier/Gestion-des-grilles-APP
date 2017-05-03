@@ -27,12 +27,18 @@ public class Eleve {
 	 */
 	
 	public Eleve(long sousGroupeID, long grilleID, String nom, String prenom, String numero, String email){
+		
 		this.sousGroupeID = sousGroupeID;
 		this.grilleID = grilleID;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.numero = numero;
-		this.email = email;
+		
+		if((nom == null || nom.isEmpty()) || (prenom == null || prenom.isEmpty()) || (numero == null || numero.isEmpty()) || (email == null || email.isEmpty())){
+			throw new IllegalArgumentException("Il faut absoluement qu'un élève possède un nom, un prenom, un numéro (étudiant) ET un email !");
+		}else{
+			this.nom = nom;
+			this.prenom = prenom;
+			this.numero = numero;
+			this.email = email;
+		}
 	}
 	
 	/*
