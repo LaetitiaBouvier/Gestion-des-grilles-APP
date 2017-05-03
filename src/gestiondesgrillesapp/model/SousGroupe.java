@@ -24,9 +24,10 @@ public class SousGroupe {
 	 * CONSTRUCTEUR(S)
 	 */
 	
-	public SousGroupe (long groupeID, ArrayList<Long> elevesIDs, String nom){
+	public SousGroupe(String nom){
 		
-		this.groupeID = groupeID;
+		this.groupeID = -1l;
+		this.elevesIDs = new ArrayList<Long>();
 		
 		if(nom == null || nom.isEmpty()){
 			throw new IllegalArgumentException("Il faut absoluement qu'un sous-groupe possède un nom !");
@@ -34,11 +35,6 @@ public class SousGroupe {
 			this.nom = nom;
 		}
 		
-		if(elevesIDs == null){
-			this.elevesIDs = new ArrayList<Long>();
-		}else{
-			this.elevesIDs = elevesIDs;
-		}
 	}
 	
 	/*

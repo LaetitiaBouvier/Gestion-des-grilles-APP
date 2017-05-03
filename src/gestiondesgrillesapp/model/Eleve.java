@@ -20,22 +20,19 @@ public class Eleve {
 	private String numero;
 	private String email;
 	private long sousGroupeID;
-	private ArrayList<Long> grillesIDs;
+	private long grilleID;
+	private ArrayList<Long> grillesHistoriqueIDs;
 	// login pwd? => LDAP
 
 	/*
 	 * CONSTRUCTEUR(S)
 	 */
 	
-	public Eleve (String nom, String prenom, String numero, String email, long sousGroupeID, ArrayList<Long> grillesIDs){
+	public Eleve (String nom, String prenom, String numero, String email){
 
-		this.sousGroupeID = sousGroupeID;
-		
-		if(grillesIDs == null){
-			this.grillesIDs = new ArrayList<Long>();
-		}else{
-			this.grillesIDs = grillesIDs;
-		}
+		this.sousGroupeID = -1l;
+		this.grilleID = -1l;
+		this.grillesHistoriqueIDs = new ArrayList<Long>();
 		
 		if((nom == null || nom.isEmpty()) || (prenom == null || prenom.isEmpty()) || (numero == null || numero.isEmpty()) || (email == null || email.isEmpty())){
 			throw new IllegalArgumentException("Il faut absoluement qu'un élève possède un nom, un prenom, un numéro (étudiant) ET un email !");
@@ -55,12 +52,12 @@ public class Eleve {
 		return this.id;
 	}
 	
-	public void addGrilleID(long grilleID){
-		this.grillesIDs.add(grilleID);
+	public void addGrilleHistoriqueID(long grilleHistoriqueID){
+		this.grillesHistoriqueIDs.add(grilleHistoriqueID);
 	}
 	
-	public void removeGrilleID(long grilleID){
-		this.grillesIDs.remove(grilleID);
+	public void removeGrilleHistoriqueID(long grilleHistoriqueID){
+		this.grillesHistoriqueIDs.remove(grilleHistoriqueID);
 	}
 	
 	public String getNom() {
@@ -103,10 +100,18 @@ public class Eleve {
 	}
 
 	public ArrayList<Long> getGrillesIDs() {
-		return grillesIDs;
+		return grillesHistoriqueIDs;
 	}
 
 	public void setGrillesIDs(ArrayList<Long> grillesIDs) {
-		this.grillesIDs = grillesIDs;
+		this.grillesHistoriqueIDs = grillesIDs;
+	}
+
+	public long getGrilleID() {
+		return grilleID;
+	}
+
+	public void setGrilleID(long grilleID) {
+		this.grilleID = grilleID;
 	}
 }

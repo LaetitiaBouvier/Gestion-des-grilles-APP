@@ -24,15 +24,10 @@ public class Point {
 	 * CONSTRUCTEUR(S)
 	 */
 	
-	public Point(long sousCompetenceID, ArrayList<Long> sousPointsIDs, String titre){
+	public Point(String titre){
 		
-		this.sousCompetenceID = sousCompetenceID;
-		
-		if(sousPointsIDs == null){
-			this.sousPointsIDs = new ArrayList<Long>();
-		}else{
-			this.sousPointsIDs = sousPointsIDs;
-		}
+		this.sousCompetenceID = -1l;
+		this.sousPointsIDs = new ArrayList<Long>();
 		
 		if(titre == null || titre.isEmpty()){
 			throw new IllegalArgumentException("Il faut absoluement qu'un point possède un titre !");

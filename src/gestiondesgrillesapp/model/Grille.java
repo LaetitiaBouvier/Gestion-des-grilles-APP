@@ -23,15 +23,10 @@ public class Grille {
 	 * CONSTRUCTEURS
 	 */
 	
-	public Grille(long eleveID, ArrayList<Long> competencesIDs, String titre){
+	public Grille(String titre){
 		
-		this.eleveID = eleveID;
-		
-		if(competencesIDs == null){
-			this.competencesIDs = new ArrayList<Long>();
-		}else{
-			this.competencesIDs = competencesIDs;
-		}
+		this.eleveID = -1l;
+		this.competencesIDs = new ArrayList<Long>();
 		
 		if(titre == null || titre.isEmpty()){
 			throw new IllegalArgumentException("Il faut absoluement qu'une grille possède un titre !");

@@ -30,21 +30,22 @@ public class SousCompetence {
 	 * CONSTRUCTEUR(S)
 	 */
 	
-	public SousCompetence(String contenu, long competenceID, ArrayList<Long> pointsIDs, long eleveID){
+	public SousCompetence(String contenu){
+		
+		this.competenceID = -1l;
+		this.pointsIDs = new ArrayList<Long>();
+		
+		this.eleveID = -1l;
+		this.commentaireEleveID = -1l;
+		this.commentaireSousGroupeID = -1l;
+		this.evaluation = null;	// TODO : je préfèrerai l'initialiser à "" plutôt que null... Mettre des attributs null dans la BDD c'est plutôt mal ! Qu'en penses-tu ma Laeti ?
+		this.coefficient = 0.;
 		
 		if(contenu == null || contenu.isEmpty()){
 			throw new IllegalArgumentException("Il faut absoluement qu'une sous-compétence possède un contenu !");
 		}else{
 			this.contenu = contenu;
 		}
-		this.competenceID = competenceID;
-		this.pointsIDs = pointsIDs;
-		this.eleveID = eleveID;
-		
-		this.commentaireEleveID = -1;
-		this.commentaireSousGroupeID = -1;
-		this.coefficient = 0.;
-		this.evaluation = null;	// TODO : je préfèrerai l'initialiser à "" plutôt que null... Mettre des attributs null dans la BDD c'est plutôt mal !
 	}
 	
 	/*

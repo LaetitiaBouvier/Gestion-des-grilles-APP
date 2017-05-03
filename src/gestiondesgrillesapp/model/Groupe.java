@@ -25,21 +25,12 @@ public class Groupe {
 	 * CONSTRUCTEUR(S)
 	 */
 	
-	public Groupe(long promotionID, ArrayList<Long> sousGroupesIDs, ArrayList<Long> tuteursIDs, String nom){
+	public Groupe(String nom){
 		
-		this.promotionID = promotionID;
+		this.promotionID = -1l;
 		
-		if(sousGroupesIDs == null){
-			this.sousGroupesIDs = new ArrayList<Long>();
-		}else{
-			this.sousGroupesIDs = sousGroupesIDs;
-		}
-		
-		if(tuteursIDs == null){
-			this.tuteursIDs = new ArrayList<Long>();
-		}else{
-			this.tuteursIDs = tuteursIDs;
-		}
+		this.sousGroupesIDs = new ArrayList<Long>();
+		this.tuteursIDs = new ArrayList<Long>();
 		
 		if(nom == null || nom.isEmpty()){
 			throw new IllegalArgumentException("Il faut absoluement qu'une groupe possède un nom !");
