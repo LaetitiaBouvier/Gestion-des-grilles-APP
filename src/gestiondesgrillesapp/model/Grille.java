@@ -93,4 +93,13 @@ public class Grille {
 	//public void setDateCreation(String dateCreation) {
 	//	this.dateCreation = dateCreation;
 	//}
+	
+	public Grille deepCopy(){
+		
+		String titre = new String(this.titre);
+		
+		Grille grille = new Grille(titre, false);
+		
+		return grille;
+	}
 }

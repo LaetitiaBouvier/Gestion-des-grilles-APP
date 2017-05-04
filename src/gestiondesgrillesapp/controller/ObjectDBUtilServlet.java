@@ -1,6 +1,7 @@
 package gestiondesgrillesapp.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -30,6 +31,18 @@ public class ObjectDBUtilServlet extends HttpServlet{
 	public ObjectDBUtilServlet() {
 		super();
 	}
+	
+	/*
+	 * TODO : Très important pour la suite : voilà comment gérer les informations des sessions, ce qui sera très pratique :
+	 * - https://javaweb.developpez.com/faq/javaee?page=Session
+	 * - http://stackoverflow.com/questions/20540191/how-to-call-a-method-in-a-servlet-from-another-class#20540506
+	 * - côté jsp ? : http://java.mesexemples.com/java-server-page/jsp-exemple-des-sessions-en-jsp/
+	 * 
+	 * TODO : Et pour appeler une servlet depuis une autre servlet (en l'occurence cette servlet depuis une autre), si besoin :
+	 * - http://stackoverflow.com/questions/20947806/how-can-i-call-from-one-servlet-file-to-another-servlet-file#20947869
+	 * - http://tutorials.jenkov.com/java-servlets/requestdispatcher.html
+	 * - https://www.javatpoint.com/requestdispatcher-in-servlet
+	 */
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -80,7 +93,17 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			}
 			Grille grilleModel = grilleList.get(0);
 			
-//			Grille grilleCopy = grilleModel.deepCopy();
+			Grille grilleCopy = grilleModelDeepCopy(grilleModel);
+			
+			if(grilleCopy == null){
+				throw new RuntimeException("Une erreur est survenue au moment de copier la grille \"model\" pour associer la copie à l'élève !");
+			}
+			
+			eleve.setGrilleID(grilleCopy.getID());
+			
+			em.getTransaction().begin();
+			em.persist(eleve);
+			em.getTransaction().commit();	// Ici on MAJ seulement "eleve"
 			
 		} finally {
 			// Close the database connection:
@@ -90,13 +113,22 @@ public class ObjectDBUtilServlet extends HttpServlet{
 		}
 	}
 	
-	public void grilleModelDeepCopy(Grille grilleModel){
+	public Grille grilleModelDeepCopy(Grille grilleModel){
 
 		// Obtain a database connection:
 		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
 		EntityManager em = emf.createEntityManager();
+		
+		Grille grilleModelCopy = null;
 
 		try{
+			grilleModelCopy = grilleModel.deepCopy();
+			
+			em.getTransaction().begin();
+			em.persist(grilleModelCopy);
+			em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+			
+			ArrayList<Competence> competencesListCopy = new ArrayList<>();
 			for(long competenceID : grilleModel.getCompetencesIDs()){
 				List<Competence> competenceTempList = em.createQuery("SELECT c FROM Competence c WHERE id="+competenceID, Competence.class).getResultList();
 				
@@ -109,11 +141,15 @@ public class ObjectDBUtilServlet extends HttpServlet{
 				
 				Competence competence = competenceTempList.get(0);
 				Competence competenceCopy = competenceTempList.get(0).deepCopy();
+				competenceCopy.setGrilleID(grilleModelCopy.getID());
 				
 				em.getTransaction().begin();
 				em.persist(competenceCopy);
 				em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 				
+				competencesListCopy.add(competenceCopy);
+				
+				ArrayList<SousCompetence> sousCompetencesListCopy = new ArrayList<>();
 				for(long sousCompetenceID : competence.getSousCompetencesIDs()){
 					List<SousCompetence> sousCompetenceTempList = em.createQuery("SELECT c FROM SousCompetence c WHERE id="+sousCompetenceID, SousCompetence.class).getResultList();
 					
@@ -126,11 +162,15 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					
 					SousCompetence sousCompetence = sousCompetenceTempList.get(0);
 					SousCompetence sousCompetenceCopy = sousCompetenceTempList.get(0).deepCopy();
+					sousCompetenceCopy.setCompetenceID(competenceCopy.getID());
 					
 					em.getTransaction().begin();
 					em.persist(sousCompetenceCopy);
 					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 					
+					sousCompetencesListCopy.add(sousCompetenceCopy);
+					
+					ArrayList<Point> pointsListCopy = new ArrayList<>();
 					for(long pointID : sousCompetence.getPointsIDs()){
 						List<Point> pointsTempList = em.createQuery("SELECT c FROM Point c WHERE id="+pointID, Point.class).getResultList();
 						
@@ -143,11 +183,15 @@ public class ObjectDBUtilServlet extends HttpServlet{
 						
 						Point point = pointsTempList.get(0);
 						Point pointCopy = pointsTempList.get(0).deepCopy();
+						pointCopy.setSousCompetenceID(sousCompetenceCopy.getID());
 						
 						em.getTransaction().begin();
 						em.persist(pointCopy);
 						em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 						
+						pointsListCopy.add(pointCopy);
+						
+						ArrayList<SousPoint> sousPointsListCopy = new ArrayList<>();
 						for(long sousPointID : point.getSousPointsIDs()){
 							List<SousPoint> sousPointsTempList = em.createQuery("SELECT c FROM SousPoint c WHERE id="+sousPointID, SousPoint.class).getResultList();
 							
@@ -159,21 +203,50 @@ public class ObjectDBUtilServlet extends HttpServlet{
 							}
 							
 							SousPoint sousPointCopy = sousPointsTempList.get(0).deepCopy();
+							sousPointCopy.setPointID(pointCopy.getID());
 							
 							em.getTransaction().begin();
 							em.persist(sousPointCopy);
 							em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+							
+							sousPointsListCopy.add(sousPointCopy);
 						}
+						for(SousPoint sousPointCopy : sousPointsListCopy){
+							pointCopy.addSousPointID(sousPointCopy.getID());
+						}
+						em.getTransaction().begin();
+						em.persist(pointCopy);
+						em.getTransaction().commit();	// Ici on MAJ seulement "pointCopy"
 					}
+					for(Point pointCopy : pointsListCopy){
+						sousCompetenceCopy.addPointID(pointCopy.getID());
+					}
+					em.getTransaction().begin();
+					em.persist(sousCompetenceCopy);
+					em.getTransaction().commit();	// Ici on MAJ seulement "sousCompetenceCopy"
 				}
+				for(SousCompetence sousCompetenceCopy : sousCompetencesListCopy){
+					competenceCopy.addSousCompetenceID(sousCompetenceCopy.getID());
+				}
+				em.getTransaction().begin();
+				em.persist(competenceCopy);
+				em.getTransaction().commit();	// Ici on MAJ seulement "competenceCopy"
 			}
-
+			for(Competence competenceCopy : competencesListCopy){
+				grilleModelCopy.addCompetenceID(competenceCopy.getID());
+			}
+			em.getTransaction().begin();
+			em.persist(grilleModelCopy);
+			em.getTransaction().commit();	// Ici on MAJ seulement "grilleModelCopy"
+			
 		} finally {
 			// Close the database connection:
 			if (em.getTransaction().isActive())
 				em.getTransaction().rollback();
 			em.close();
 		}
+		
+		return grilleModelCopy;
 	}
 	
 	public void initializeDataBase(){
