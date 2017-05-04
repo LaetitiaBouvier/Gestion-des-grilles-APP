@@ -38,7 +38,7 @@ public class SousCompetence {
 		this.eleveID = -1l;
 		this.commentaireEleveID = -1l;
 		this.commentaireSousGroupeID = -1l;
-		this.evaluation = null;	// TODO : je préfèrerai l'initialiser à "" plutôt que null... Mettre des attributs null dans la BDD c'est plutôt mal ! Qu'en penses-tu ma Laeti ?
+		this.evaluation = "";	// TODO : je préfèrerai l'initialiser à "" plutôt que null... Mettre des attributs null dans la BDD c'est plutôt mal ! Qu'en penses-tu ma Laeti ?
 		this.coefficient = 0.;
 		
 		if(contenu == null || contenu.isEmpty()){
@@ -126,5 +126,16 @@ public class SousCompetence {
 
 	public void setCoefficient(double coefficient) {
 		this.coefficient = coefficient;
+	}
+	
+	public SousCompetence deepCopy(){
+		
+		String contenu = new String(this.contenu);
+		double coefficient = this.coefficient;
+		
+		SousCompetence sousCompetence = new SousCompetence(contenu);
+		sousCompetence.setCoefficient(coefficient);
+		
+		return sousCompetence;
 	}
 }

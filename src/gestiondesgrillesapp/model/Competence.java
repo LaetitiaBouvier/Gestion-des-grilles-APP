@@ -42,7 +42,6 @@ public class Competence {
 		this.coefficient = 0.;
 	}
 	
-	
 	/*
 	 * GETTERS and SETTERS
 	 */
@@ -97,5 +96,16 @@ public class Competence {
 
 	public void setCoefficient(double coefficient) {
 		this.coefficient = coefficient;
+	}
+	
+	public Competence deepCopy(){
+		String titre = new String(this.titre);
+		String description = new String(this.description);
+		double coefficient = this.coefficient;
+		
+		Competence competence = new Competence(titre, description);
+		competence.setCoefficient(coefficient);
+		
+		return competence;
 	}
 }

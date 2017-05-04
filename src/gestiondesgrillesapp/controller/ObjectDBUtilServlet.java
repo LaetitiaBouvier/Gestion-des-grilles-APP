@@ -1,8 +1,14 @@
 package gestiondesgrillesapp.controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import gestiondesgrillesapp.model.Competence;
 import gestiondesgrillesapp.model.Eleve;
@@ -23,6 +29,151 @@ public class ObjectDBUtilServlet extends HttpServlet{
 	 */
 	public ObjectDBUtilServlet() {
 		super();
+	}
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String code = request.getParameter("code");
+		
+		if(("emptyDataBase").equals(code)){
+			emptyDataBase();
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+	
+	public void associerUnEleveAUneGrilleModel(long grilleModelID, long eleveID){
+
+		// Obtain a database connection:
+		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+		EntityManager em = emf.createEntityManager();
+		
+		try{
+			
+			List<Eleve> eleveList = em.createQuery("SELECT c FROM Eleve c WHERE id="+eleveID, Eleve.class).getResultList();
+			List<Grille> grilleList = em.createQuery("SELECT c FROM Grille c WHERE id="+grilleModelID, Grille.class).getResultList();
+			
+			if(eleveList == null || eleveList.size() == 0){
+				throw new IllegalArgumentException("L'identifiant de cet élève n'existe pas !");
+			}
+			else if(eleveList.size() > 1){
+				throw new IllegalArgumentException("Plusieurs élèves semblent partager le même ID, c'est la merde !");
+			}
+			Eleve eleve = eleveList.get(0);
+			
+			if(grilleList == null || grilleList.size() == 0){
+				throw new IllegalArgumentException("L'identifiant de cette grille n'existe pas !");
+			}
+			else if(grilleList.size() > 1){
+				throw new IllegalArgumentException("Plusieurs grilles semblent partager le même ID, c'est la merde !");
+			}
+			else if(!grilleList.get(0).isModel()){
+				throw new IllegalArgumentException("Cette grille n'est pas sensée être \"model\", en théorie ça ne change rien mais ici on fait ça proprement ou on ne le fait pas !");
+			}
+			Grille grilleModel = grilleList.get(0);
+			
+//			Grille grilleCopy = grilleModel.deepCopy();
+			
+		} finally {
+			// Close the database connection:
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
+			em.close();
+		}
+	}
+	
+	public void grilleModelDeepCopy(Grille grilleModel){
+
+		// Obtain a database connection:
+		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+		EntityManager em = emf.createEntityManager();
+
+		try{
+			for(long competenceID : grilleModel.getCompetencesIDs()){
+				List<Competence> competenceTempList = em.createQuery("SELECT c FROM Competence c WHERE id="+competenceID, Competence.class).getResultList();
+				
+				if(competenceTempList == null || competenceTempList.size() == 0){
+					throw new IllegalArgumentException("L'ID : "+competenceID+" de cette compétence n'existe pas !");
+				}
+				else if(competenceTempList.size() > 1){
+					throw new IllegalArgumentException("Plusieurs compétences semblent partager le même ID : "+competenceID+", c'est la merde !");
+				}
+				
+				Competence competence = competenceTempList.get(0);
+				Competence competenceCopy = competenceTempList.get(0).deepCopy();
+				
+				em.getTransaction().begin();
+				em.persist(competenceCopy);
+				em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+				
+				for(long sousCompetenceID : competence.getSousCompetencesIDs()){
+					List<SousCompetence> sousCompetenceTempList = em.createQuery("SELECT c FROM SousCompetence c WHERE id="+sousCompetenceID, SousCompetence.class).getResultList();
+					
+					if(sousCompetenceTempList == null || sousCompetenceTempList.size() == 0){
+						throw new IllegalArgumentException("L'ID : "+sousCompetenceID+" de cette sous-compétence n'existe pas !");
+					}
+					else if(sousCompetenceTempList.size() > 1){
+						throw new IllegalArgumentException("Plusieurs sous-compétences semblent partager le même ID : "+sousCompetenceID+", c'est la merde !");
+					}
+					
+					SousCompetence sousCompetence = sousCompetenceTempList.get(0);
+					SousCompetence sousCompetenceCopy = sousCompetenceTempList.get(0).deepCopy();
+					
+					em.getTransaction().begin();
+					em.persist(sousCompetenceCopy);
+					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+					
+					for(long pointID : sousCompetence.getPointsIDs()){
+						List<Point> pointsTempList = em.createQuery("SELECT c FROM Point c WHERE id="+pointID, Point.class).getResultList();
+						
+						if(pointsTempList == null || pointsTempList.size() == 0){
+							throw new IllegalArgumentException("L'ID : "+pointID+" de ce point n'existe pas !");
+						}
+						else if(pointsTempList.size() > 1){
+							throw new IllegalArgumentException("Plusieurs points semblent partager le même ID : "+pointID+", c'est la merde !");
+						}
+						
+						Point point = pointsTempList.get(0);
+						Point pointCopy = pointsTempList.get(0).deepCopy();
+						
+						em.getTransaction().begin();
+						em.persist(pointCopy);
+						em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+						
+						for(long sousPointID : point.getSousPointsIDs()){
+							List<SousPoint> sousPointsTempList = em.createQuery("SELECT c FROM SousPoint c WHERE id="+sousPointID, SousPoint.class).getResultList();
+							
+							if(sousPointsTempList == null || sousPointsTempList.size() == 0){
+								throw new IllegalArgumentException("L'ID : "+sousPointID+" de ce sous-point n'existe pas !");
+							}
+							else if(sousPointsTempList.size() > 1){
+								throw new IllegalArgumentException("Plusieurs sous-points semblent partager le même ID : "+sousPointID+", c'est la merde !");
+							}
+							
+							SousPoint sousPointCopy = sousPointsTempList.get(0).deepCopy();
+							
+							em.getTransaction().begin();
+							em.persist(sousPointCopy);
+							em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+						}
+					}
+				}
+			}
+
+		} finally {
+			// Close the database connection:
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
+			em.close();
+		}
 	}
 	
 	public void initializeDataBase(){

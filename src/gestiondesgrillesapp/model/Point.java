@@ -75,4 +75,13 @@ public class Point {
 	public void setSousPointsIDs(ArrayList<Long> sousPointsIDs) {
 		this.sousPointsIDs = sousPointsIDs;
 	}
+	
+	public Point deepCopy(){
+		
+		String titre = new String(this.titre);
+		
+		Point point = new Point(titre);
+		
+		return point;
+	}
 }
