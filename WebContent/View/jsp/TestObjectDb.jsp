@@ -20,7 +20,7 @@
             List<SousPoint> spList = (List<SousPoint>) request.getAttribute("spList");
         	if(spList != null){
 	            for (SousPoint sp : spList) { %>
-	                <li> <%= sp.getContenu()%> : <%= sp.listTest.get(0)%> : <%= sp.getID()%> </li> <%
+	                <li> <%= sp.getContenu()%> : <%= sp.getID()%> </li> <%
 	            }
         	}%>
         </ol><hr>
