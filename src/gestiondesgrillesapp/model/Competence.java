@@ -33,7 +33,7 @@ public class Competence {
 		this.sousCompetencesIDs = new ArrayList<Long>();
 		
 		if((titre == null || titre.isEmpty()) || (description == null || description.isEmpty())){
-			throw new IllegalArgumentException("Il faut absoluement qu'une compétence possède un titre ET une description !");
+			throw new IllegalArgumentException("Il faut absolument qu'une compétence possède un nom ET une description !");
 		}else{
 			this.titre = titre;
 			this.description = description;
