@@ -8,6 +8,10 @@ import javax.persistence.Id;
 public class Commentaire {
 	
 	/*
+	 * TODO : à l'avenir on peut éventuellement songer à ajouter des attributs pour qu'un commentaire puisse aussi servir d'évaluation ?
+	 */
+	
+	/*
 	 * ATTRIBUTS
 	 */
 	
