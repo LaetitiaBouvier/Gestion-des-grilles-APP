@@ -1,6 +1,7 @@
 package gestiondesgrillesapp.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -52,21 +53,20 @@ public class CreationGrilleServlet extends HttpServlet {
 					String nomCompetence = request.getParameter("nom_competence"+i);
 					if(nomCompetence != null){
 						String descCompetence = request.getParameter("desc_competence"+i);
-						double coefCompetence = request.getParameter("coef_competence"+i);
+						String coefCompetence = request.getParameter("coef_competence"+i);
 						Competence comp = new Competence(nomCompetence,descCompetence);
-						comp.setCoefficient("coef_competence"+i);
+						comp.setCoefficient(Double.valueOf(coefCompetence));
 						em.getTransaction().begin();
-						em.persist(comp);					//
+						em.persist(comp);					
 						em.getTransaction().commit();
-						long compID=comp.getID();
-						String titreComp=comp.getTitre();
-						String descComp=comp.getDescription();
-						Double coefComp=comp.getCoefficient();
+//						long compID=comp.getID();
+//						String titreComp=comp.getTitre();
+//						String descComp=comp.getDescription();
+//						double coefComp=comp.getCoefficient();
+//						
+//						System.out.println("Competence n°:"+compID+"; nomCompetence : "+nomCompetence+"; descCompetence : "+descCompetence+"; coefCompetence : "+coefCompetence);
+//						System.out.println("Competence n°:"+compID+"; nomCompetence : "+titreComp+"; descCompetence : "+descComp+"; coefCompetence : "+coefComp);
 						
-						
-						
-						System.out.println("Competence n°:"+compID+"; nomCompetence : "+nomCompetence+"; descCompetence : "+descCompetence+"; coefCompetence : "+coefCompetence);
-						System.out.println("Competence n°:"+compID+"; nomCompetence : "+titreComp+"; descCompetence : "+descComp+"; coefCompetence : "+coefComp);
 						if (em.getTransaction().isActive())
 							em.getTransaction().rollback();
 					}
@@ -75,7 +75,6 @@ public class CreationGrilleServlet extends HttpServlet {
 		
 		finally {
 			// Close the database connection:
-			
 			em.close();
 		}
 	}
