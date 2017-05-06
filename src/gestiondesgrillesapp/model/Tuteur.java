@@ -33,14 +33,10 @@ public class Tuteur {
 	 * CONSTRUCTEUR(S)
 	 */
 
-	public Tuteur(String nom, String prenom, String numero, String email, String bureau, boolean isRespoModule, ArrayList<Long> groupesIDs){
+	public Tuteur(String nom, String prenom, String numero, String email, String bureau, boolean isRespoModule){
 //							, ArrayList<Long> sousGroupesIDs,ArrayList<Long> elevesIDs){
 		
-		if(groupesIDs != null){
-			this.groupesIDs = groupesIDs;
-		}else{
-			this.groupesIDs = new ArrayList<Long>();
-		}
+		this.groupesIDs = new ArrayList<Long>();
 		
 		if((nom == null || nom.isEmpty()) || (prenom == null || prenom.isEmpty()) || (email == null || email.isEmpty())){
 			throw new IllegalArgumentException("Il faut absoluement qu'un tuteur possède un nom, un prenom ET un email !");

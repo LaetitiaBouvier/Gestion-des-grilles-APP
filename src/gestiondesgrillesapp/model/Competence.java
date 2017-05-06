@@ -27,18 +27,13 @@ public class Competence {
 	 * CONSTRUCTEUR(S)
 	 */
 	
-	public Competence(long grilleID, ArrayList<Long> sousCompetencesIDs, String titre, String description){
+	public Competence(String titre, String description){
 		
-		this.grilleID = grilleID;
-		
-		if(sousCompetencesIDs == null){
-			this.sousCompetencesIDs = new ArrayList<Long>();
-		}else{
-			this.sousCompetencesIDs = sousCompetencesIDs;
-		}
+		this.grilleID = -1l;
+		this.sousCompetencesIDs = new ArrayList<Long>();
 		
 		if((titre == null || titre.isEmpty()) || (description == null || description.isEmpty())){
-			throw new IllegalArgumentException("Il faut absoluement qu'une compétence possède un titre ET une description !");
+			throw new IllegalArgumentException("Il faut absolument qu'une compétence possède un nom ET une description !");
 		}else{
 			this.titre = titre;
 			this.description = description;
@@ -46,7 +41,6 @@ public class Competence {
 		
 		this.coefficient = 0.;
 	}
-	
 	
 	/*
 	 * GETTERS and SETTERS
@@ -102,5 +96,16 @@ public class Competence {
 
 	public void setCoefficient(double coefficient) {
 		this.coefficient = coefficient;
+	}
+	
+	public Competence deepCopy(){
+		String titre = new String(this.titre);
+		String description = new String(this.description);
+		double coefficient = this.coefficient;
+		
+		Competence competence = new Competence(titre, description);
+		competence.setCoefficient(coefficient);
+		
+		return competence;
 	}
 }

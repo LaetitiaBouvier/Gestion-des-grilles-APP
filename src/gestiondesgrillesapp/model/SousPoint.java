@@ -25,19 +25,20 @@ public class SousPoint {
 	 * CONSTRUCTEUR(S)
 	 */
 	
-	public SousPoint(String contenu, long pointID, long eleveID){
+	public SousPoint(String contenu){
+		
+		this.pointID = -1l;
+		this.eleveID = -1l;
+		
+		this.commentaireEleveID = -1l;
+		this.commentaireSousGroupeID = -1l;
+		this.isValidate = "";	// TODO : je préfèrerai l'initialiser à "" plutôt que null... Mettre des attributs null dans la BDD c'est plutôt mal ! Qu'en penses-tu ma Laeti ?
 		
 		if(contenu == null || contenu.isEmpty()){
 			throw new IllegalArgumentException("Il faut absoluement qu'un sous-point possède un contenu !");
 		}else{
 			this.contenu = contenu;
 		}
-		this.pointID = pointID;
-		this.eleveID = eleveID;
-		
-		this.commentaireEleveID = -1;
-		this.commentaireSousGroupeID = -1;
-		this.isValidate = null;
 	}
 	
 	/*
@@ -94,5 +95,14 @@ public class SousPoint {
 
 	public void setIsValidate(String isValidate) {
 		this.isValidate = isValidate;
+	}
+	
+	public SousPoint deepCopy(){
+		
+		String contenu = new String(this.contenu);
+		
+		SousPoint sousPoint = new SousPoint(contenu);
+		
+		return sousPoint;
 	}
 }

@@ -40,13 +40,21 @@ public class ObjectDbTestServlet extends HttpServlet {
 			// Handle a new guest (if any):
 			String content = request.getParameter("content");
 			
-			SousPoint sp = new SousPoint(content, 42, 42);
+			SousPoint sp = new SousPoint(content);
 			
 			em.getTransaction().begin();	//
 			em.persist(sp);					//
 			em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 											//
 			long spID = sp.getID();			// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+			System.out.println(spID+" : "+content);
+			
+			sp.setContenu("content : "+content);
+			em.getTransaction().begin();
+			em.persist(sp);
+			em.getTransaction().commit();
+			
+			System.out.println(sp.getID()+" : "+sp.getContenu());
 
 			// _____________
 			// Requete Objet
