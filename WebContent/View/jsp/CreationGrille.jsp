@@ -80,15 +80,18 @@ var i =1;
 																<input type="text" class="form-control"
 																	id="nom_competence" name="nom_competence1"
 																	placeholder="Nom de la compétence">
-																<div class="input-group-addon">desc. :</div>
-																<input type="text" class="form-control"
-																	id="desc_competence" name="desc_competence1"
-																	placeholder="Description de la compétence">
+											
 																<div class="input-group-addon">coef. :</div>
 																<input type="text" class="form-control"
 																	id="coef_competence" name="coef_competence1"
 																	placeholder="Coefficient de la compétence">
-															</div>
+															</div><br />
+															<div class="input-group">
+															<div class="input-group-addon">desc. :</div>
+<!-- 																<input type="text" class="form-control" -->
+<!-- 																	id="desc_competence" name="desc_competence1" -->
+<!-- 																	placeholder="Description de la compétence"></div> -->
+																	<textarea class="form-control" id="desc_competence" name="desc_competence1"	placeholder="Description de la compétence"></textarea>
 														</div>
 													</div>
 												</div>
@@ -117,9 +120,7 @@ var i =1;
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-		rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
