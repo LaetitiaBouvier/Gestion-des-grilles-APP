@@ -61,6 +61,18 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			initializeDataBase();
 			System.out.println("end");
 		}
+		else if(("associateStudentToGrid").equals(code)){
+			
+			if(request.getAttribute("eleveID") != null && request.getAttribute("grilleModelID") != null){
+				
+				long eleveID = (long) request.getAttribute("eleveID");
+				long grilleModelID = (long) request.getAttribute("grilleModelID");
+				
+				associate(eleveID, grilleModelID);
+			}else{
+				throw new IllegalArgumentException("Impossible d'associer un élève à une grille sans leur ID respectifs !");
+			}
+		}
 	}
 
 	/**
@@ -68,6 +80,45 @@ public class ObjectDBUtilServlet extends HttpServlet{
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+	
+	public void associate(long eleveID, long grilleModelID){
+		
+		// Obtain a database connection:
+				EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
+				EntityManager em = emf.createEntityManager();
+
+				try{
+					
+					List<Grille> grilleModelList = em.createQuery("SELECT c FROM Grille c WHERE id="+grilleModelID, Grille.class).getResultList();
+
+					if(grilleModelList == null || grilleModelList.size() == 0){
+						throw new IllegalArgumentException("La grille "+grilleModelID+" n'existe pas !");
+					}
+					else if(grilleModelList.size() > 1){
+						throw new IllegalArgumentException("Plusieurs grilles semblent partager le même ID : "+grilleModelID+", c'est la merde !");
+					} 
+					
+					List<User> eleveList = em.createQuery("SELECT c FROM User c WHERE id="+eleveID, User.class).getResultList();
+					
+					if(eleveList == null || eleveList.size() == 0){
+						throw new IllegalArgumentException("L'élève "+eleveID+" n'existe pas !");
+					}
+					else if(eleveList.size() > 1){
+						throw new IllegalArgumentException("Plusieurs élèves semblent partager le même ID : "+eleveID+", c'est la merde !");
+					} 
+
+					Grille grilleModel = grilleModelList.get(0);
+					User eleve = eleveList.get(0);
+					
+					associateStudentToGrid(em, eleve, grilleModel);
+
+				} finally {
+					// Close the database connection:
+					if (em.getTransaction().isActive())
+						em.getTransaction().rollback();
+					em.close();
+				}
 	}
 	
 	public void associateStudentToGrid(EntityManager em, User eleve, Grille grilleModel){
