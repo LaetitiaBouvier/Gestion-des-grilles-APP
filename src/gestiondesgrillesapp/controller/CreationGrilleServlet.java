@@ -56,6 +56,7 @@ public class CreationGrilleServlet extends HttpServlet {
 						String coefCompetence = request.getParameter("coef_competence"+i);
 						Competence comp = new Competence(nomCompetence,descCompetence);
 						comp.setCoefficient(Double.valueOf(coefCompetence));
+						comp.setGrilleID(gID);
 						em.getTransaction().begin();
 						em.persist(comp);					
 						em.getTransaction().commit();
@@ -67,6 +68,12 @@ public class CreationGrilleServlet extends HttpServlet {
 //						System.out.println("Competence n°:"+compID+"; nomCompetence : "+nomCompetence+"; descCompetence : "+descCompetence+"; coefCompetence : "+coefCompetence);
 //						System.out.println("Competence n°:"+compID+"; nomCompetence : "+titreComp+"; descCompetence : "+descComp+"; coefCompetence : "+coefComp);
 						
+						
+						List<Competence> compList = em.createQuery("SELECT c FROM Competence c WHERE id="+gID, Competence.class).getResultList();
+						
+						request.setAttribute("compList", compList);
+						request.getRequestDispatcher("/View/jsp/CreationSousCompetences.jsp")
+						.forward(request, response);
 						if (em.getTransaction().isActive())
 							em.getTransaction().rollback();
 					}
