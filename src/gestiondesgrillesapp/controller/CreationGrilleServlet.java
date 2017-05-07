@@ -60,24 +60,24 @@ public class CreationGrilleServlet extends HttpServlet {
 						em.getTransaction().begin();
 						em.persist(comp);					
 						em.getTransaction().commit();
-//						long compID=comp.getID();
-//						String titreComp=comp.getTitre();
-//						String descComp=comp.getDescription();
-//						double coefComp=comp.getCoefficient();
-//						
+						long compID=comp.getID();
+						String titreComp=comp.getTitre();
+						String descComp=comp.getDescription();
+						double coefComp=comp.getCoefficient();
+						
 //						System.out.println("Competence n°:"+compID+"; nomCompetence : "+nomCompetence+"; descCompetence : "+descCompetence+"; coefCompetence : "+coefCompetence);
-//						System.out.println("Competence n°:"+compID+"; nomCompetence : "+titreComp+"; descCompetence : "+descComp+"; coefCompetence : "+coefComp);
+						System.out.println("Competence n°:"+compID+"; nomCompetence : "+titreComp+"; descCompetence : "+descComp+"; coefCompetence : "+coefComp);
 						
-						
-						List<Competence> compList = em.createQuery("SELECT c FROM Competence c WHERE id="+gID, Competence.class).getResultList();
-						
-						request.setAttribute("compList", compList);
-						request.getRequestDispatcher("/View/jsp/CreationSousCompetences.jsp")
-						.forward(request, response);
-						if (em.getTransaction().isActive())
-							em.getTransaction().rollback();
 					}
 							}
+			List<Competence> compList = em.createQuery("SELECT c FROM Competence c WHERE id="+gID, Competence.class).getResultList();
+			
+			request.setAttribute("compList", compList);
+			request.getRequestDispatcher("/View/jsp/CreationSousCompetences.jsp")
+			.forward(request, response);
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
+			return;
 		}
 		
 		finally {

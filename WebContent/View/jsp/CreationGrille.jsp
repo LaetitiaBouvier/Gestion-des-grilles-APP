@@ -19,11 +19,12 @@ var i =1;
 			    +"<div class='input-group'>"
 			    +"<div class='input-group-addon'>nom : </div>"
 			    +"<input type='text' class='form-control' id='nom_competence' name='nom_competence"+(i)+"' placeholder='Nom de la compétence'>"
+			    +"<div class='input-group-addon'>coef. :</div>"
+			    +"<input type='text' class='form-control' id='coef_competence' name='coef_competence"+(i)+"' placeholder='Coefficient de la compétence'>"
+			    +"</div><br /><div class='input-group'>"
 			    +"<div class='input-group-addon'>desc. : </div>"
 				+"<input type='text' class='form-control' id='desc_competence' name='desc_competence"+(i)+"' placeholder='Description de la compétence'>"
-				+"<div class='input-group-addon'>coef. :</div>"
-			    +"<input type='text' class='form-control' id='coef_competence' name='coef_competence"+(i)+"' placeholder='Coefficient de la compétence'>"
-			    +"</div></div>";
+				+"</div></div>"
 			    +"</div></div></div></div></div>"
 			    +"<br />"
 			    document.getElementById('fields').innerHTML += field;
@@ -66,7 +67,7 @@ var i =1;
 													de la Grille</label>
 												<div class="col-sm-6">
 													<input type="text" class="form-control" id="nom_grille"
-														name="nom_grille" placeholder="Grille d'APP ...">
+														name="nom_grille" placeholder="Nom de la grille d'APP ...">
 												</div>
 											</div>
 											<div id="fields">
@@ -88,15 +89,15 @@ var i =1;
 															</div><br />
 															<div class="input-group">
 															<div class="input-group-addon">desc. :</div>
-<!-- 																<input type="text" class="form-control" -->
-<!-- 																	id="desc_competence" name="desc_competence1" -->
-<!-- 																	placeholder="Description de la compétence"></div> -->
-																	<textarea class="form-control" id="desc_competence" name="desc_competence1"	placeholder="Description de la compétence"></textarea>
+ 																<input type="text" class="form-control" 
+ 																	id="desc_competence" name="desc_competence1" 
+ 																	placeholder="Description de la compétence"></div>
+<!-- 																	<textarea class="form-control" id="desc_competence" name="desc_competence1"	placeholder="Description de la compétence"></textarea> -->
 														</div>
 													</div>
 												</div>
 												</div>
-												<input type="button" value="Ajouter une compétence à évaluer" onClick="addField();" />
+												<input type="button" class="btn btn-success" value="Ajouter une compétence à évaluer" onClick="addField();" />
 												</div><br /><br />
 											
 											<div class="form-group">
