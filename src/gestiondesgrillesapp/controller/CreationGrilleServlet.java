@@ -59,7 +59,7 @@ public class CreationGrilleServlet extends HttpServlet {
 						comp.setGrilleID(gID);
 						em.getTransaction().begin();
 						em.persist(comp);					
-						em.getTransaction().commit();
+						em.getTransaction().commit();  // Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 						long compID=comp.getID();
 						String titreComp=comp.getTitre();
 						String descComp=comp.getDescription();

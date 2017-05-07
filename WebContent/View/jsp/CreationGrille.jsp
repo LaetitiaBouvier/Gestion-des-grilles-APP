@@ -46,16 +46,16 @@ var i =1;
 			</div>
 			<div class="col-lg-12">
 				<div class="panel panel-primary">
-					<div class="panel-heading">Création de la grille</div>
+					<div class="panel-heading">Création de la grille et des compétences associées</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
 						<div>
 							<!-- Nav tabs -->
-							<ul class="nav nav-tabs" role="tablist">
-								<li role="presentation" class="active"><a href="#grille"
-									aria-controls="grille" role="tab" data-toggle="tab">La
-										Grille</a></li>
-							</ul>
+<!-- 							<ul class="nav nav-tabs" role="tablist"> -->
+<!-- 								<li role="presentation" class="active"><a href="#grille" -->
+<!-- 									aria-controls="grille" role="tab" data-toggle="tab">La -->
+<!-- 										Grille et les compétences associées</a></li> -->
+<!-- 							</ul> -->
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div role="tabpanel" class="tab-pane active" id="grille">
