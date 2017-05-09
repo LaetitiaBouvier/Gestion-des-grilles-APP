@@ -57,9 +57,11 @@ public class CreationGrilleServlet extends HttpServlet {
 						Competence comp = new Competence(nomCompetence,descCompetence);
 						comp.setCoefficient(Double.valueOf(coefCompetence));
 						comp.setGrilleID(gID);
+						
 						em.getTransaction().begin();
 						em.persist(comp);					
 						em.getTransaction().commit();  // Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+						
 						long compID=comp.getID();
 						String titreComp=comp.getTitre();
 						String descComp=comp.getDescription();
@@ -70,11 +72,11 @@ public class CreationGrilleServlet extends HttpServlet {
 						
 					}
 							}
-			List<Competence> compList = em.createQuery("SELECT c FROM Competence c WHERE id="+gID, Competence.class).getResultList();
+			List<Competence> compList = em.createQuery("SELECT c FROM Competence c WHERE grilleID="+gID, Competence.class).getResultList();
 			
 			request.setAttribute("compList", compList);
-//			request.getRequestDispatcher("/View/jsp/CreationSousCompetences.jsp")
-			request.getRequestDispatcher("CreationSousCompetencesServlet")
+			request.getRequestDispatcher("/View/jsp/CreationSousCompetences.jsp")
+//			request.getRequestDispatcher("CreationSousCompetencesServlet")
 			.forward(request, response);
 			if (em.getTransaction().isActive())
 				em.getTransaction().rollback();

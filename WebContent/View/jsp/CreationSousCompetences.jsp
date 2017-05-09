@@ -10,6 +10,14 @@
 // METTRE ICI LES SCRIPTS POUR AJOUTER DES CHAMPS
 
 		</script>
+		<%
+            @SuppressWarnings("unchecked")
+            List<Competence> compList = (List<Competence>) request.getAttribute("compList");
+        	if(compList != null){
+	            for (Competence comp : compList) { %>
+	                <li> <%= comp.getTitre()%> : <%= comp.getDescription()%> </li> <%
+	        }
+        }%>
 	</head>
 	<body>
 		<div id="wrapper" class="container">
