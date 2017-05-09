@@ -6,24 +6,9 @@
 		<meta charset="UTF-8">
 		<title>Création Grille de Compétences d'APP</title>
 		<script type="text/javascript">
-// 			$('#myTabs a').click(function (e) {
-// 				  e.preventDefault()
-// 				  $(this).tab('show')
-// 				})
-// 			$('#myTabs a[href="#vue_ensemble"]').tab('show') // Select tab by name
-// 			$('#myTabs a:first').tab('show') // Select first tab
-// 			$('#myTabs a:last').tab('show') // Select last tab
-// 			$('#myTabs li:eq(2) a').tab('show') // Select third tab (0-indexed)
 			
-			function addField(){
-			    var field = "<div class='col-sm-6'>"	
-			    +"<div class='input-group'>"
-			    +"<input name='champ' type='text' class='form-control' id='nom_grille' placeholder='Nom de la compétence'>"
-			    +"<div class='input-group-addon'>.coef</div>"
-			    +"<input type='text' class='form-control' placeholder='Coefficient de la compétence'>"
-			    +"</div></div>";
-			    document.getElementById('fields').innerHTML += field;
-			}
+// METTRE ICI LES SCRIPTS POUR AJOUTER DES CHAMPS
+
 		</script>
 	</head>
 	<body>
@@ -49,17 +34,11 @@
 
 							  <!-- Nav tabs : COMPETENCES-->
 							  <ul class="nav nav-tabs" role="tablist">
-							    <li role="presentation" class="active"><a href="#vue_ensemble" aria-controls="vue_ensemble" role="tab" data-toggle="tab">Vue d'ensemble<span class="badge" style="margin-left:2px;">15</span></a></li>
+							    
+<!-- 							    <li role="presentation" class="active"><a href="#vue_ensemble" aria-controls="vue_ensemble" role="tab" data-toggle="tab">Vue d'ensemble<span class="badge" style="margin-left:2px;">15</span></a></li> -->
 <!-- 							    <li role="presentation"><a href="#communication" aria-controls="communication" role="tab" data-toggle="tab">Communication<span class="badge" style="margin-left:2px;">2</span></a></li> -->
-<!-- 							    <li role="presentation"><a href="#travail_equipe" aria-controls="travail_equipe" role="tab" data-toggle="tab">Travail en équipe<span class="badge" style="margin-left:2px;">2</span></a></li> -->
-<!-- 							  	<li role="presentation"><a href="#conduite_projet" aria-controls="conduite_projet" role="tab" data-toggle="tab">Conduite de projet<span class="badge" style="margin-left:2px;">2</span></a></li> -->
-<!-- 							  	<li role="presentation"><a href="#professionnel_responsable" aria-controls="professionnel_responsable" role="tab" data-toggle="tab">Professionnel responsable<span class="badge" style="margin-left:2px;">2</span></a></li> -->
-<!-- 							  	<li role="presentation"><a href="#electronique" aria-controls="electronique" role="tab" data-toggle="tab">Electronique<span class="badge" style="margin-left:2px;">3</span></a></li> -->
-<!-- 							  	<li role="presentation"><a href="#informatique" aria-controls="informatique" role="tab" data-toggle="tab">Informatique<span class="badge" style="margin-left:2px;">3</span></a></li> -->
-<!-- 							  	<li role="presentation"><a href="#telecommunications" aria-controls="telecommunications" role="tab" data-toggle="tab">Télécommunications<span class="badge" style="margin-left:2px;">3</span></a></li> -->
-<!-- 							  	<li role="presentation"><a href="#traitement_signal" aria-controls="traitement_signal" role="tab" data-toggle="tab">Traitement du signal<span class="badge" style="margin-left:2px;">3</span></a></li> -->
-<!-- 							  	<li role="presentation"><a href="#presence" aria-controls="presence" role="tab" data-toggle="tab">Présence<span class="badge" style="margin-left:2px;">1</span></a></li> -->
-<!-- 							  </ul> -->
+							    
+							  </ul>
 							<br /><br />
 							  <!-- Tab panes -->
 							  <div class="tab-content">
@@ -147,33 +126,33 @@
 									</div>
 							    	
 							    </div>
-							    <div role="tabpanel" class="tab-pane" id="communication">
+<!-- 							    <div role="tabpanel" class="tab-pane" id="communication"> -->
 							    
-							    </div>
-							    <div role="tabpanel" class="tab-pane" id="travail_equipe">
+<!-- 							    </div> -->
+<!-- 							    <div role="tabpanel" class="tab-pane" id="travail_equipe"> -->
 							    
-							    </div>
-							    <div role="tabpanel" class="tab-pane" id="conduite_projet">
+<!-- 							    </div> -->
+<!-- 							    <div role="tabpanel" class="tab-pane" id="conduite_projet"> -->
 							    
-							    </div>
-							    <div role="tabpanel" class="tab-pane" id="professionnel_responsable">
+<!-- 							    </div> -->
+<!-- 							    <div role="tabpanel" class="tab-pane" id="professionnel_responsable"> -->
 							    
-							    </div>
-							    <div role="tabpanel" class="tab-pane" id="electronique">
+<!-- 							    </div> -->
+<!-- 							    <div role="tabpanel" class="tab-pane" id="electronique"> -->
 							    
-							    </div>
-							    <div role="tabpanel" class="tab-pane" id="informatique">
+<!-- 							    </div> -->
+<!-- 							    <div role="tabpanel" class="tab-pane" id="informatique"> -->
 							    
-							    </div>
-							    <div role="tabpanel" class="tab-pane" id="telecommunications">
+<!-- 							    </div> -->
+<!-- 							    <div role="tabpanel" class="tab-pane" id="telecommunications"> -->
 							    
-							    </div>
-							    <div role="tabpanel" class="tab-pane" id="traitement_signal">
+<!-- 							    </div> -->
+<!-- 							    <div role="tabpanel" class="tab-pane" id="traitement_signal"> -->
 							    
-							    </div>
-							    <div role="tabpanel" class="tab-pane" id="presence">
+<!-- 							    </div> -->
+<!-- 							    <div role="tabpanel" class="tab-pane" id="presence"> -->
 							    
-							    </div>
+<!-- 							    </div> -->
 							  </div>
 							
 							</div>

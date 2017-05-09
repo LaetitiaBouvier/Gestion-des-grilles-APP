@@ -73,7 +73,8 @@ public class CreationGrilleServlet extends HttpServlet {
 			List<Competence> compList = em.createQuery("SELECT c FROM Competence c WHERE id="+gID, Competence.class).getResultList();
 			
 			request.setAttribute("compList", compList);
-			request.getRequestDispatcher("/View/jsp/CreationSousCompetences.jsp")
+//			request.getRequestDispatcher("/View/jsp/CreationSousCompetences.jsp")
+			request.getRequestDispatcher("CreationSousCompetencesServlet")
 			.forward(request, response);
 			if (em.getTransaction().isActive())
 				em.getTransaction().rollback();
