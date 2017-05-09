@@ -7,20 +7,21 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gestiondesgrillesapp.model.Competence;
-import gestiondesgrillesapp.model.Eleve;
 import gestiondesgrillesapp.model.Grille;
 import gestiondesgrillesapp.model.Groupe;
 import gestiondesgrillesapp.model.Point;
 import gestiondesgrillesapp.model.SousCompetence;
 import gestiondesgrillesapp.model.SousGroupe;
 import gestiondesgrillesapp.model.SousPoint;
-import gestiondesgrillesapp.model.Tuteur;
+import gestiondesgrillesapp.model.User;
 
+@WebServlet("/ObjectDBUtilServlet")
 public class ObjectDBUtilServlet extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
@@ -49,10 +50,28 @@ public class ObjectDBUtilServlet extends HttpServlet{
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String code = request.getParameter("code");
+		String code = (String) request.getAttribute("code");
+		System.out.println("ok : code : "+code);
 		
 		if(("emptyDataBase").equals(code)){
 			emptyDataBase();
+		}
+		else if(("initializeDataBase").equals(code)){
+			System.out.println("start");
+			initializeDataBase();
+			System.out.println("end");
+		}
+		else if(("associateStudentToGrid").equals(code)){
+			
+			if(request.getAttribute("eleveID") != null && request.getAttribute("grilleModelID") != null){
+				
+				long eleveID = (long) request.getAttribute("eleveID");
+				long grilleModelID = (long) request.getAttribute("grilleModelID");
+				
+				associate(eleveID, grilleModelID);
+			}else{
+				throw new IllegalArgumentException("Impossible d'associer un élève à une grille sans leur ID respectifs !");
+			}
 		}
 	}
 
@@ -63,54 +82,59 @@ public class ObjectDBUtilServlet extends HttpServlet{
 		doGet(request, response);
 	}
 	
-	public void associerUnEleveAUneGrilleModel(long grilleModelID, long eleveID){
-
-		// Obtain a database connection:
-		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-		EntityManager em = emf.createEntityManager();
+	public void associate(long eleveID, long grilleModelID){
 		
-		try{
-			
-			List<Eleve> eleveList = em.createQuery("SELECT c FROM Eleve c WHERE id="+eleveID, Eleve.class).getResultList();
-			List<Grille> grilleList = em.createQuery("SELECT c FROM Grille c WHERE id="+grilleModelID, Grille.class).getResultList();
-			
-			if(eleveList == null || eleveList.size() == 0){
-				throw new IllegalArgumentException("L'identifiant de cet élève n'existe pas !");
-			}
-			else if(eleveList.size() > 1){
-				throw new IllegalArgumentException("Plusieurs élèves semblent partager le même ID, c'est la merde !");
-			}
-			Eleve eleve = eleveList.get(0);
-			
-			if(grilleList == null || grilleList.size() == 0){
-				throw new IllegalArgumentException("L'identifiant de cette grille n'existe pas !");
-			}
-			else if(grilleList.size() > 1){
-				throw new IllegalArgumentException("Plusieurs grilles semblent partager le même ID, c'est la merde !");
-			}
-			else if(!grilleList.get(0).isModel()){
-				throw new IllegalArgumentException("Cette grille n'est pas sensée être \"model\", en théorie ça ne change rien mais ici on fait ça proprement ou on ne le fait pas !");
-			}
-			Grille grilleModel = grilleList.get(0);
-			
-			Grille grilleCopy = grilleModelDeepCopy(grilleModel);
-			
-			if(grilleCopy == null){
-				throw new RuntimeException("Une erreur est survenue au moment de copier la grille \"model\" pour associer la copie à l'élève !");
-			}
-			
-			eleve.setGrilleID(grilleCopy.getID());
-			
-			em.getTransaction().begin();
-			em.persist(eleve);
-			em.getTransaction().commit();	// Ici on MAJ seulement "eleve"
-			
-		} finally {
-			// Close the database connection:
-			if (em.getTransaction().isActive())
-				em.getTransaction().rollback();
-			em.close();
+		// Obtain a database connection:
+				EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
+				EntityManager em = emf.createEntityManager();
+
+				try{
+					
+					List<Grille> grilleModelList = em.createQuery("SELECT c FROM Grille c WHERE id="+grilleModelID, Grille.class).getResultList();
+
+					if(grilleModelList == null || grilleModelList.size() == 0){
+						throw new IllegalArgumentException("La grille "+grilleModelID+" n'existe pas !");
+					}
+					else if(grilleModelList.size() > 1){
+						throw new IllegalArgumentException("Plusieurs grilles semblent partager le même ID : "+grilleModelID+", c'est la merde !");
+					} 
+					
+					List<User> eleveList = em.createQuery("SELECT c FROM User c WHERE id="+eleveID, User.class).getResultList();
+					
+					if(eleveList == null || eleveList.size() == 0){
+						throw new IllegalArgumentException("L'élève "+eleveID+" n'existe pas !");
+					}
+					else if(eleveList.size() > 1){
+						throw new IllegalArgumentException("Plusieurs élèves semblent partager le même ID : "+eleveID+", c'est la merde !");
+					} 
+
+					Grille grilleModel = grilleModelList.get(0);
+					User eleve = eleveList.get(0);
+					
+					associateStudentToGrid(em, eleve, grilleModel);
+
+				} finally {
+					// Close the database connection:
+					if (em.getTransaction().isActive())
+						em.getTransaction().rollback();
+					em.close();
+				}
+	}
+	
+	public void associateStudentToGrid(EntityManager em, User eleve, Grille grilleModel){
+
+		Grille grilleCopy = grilleModelDeepCopy(grilleModel);
+
+		if(grilleCopy == null){
+			throw new RuntimeException("Une erreur est survenue au moment de copier la grille \"model\" pour associer la copie à l'élève !");
 		}
+
+		eleve.setGrilleEleveID(grilleCopy.getID());
+
+		em.getTransaction().begin();
+		em.persist(eleve);
+		em.getTransaction().commit();	// Ici on MAJ seulement "eleve"
+
 	}
 	
 	public Grille grilleModelDeepCopy(Grille grilleModel){
@@ -252,6 +276,8 @@ public class ObjectDBUtilServlet extends HttpServlet{
 	public void initializeDataBase(){
 		
 		emptyDataBase();
+		
+		createGrilleModel();
 
 		fillUsers();
 	}
@@ -263,9 +289,21 @@ public class ObjectDBUtilServlet extends HttpServlet{
 		EntityManager em = emf.createEntityManager();
 
 		try{
-			em.createQuery("DELETE FROM Object").executeUpdate(); // cf http://www.objectdb.com/java/jpa/query/jpql/delete 
-			//=> this query can be used to delete all the objects in the database
-
+			em.getTransaction().begin();
+			em.createQuery("DELETE FROM Object").executeUpdate();
+//			em.createQuery("DELETE FROM Commentaire AS c").executeUpdate(); // cf http://www.objectdb.com/java/jpa/query/jpql/delete
+//			em.createQuery("DELETE FROM SousPoint AS c").executeUpdate();
+//			em.createQuery("DELETE FROM Point AS c").executeUpdate();
+//			em.createQuery("DELETE FROM SousCompetence AS c").executeUpdate();
+//			em.createQuery("DELETE FROM Competence AS c").executeUpdate();
+//			em.createQuery("DELETE FROM Grille AS c").executeUpdate();
+//			em.createQuery("DELETE FROM Eleve AS c").executeUpdate();
+//			em.createQuery("DELETE FROM SousGroupe AS c").executeUpdate();
+//			em.createQuery("DELETE FROM Groupe AS c").executeUpdate();
+//			em.createQuery("DELETE FROM Promotion AS c").executeUpdate();
+//			em.createQuery("DELETE FROM Tuteur AS c").executeUpdate();
+			em.getTransaction().commit();
+			
 		} finally {
 			// Close the database connection:
 			if (em.getTransaction().isActive())
@@ -275,93 +313,115 @@ public class ObjectDBUtilServlet extends HttpServlet{
 	}
 	
 	public void fillUsers(){
-		
+
 		// Obtain a database connection:
-				EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
-				EntityManager em = emf.createEntityManager();
+		EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
+		EntityManager em = emf.createEntityManager();
 
-				try{
-					Tuteur tuteurJB = new Tuteur("Bond", "James", "007", "james.bond@jesuisunespion.com", "MI6", true);
+		try{
 
-					Eleve eleveST = new Eleve("Stéphane", "Tzvetkov", "9482", "stephane.tzvetkov@isep.fr");
-					Eleve elevePPC = new Eleve("Pierre-Philippe", "Cordier", "9551", "pierre-philippe.corder@isep.fr");
-					Eleve eleveND = new Eleve("Nicolas", "Dubes", "9502", "nicolas.dubes@isep.fr");
+			User tuteurJB = new User("Bond", "James", "007", "james.bond@jesuisunespion.com", true);
+			tuteurJB.setBureauTuteur("MI6");
+			tuteurJB.setRespoModule(true);
 
-					Eleve elebeLB = new Eleve("Laëtitia", "Bouvier", "9555", "laetitia.bouvier@isep.fr");
-					Eleve elebeCB = new Eleve("Camille", "Duboue", "9648", "camille.duboue@isep.fr");
-					
-					SousGroupe sousGroupeGarçons = new SousGroupe("Garçons");
-					SousGroupe sousGroupeFilles = new SousGroupe("Filles");
-					Groupe groupeLogiciel = new Groupe("Groupe Logiciel");
-					Groupe groupeSI = new Groupe("GroupeSI");
-					
-					//  ____________________________________
-					//  Enregistrement des objets dans la BDD :
-					em.getTransaction().begin();
-					em.persist(tuteurJB);
-					em.persist(eleveST);
-					em.persist(elevePPC);
-					em.persist(eleveND);
-					em.persist(elebeLB);
-					em.persist(elebeCB);
-					
-					em.persist(sousGroupeGarçons);
-					em.persist(sousGroupeFilles);
-					em.persist(groupeLogiciel);
-					em.persist(groupeSI);
-					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-					//  ____________________________________
+			User eleveST = new User("Stéphane", "Tzvetkov", "9482", "stephane.tzvetkov@isep.fr", false);
+			User elevePPC = new User("Pierre-Philippe", "Cordier", "9551", "pierre-philippe.corder@isep.fr", false);
+			User eleveND = new User("Nicolas", "Dubes", "9502", "nicolas.dubes@isep.fr", false);
 
-					sousGroupeGarçons.addEleveID(eleveST.getID());
-					eleveST.setSousGroupeID(sousGroupeGarçons.getID());
+			User elebeLB = new User("Laëtitia", "Bouvier", "9555", "laetitia.bouvier@isep.fr", false);
+			User elebeCB = new User("Camille", "Duboue", "9648", "camille.duboue@isep.fr", false);
 
-					sousGroupeGarçons.addEleveID(elevePPC.getID());
-					elevePPC.setSousGroupeID(sousGroupeGarçons.getID());
+			SousGroupe sousGroupeGarçons = new SousGroupe("Garçons");
+			SousGroupe sousGroupeFilles = new SousGroupe("Filles");
+			Groupe groupeLogiciel = new Groupe("Groupe Logiciel");
+			Groupe groupeSI = new Groupe("GroupeSI");
 
-					sousGroupeGarçons.addEleveID(eleveND.getID());
-					eleveND.setSousGroupeID(sousGroupeGarçons.getID());
+			//  ____________________________________
+			//  Enregistrement des objets dans la BDD :
+			em.getTransaction().begin();
+			em.persist(tuteurJB);
+			em.persist(eleveST);
+			em.persist(elevePPC);
+			em.persist(eleveND);
+			em.persist(elebeLB);
+			em.persist(elebeCB);
 
-					sousGroupeFilles.addEleveID(elebeLB.getID());
-					elebeLB.setSousGroupeID(sousGroupeFilles.getID());
+			em.persist(sousGroupeGarçons);
+			em.persist(sousGroupeFilles);
+			em.persist(groupeLogiciel);
+			em.persist(groupeSI);
+			em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+			//  ____________________________________
+			//  Associations entres les élèves, tuteurs et (sous-)groupes
 
-					sousGroupeFilles.addEleveID(elebeCB.getID());
-					elebeCB.setSousGroupeID(sousGroupeFilles.getID());
+			sousGroupeGarçons.addEleveID(eleveST.getID());
+			eleveST.setSousGroupeEleveID(sousGroupeGarçons.getID());
 
-					groupeLogiciel.addSousGroupeID(sousGroupeGarçons.getID());
-					sousGroupeGarçons.setGroupeID(groupeLogiciel.getID());
+			sousGroupeGarçons.addEleveID(elevePPC.getID());
+			elevePPC.setSousGroupeEleveID(sousGroupeGarçons.getID());
 
-					groupeLogiciel.addTuteurID(tuteurJB.getID());
-					tuteurJB.addGroupeID(groupeLogiciel.getID());
+			sousGroupeGarçons.addEleveID(eleveND.getID());
+			eleveND.setSousGroupeEleveID(sousGroupeGarçons.getID());
 
-					groupeSI.addSousGroupeID(sousGroupeFilles.getID());
-					sousGroupeFilles.setGroupeID(groupeSI.getID());
+			sousGroupeFilles.addEleveID(elebeLB.getID());
+			elebeLB.setSousGroupeEleveID(sousGroupeFilles.getID());
 
-					groupeSI.addTuteurID(tuteurJB.getID());
-					tuteurJB.addGroupeID(groupeSI.getID());
-					
-					//  ____________________________________
-					//  Enregistrement de la MAJ des objets dans la BDD :
-					em.getTransaction().begin();
-					em.persist(tuteurJB);
-					em.persist(eleveST);
-					em.persist(elevePPC);
-					em.persist(eleveND);
-					em.persist(elebeLB);
-					em.persist(elebeCB);
+			sousGroupeFilles.addEleveID(elebeCB.getID());
+			elebeCB.setSousGroupeEleveID(sousGroupeFilles.getID());
 
-					em.persist(sousGroupeGarçons);
-					em.persist(sousGroupeFilles);
-					em.persist(groupeLogiciel);
-					em.persist(groupeSI);
-					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-					//  ____________________________________
+			groupeLogiciel.addSousGroupeID(sousGroupeGarçons.getID());
+			sousGroupeGarçons.setGroupeID(groupeLogiciel.getID());
 
-				} finally {
-					// Close the database connection:
-					if (em.getTransaction().isActive())
-						em.getTransaction().rollback();
-					em.close();
-				}
+			groupeLogiciel.addTuteurID(tuteurJB.getID());
+			tuteurJB.addGroupeTuteurID(groupeLogiciel.getID());
+
+			groupeSI.addSousGroupeID(sousGroupeFilles.getID());
+			sousGroupeFilles.setGroupeID(groupeSI.getID());
+
+			groupeSI.addTuteurID(tuteurJB.getID());
+			tuteurJB.addGroupeTuteurID(groupeSI.getID());
+
+			//  ____________________________________
+			//  Enregistrement de la MAJ des objets dans la BDD :
+			em.getTransaction().begin();
+			em.persist(tuteurJB);
+			em.persist(eleveST);
+			em.persist(elevePPC);
+			em.persist(eleveND);
+			em.persist(elebeLB);
+			em.persist(elebeCB);
+
+			em.persist(sousGroupeGarçons);
+			em.persist(sousGroupeFilles);
+			em.persist(groupeLogiciel);
+			em.persist(groupeSI);
+			em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+			//  ____________________________________
+			//  Associer les élèves à une grille "model" :
+
+			List<Grille> grilleModelList = em.createQuery("SELECT c FROM Grille c WHERE isModel=TRUE AND titre='GrilleModelTest'", Grille.class).getResultList();
+
+			if(grilleModelList == null || grilleModelList.size() == 0){
+				throw new IllegalArgumentException("La grille \"GrilleModelTest\" n'existe pas !");
+			}
+			else if(grilleModelList.size() > 1){
+				throw new IllegalArgumentException("Plusieurs grilles semblent partager l'ID de \"GrilleModelTest\" : "+grilleModelList.get(0).getID()+", c'est la merde !");
+			} 
+
+			Grille grilleModel = grilleModelList.get(0);
+
+			associateStudentToGrid(em, eleveST, grilleModel);
+			associateStudentToGrid(em, elevePPC, grilleModel);
+			associateStudentToGrid(em, eleveND, grilleModel);
+			associateStudentToGrid(em, elebeLB, grilleModel);
+			associateStudentToGrid(em, elebeCB, grilleModel);
+
+		} finally {
+			// Close the database connection:
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
+			em.close();
+		}
 	}
 	
 	public void createGrilleModel(){

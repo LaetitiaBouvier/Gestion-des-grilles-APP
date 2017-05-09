@@ -19,13 +19,13 @@ var i =1;
 			    +"<div class='input-group'>"
 			    +"<div class='input-group-addon'>nom : </div>"
 			    +"<input type='text' class='form-control' id='nom_competence' name='nom_competence"+(i)+"' placeholder='Nom de la compétence'>"
+			    +"<div class='input-group-addon'>coef. :</div>"
+			    +"<input type='number' min='0' step='0.1' class='form-control' id='coef_competence' name='coef_competence1"+(i)+"' placeholder='Coefficient de la compétence'>"
+			    +"</div><br /><div class='input-group'>"
 			    +"<div class='input-group-addon'>desc. : </div>"
 				+"<input type='text' class='form-control' id='desc_competence' name='desc_competence"+(i)+"' placeholder='Description de la compétence'>"
-				+"<div class='input-group-addon'>coef. :</div>"
-			    +"<input type='text' class='form-control' id='coef_competence' name='coef_competence"+(i)+"' placeholder='Coefficient de la compétence'>"
-			    +"</div></div>";
+				+"</div></div>"
 			    +"</div></div></div></div></div>"
-			    +"<br />"
 			    document.getElementById('fields').innerHTML += field;
 			    +"<br />"
 			    
@@ -43,32 +43,34 @@ var i =1;
 					<h1 class="page-header">Création Grille de Compétences d'APP</h1>
 				</div>
 			</div>
+			
 			<div class="col-lg-12">
 				<div class="panel panel-primary">
-					<div class="panel-heading">Création de la grille</div>
+					<div class="panel-heading">Création de la grille et des compétences associées</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
 						<div>
 							<!-- Nav tabs -->
-							<ul class="nav nav-tabs" role="tablist">
-								<li role="presentation" class="active"><a href="#grille"
-									aria-controls="grille" role="tab" data-toggle="tab">La
-										Grille</a></li>
-							</ul>
+<!-- 							<ul class="nav nav-tabs" role="tablist"> -->
+<!-- 								<li role="presentation" class="active"><a href="#grille" -->
+<!-- 									aria-controls="grille" role="tab" data-toggle="tab">La -->
+<!-- 										Grille et les compétences associées</a></li> -->
+<!-- 							</ul> -->
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div role="tabpanel" class="tab-pane active" id="grille">
 									<div class="container" style="margin-top: 30px;">
-										<form method="POST" action="../../CreationGrilleServlet"
-											class="form-horizontal">
+										
+										<form method="POST" action="../../CreationGrilleServlet" class="form-horizontal">
+											
 											<div class="form-group">
-												<label for="nom_grille" class="col-sm-2 control-label">Nom
-													de la Grille</label>
+												<label for="nom_grille" class="col-sm-2 control-label">Nom de la Grille</label>
 												<div class="col-sm-6">
-													<input type="text" class="form-control" id="nom_grille"
-														name="nom_grille" placeholder="Grille d'APP ...">
+													<input type="text" class="form-control" id="nom_grille" name="nom_grille" placeholder="Nom de la grille d'APP ...">
+														<br />
 												</div>
 											</div>
+											
 											<div id="fields">
 											<div class="form-group">
 												<label for="nom_grille" class="col-sm-2 control-label">Compétence n°1</label>
@@ -80,31 +82,33 @@ var i =1;
 																<input type="text" class="form-control"
 																	id="nom_competence" name="nom_competence1"
 																	placeholder="Nom de la compétence">
-																<div class="input-group-addon">desc. :</div>
-																<input type="text" class="form-control"
-																	id="desc_competence" name="desc_competence1"
-																	placeholder="Description de la compétence">
+											
 																<div class="input-group-addon">coef. :</div>
-																<input type="text" class="form-control"
+																<input type="number" min="0" step="0.1" class="form-control"
 																	id="coef_competence" name="coef_competence1"
 																	placeholder="Coefficient de la compétence">
-															</div>
+															</div><br />
+															<div class="input-group">
+															<div class="input-group-addon">desc. :</div>
+ 																<input type="text" class="form-control" 
+ 																	id="desc_competence" name="desc_competence1" 
+ 																	placeholder="Description de la compétence"></div>
 														</div>
+														
 													</div>
 												</div>
-												</div>
-												<input type="button" value="Ajouter une compétence à évaluer" onClick="addField();" />
-												</div><br /><br />
-											
-											<div class="form-group">
-												<div class="col-sm-offset-2 col-sm-10">
-													<input type="submit" class="btn btn-default"
-														value="Enregistrer" />
-													<!--  <a  href="creation_competences.html"><button type="button" class="btn btn-default">Enregistrer</button></a>-->
-												</div>
 											</div>
-										</form>
-									</div>
+		
+												<input type="button" class="btn btn-success" value="Ajouter une compétence" onClick="addField();" />
+											
+											<br /><br />								
+									<div align="center">
+										<input type="submit" class="btn btn-primary" value="Enregistrer" />
+ 									</div> 
+											</form>
+										
+										</div>
+ 									
 								</div>
 							</div>
 						</div>
@@ -117,9 +121,7 @@ var i =1;
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-		rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
