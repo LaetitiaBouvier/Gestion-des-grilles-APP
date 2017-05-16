@@ -96,7 +96,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 						throw new IllegalArgumentException("La grille "+grilleModelID+" n'existe pas !");
 					}
 					else if(grilleModelList.size() > 1){
-						throw new IllegalArgumentException("Plusieurs grilles semblent partager le même ID : "+grilleModelID+", c'est la merde !");
+						throw new IllegalArgumentException("Plusieurs grilles semblent partager le même ID : "+grilleModelID+"  !");
 					} 
 					
 					List<User> eleveList = em.createQuery("SELECT c FROM User c WHERE id="+eleveID, User.class).getResultList();
@@ -105,7 +105,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 						throw new IllegalArgumentException("L'élève "+eleveID+" n'existe pas !");
 					}
 					else if(eleveList.size() > 1){
-						throw new IllegalArgumentException("Plusieurs élèves semblent partager le même ID : "+eleveID+", c'est la merde !");
+						throw new IllegalArgumentException("Plusieurs élèves semblent partager le même ID : "+eleveID+" !");
 					} 
 
 					Grille grilleModel = grilleModelList.get(0);
@@ -160,7 +160,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					throw new IllegalArgumentException("L'ID : "+competenceID+" de cette compétence n'existe pas !");
 				}
 				else if(competenceTempList.size() > 1){
-					throw new IllegalArgumentException("Plusieurs compétences semblent partager le même ID : "+competenceID+", c'est la merde !");
+					throw new IllegalArgumentException("Plusieurs compétences semblent partager le même ID : "+competenceID+" !");
 				}
 				
 				Competence competence = competenceTempList.get(0);
@@ -181,7 +181,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 						throw new IllegalArgumentException("L'ID : "+sousCompetenceID+" de cette sous-compétence n'existe pas !");
 					}
 					else if(sousCompetenceTempList.size() > 1){
-						throw new IllegalArgumentException("Plusieurs sous-compétences semblent partager le même ID : "+sousCompetenceID+", c'est la merde !");
+						throw new IllegalArgumentException("Plusieurs sous-compétences semblent partager le même ID : "+sousCompetenceID+" !");
 					}
 					
 					SousCompetence sousCompetence = sousCompetenceTempList.get(0);
@@ -202,7 +202,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 							throw new IllegalArgumentException("L'ID : "+pointID+" de ce point n'existe pas !");
 						}
 						else if(pointsTempList.size() > 1){
-							throw new IllegalArgumentException("Plusieurs points semblent partager le même ID : "+pointID+", c'est la merde !");
+							throw new IllegalArgumentException("Plusieurs points semblent partager le même ID : "+pointID+" !");
 						}
 						
 						Point point = pointsTempList.get(0);
@@ -223,7 +223,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 								throw new IllegalArgumentException("L'ID : "+sousPointID+" de ce sous-point n'existe pas !");
 							}
 							else if(sousPointsTempList.size() > 1){
-								throw new IllegalArgumentException("Plusieurs sous-points semblent partager le même ID : "+sousPointID+", c'est la merde !");
+								throw new IllegalArgumentException("Plusieurs sous-points semblent partager le même ID : "+sousPointID+" !");
 							}
 							
 							SousPoint sousPointCopy = sousPointsTempList.get(0).deepCopy();
@@ -405,7 +405,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 				throw new IllegalArgumentException("La grille \"GrilleModelTest\" n'existe pas !");
 			}
 			else if(grilleModelList.size() > 1){
-				throw new IllegalArgumentException("Plusieurs grilles semblent partager l'ID de \"GrilleModelTest\" : "+grilleModelList.get(0).getID()+", c'est la merde !");
+				throw new IllegalArgumentException("Plusieurs grilles semblent partager l'ID de \"GrilleModelTest\" : "+grilleModelList.get(0).getID()+" !");
 			} 
 
 			Grille grilleModel = grilleModelList.get(0);

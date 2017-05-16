@@ -17,10 +17,10 @@
  
         <hr><ol> <%
             @SuppressWarnings("unchecked")
-            List<SousPoint> spList = (List<SousPoint>) request.getAttribute("spList");
-        	if(spList != null){
-	            for (SousPoint sp : spList) { %>
-	                <li> <%= sp.getContenu()%> : <%= sp.getID()%> </li> <%
+            List<User> userList = (List<User>) request.getAttribute("userList");
+        	if(userList != null){
+	            for (User user : userList) { %>
+	                <li> <%= user.getNom()%> : <%= user.getPrenom()%> : <%= user.getEmail()%> : tuteur ==> <%= user.isTuteur()%></li> <%
 	            }
         	}%>
         </ol><hr>
