@@ -1,0 +1,50 @@
+.title {
+	text-align: center;
+	min-height: 20vh;
+	line-height: 20vh;
+}
+
+.picture {
+}
+
+.container {
+	min-height: 100vh;
+}
+
+.picture span {
+	margin: 10px;
+	text-align: center;
+	font-size: medium;
+	height: 1em;
+	line-height: 1em;
+	overflow: hidden;
+}
+
+.picture span:hover {
+	height: auto;
+	overflow: visible;
+}
+
+#separated {
+	margin-top: 50px;
+}
+
+/* #spacer {
+	display: none;
+	background-color:green;
+} */
+/* 
+@media ( min-width : 1500px) {
+	#spacer {
+		display: block;
+		background-color:green;
+	}
+	#separated {
+	border: 2px solid orange;
+
+		margin-top: 0px;
+		position: absolute;
+		bottom: 0px;
+	}
+	CSS that should be displayed if width is equal to or less than 800px goes here
+} */
