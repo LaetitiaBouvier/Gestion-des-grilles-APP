@@ -14,7 +14,8 @@ thead th {
 	float: right;
 	display: block;
 	position: absolute;
-	border-top-left-radius: 4px; border-top-right-radius : 4px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
 	height: 60%;
 	top: 20%;
 	right: 5px;
@@ -70,28 +71,44 @@ thead th {
 	white-space: nowrap;
 }
 
-.diebootstrapdie
-{
-	position:absolute;
-	 visibility: hidden;
-	margin:0px;
+.diebootstrapdie {
+	position: absolute;
+	visibility: hidden;
+	margin: 0px;
 	width: 0px;
-	height:0px;
+	height: 0px;
 }
 
-.diebootstrapdiedie
-{
-	padding-left:30px; /*WHATTTTTTTTTTTTTTT?????????????????????*/
+.diebootstrapdiedie {
+	padding-left: 30px; /*WHATTTTTTTTTTTTTTT?????????????????????*/
 }
 
-
-.allStudent{
+.allStudent {
+	
 }
 
-.student
-{
-	font-size:0.6em;
+.student {
+	font-size: 0.6em;
 	padding-top: 3px;
 	padding-bottom: 3px;
 	background-color: #eee;
+}
+
+button.list-group-item:focus.selected {
+	color: #555;
+	text-decoration: none;
+	background-color: orange;
+}
+
+button.list-group-item:focus.unselected {
+	color: #555;
+	text-decoration: none;
+}
+
+.selected {
+	background-color: orange;
+}
+
+.unselected {
+	
 }
