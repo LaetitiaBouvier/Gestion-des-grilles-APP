@@ -20,7 +20,7 @@ var i =1;
 			    +"<div class='input-group-addon'>nom : </div>"
 			    +"<input type='text' class='form-control' id='nom_competence' name='nom_competence"+(i)+"' placeholder='Nom de la compétence'>"
 			    +"<div class='input-group-addon'>coef. :</div>"
-			    +"<input type='number' min='0' step='0.1' class='form-control' id='coef_competence' name='coef_competence1"+(i)+"' placeholder='Coefficient de la compétence'>"
+			    +"<input type='number' min='0' step='0.1' class='form-control' id='coef_competence' name='coef_competence"+(i)+"' placeholder='Coefficient de la compétence'>"
 			    +"</div><br /><div class='input-group'>"
 			    +"<div class='input-group-addon'>desc. : </div>"
 				+"<input type='text' class='form-control' id='desc_competence' name='desc_competence"+(i)+"' placeholder='Description de la compétence'>"
