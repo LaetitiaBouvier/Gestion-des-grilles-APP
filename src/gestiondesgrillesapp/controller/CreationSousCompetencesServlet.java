@@ -35,9 +35,7 @@ public class CreationSousCompetencesServlet extends HttpServlet {
 		// Obtain a database connection:
 		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
 		EntityManager em = emf.createEntityManager();
-		
-		String compList = request.getParameter("compList");
-		System.out.println(compList);
+	
 	}
 
 	/**
