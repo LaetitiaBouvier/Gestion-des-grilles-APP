@@ -6,7 +6,7 @@ public class TestLDAP
 	{
 		LDAPaccess access = new LDAPaccess();
 		try {
-		LDAPObject test = access.LDAPget("login", "mdp"); // remplacez login par la variable qui contient le login, et mdp par la variable qui contient le mot de passe
+		LDAPObject test = access.LDAPget("stzvetkov", "AR33chathe!"); // remplacez login par la variable qui contient le login, et mdp par la variable qui contient le mot de passe
 		if (test == null)
 		{
 			System.out.println("login invalide");
