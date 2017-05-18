@@ -3,6 +3,21 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
+.mySmallBoxSize{
+	height: 3vh !important;
+}
+.myBoxSize{
+	height: 15vh !important;
+}
+.myMediumBoxSize{
+	height: 7vh !important;
+}
+.selectwidthauto{
+     width:auto !important;
+}
+/* end of my costum CSS #Ours ----------------------------------- */ 
+
+
 body {
   background-color: #f8f8f8;
 }
