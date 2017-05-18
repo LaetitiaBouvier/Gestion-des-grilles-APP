@@ -13,26 +13,93 @@ public class Grille {
 	 * ATTRIBUTS
 	 */
 	@Id @GeneratedValue
-	private Long eleve;
-	private ArrayList<Competence> competences;
-	// est-ce qu'on créé un objet supp pour pouvoir éditer un titre etc ?
+	private long id;
+	private long eleveID;
+	private ArrayList<Long> competencesIDs;
+	private String titre;
+	//private String dateCreation; 	TODO : est-ce qu'on ajoute cet attribut ? Ce serait effectivement potentiellement intéressant de connaitre la date de création...
+	private boolean isModel;
+	
+	/*
+	 * CONSTRUCTEURS
+	 */
+	
+	public Grille(String titre, boolean isModel){
+		
+		this.eleveID = -1l;
+		this.competencesIDs = new ArrayList<Long>();
+		this.isModel = isModel;
+		
+		if(titre == null || titre.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'une grille possède un titre !");
+		}else{
+			this.titre = titre;
+		}
+		//this.dateCreation = null;
+	}
 	
 	/*
 	 * GETTERS and SETTERS
 	 */
-	public ArrayList<Competence> getCompetences() {
-		return competences;
+	
+	public void addCompetenceID(long competenceID){
+		this.competencesIDs.add(competenceID);
+	}
+	
+	public void removeCompetenceID(long competenceID){
+		this.competencesIDs.remove(competenceID);
+	}
+	
+	public long getID(){
+		return this.id;
+	}
+	
+	public long getEleveID() {
+		return eleveID;
+	}
+	
+	public void setEleveID(long eleveID) {
+		this.eleveID = eleveID;
 	}
 
-	public void setCompetences(ArrayList<Competence> competences) {
-		this.competences = competences;
+	public ArrayList<Long> getCompetencesIDs() {
+		return competencesIDs;
 	}
 
-	public Long getEleve() {
-		return eleve;
+	public void setCompetenceID(ArrayList<Long> competencesIDs) {
+		this.competencesIDs = competencesIDs;
 	}
 
-	public void setEleve(Long eleve) {
-		this.eleve = eleve;
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+	public boolean isModel() {
+		return isModel;
+	}
+
+	public void setModel(boolean isModel) {
+		this.isModel = isModel;
+	}
+
+	//public String getDateCreation() {
+	//	return dateCreation;
+	//}
+
+	//public void setDateCreation(String dateCreation) {
+	//	this.dateCreation = dateCreation;
+	//}
+	
+	public Grille deepCopy(){
+		
+		String titre = new String(this.titre);
+		
+		Grille grille = new Grille(titre, false);
+		
+		return grille;
 	}
 }

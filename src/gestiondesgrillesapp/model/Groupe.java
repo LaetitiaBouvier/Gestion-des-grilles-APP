@@ -2,32 +2,89 @@ package gestiondesgrillesapp.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Groupe {
 
 	/*
 	 * ATTRIBUTS
 	 */
-	private Promotion promotion;
-	private ArrayList<SousGroupe> sousGroupes;
+	
+	@Id @GeneratedValue
+	private long id;
+	
+	private long promotionID;
+	private ArrayList<Long> sousGroupesIDs;
+	private ArrayList<Long> tuteursIDs;
 	private String nom;
-	// + tuteur associé
+	
+	/*
+	 * CONSTRUCTEUR(S)
+	 */
+	
+	public Groupe(String nom){
+		
+		this.promotionID = -1l;
+		
+		this.sousGroupesIDs = new ArrayList<Long>();
+		this.tuteursIDs = new ArrayList<Long>();
+		
+		if(nom == null || nom.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'une groupe possède un nom !");
+		}else{
+			this.nom = nom;
+		}
+	}
+
 	/*
 	 * GETTERS and SETTERS
 	 */
-	public Promotion getPromotion() {
-		return promotion;
+	
+	public long getID(){
+		return this.id;
 	}
 	
-	public void setPromotion(Promotion promotion) {
-		this.promotion = promotion;
+	public void addSousGroupeID(long sousGroupeID){
+		this.sousGroupesIDs.add(sousGroupeID);
 	}
 	
-	public ArrayList<SousGroupe> getSousGroupes() {
-		return sousGroupes;
+	public void removeSousGroupeID(long sousGroupeID){
+		this.sousGroupesIDs.remove(sousGroupeID);
 	}
 	
-	public void setSousGroupes(ArrayList<SousGroupe> sousGroupes) {
-		this.sousGroupes = sousGroupes;
+	public void addTuteurID(long tuteurID){
+		this.tuteursIDs.add(tuteurID);
+	}
+	
+	public void removeTuteurID(long tuteurID){
+		this.tuteursIDs.remove(tuteurID);
+	}
+
+	public long getPromotionID() {
+		return promotionID;
+	}
+
+	public void setPromotionID(long promotionID) {
+		this.promotionID = promotionID;
+	}
+
+	public ArrayList<Long> getSousGroupesIDs() {
+		return sousGroupesIDs;
+	}
+
+	public void setSousGroupesIDs(ArrayList<Long> sousGroupesIDs) {
+		this.sousGroupesIDs = sousGroupesIDs;
+	}
+
+	public ArrayList<Long> getTuteursIDs() {
+		return tuteursIDs;
+	}
+
+	public void setTuteursIDs(ArrayList<Long> tuteursIDs) {
+		this.tuteursIDs = tuteursIDs;
 	}
 
 	public String getNom() {

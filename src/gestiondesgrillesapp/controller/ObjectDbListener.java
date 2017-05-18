@@ -14,7 +14,16 @@ public class ObjectDbListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent e) {
         com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.Commentaire");  // Ici on indique où se trouvent les classes du model "mappées" avec @Entity
         com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.SousPoint");
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("$objectdb/db/gestiondesgrillesapp.odb");
+        com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.Point");
+        com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.SousCompetence");
+        com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.Competence");
+        com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.Grille");
+        com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.SousGroupe");
+        com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.Groupe");
+        com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.Promotion");
+        com.objectdb.Enhancer.enhance("gestiondesgrillesapp.model.User");
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("$objectdb/db/gestiondesgrillesapp.odb");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("/BDD/gestiondesgrillesapp.odb");
         e.getServletContext().setAttribute("emf", emf);
     }
  

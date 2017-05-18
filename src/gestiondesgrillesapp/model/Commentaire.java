@@ -8,30 +8,65 @@ import javax.persistence.Id;
 public class Commentaire {
 	
 	/*
+	 * TODO : à l'avenir on peut éventuellement songer à ajouter des attributs pour qu'un commentaire puisse aussi servir d'évaluation ?
+	 */
+	
+	/*
 	 * ATTRIBUTS
 	 */
 	
 	@Id @GeneratedValue
-	long id;
-	private String contenu;
+	private long id;
 	
 	private long eleveID;
 	private long sousGroupeID;
-	
 	private long sousCompetenceID;
 	private long sousPointID;
+	private String contenu;
 	
 	/*
-	 * CONSTRUCTEURS
+	 * CONSTRUCTEUR(S)
 	 */
-
-	public Commentaire(String contenu){
-		this.contenu = contenu;
-	}
+//
+//	public Commentaire(String contenu){
+//		this.contenu = contenu;
+//	}
 	
-	public Commentaire(String contenu, long sousPointID){
-		this.contenu = contenu;
-		this.sousPointID = sousPointID;
+	public Commentaire(String contenu, long destinataireID, long objectifID, String code){
+		
+		if(contenu == null || contenu.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'un commentaire possède un contenu !");
+		}else{
+			this.contenu = contenu;
+		}
+		
+		if(("eleveSousPoint").equals(code)){
+			this.eleveID = destinataireID;
+			this.sousGroupeID = -1;
+			this.sousPointID = objectifID;
+			this.sousCompetenceID = -1;
+		}
+		else if (("eleveSousCompetence").equals(code)){
+			this.eleveID = destinataireID;
+			this.sousGroupeID = -1;
+			this.sousPointID = -1;
+			this.sousCompetenceID = objectifID;
+		}
+		else if (("sousGroupeSousPoint").equals(code)){
+			this.eleveID = -1;
+			this.sousGroupeID = destinataireID;
+			this.sousPointID = objectifID;
+			this.sousCompetenceID = -1;
+		}
+		else if (("sousGroupeSousCompetence").equals(code)){
+			this.eleveID = -1;
+			this.sousGroupeID = destinataireID;
+			this.sousPointID = -1;
+			this.sousCompetenceID = objectifID;
+		}
+		else {
+			 throw new IllegalArgumentException("Le code n'est pas bon! Ask Steph ou Laeti");
+		}
 	}
 	
 	/*

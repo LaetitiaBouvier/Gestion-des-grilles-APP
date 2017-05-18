@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.*,gestiondesgrillesapp.model.*"%>
  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -20,7 +20,7 @@
             List<SousPoint> spList = (List<SousPoint>) request.getAttribute("spList");
         	if(spList != null){
 	            for (SousPoint sp : spList) { %>
-	                <li> <%= sp.getTitre()%> : <%= sp.getID()%> </li> <%
+	                <li> <%= sp.getContenu()%> : <%= sp.getID()%> </li> <%
 	            }
         	}%>
         </ol><hr>

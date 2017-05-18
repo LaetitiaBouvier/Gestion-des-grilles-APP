@@ -12,36 +12,68 @@ public class SousGroupe {
 	/*
 	 * ATTRIBUTS
 	 */
+	
 	@Id @GeneratedValue
-	Long id;
-	private Groupe groupe;
-	private ArrayList<Long> eleves;
+	private long id;
+	
+	private long groupeID;
+	private ArrayList<Long> elevesIDs;
 	private String nom;
+
+	/*
+	 * CONSTRUCTEUR(S)
+	 */
+	
+	public SousGroupe(String nom){
+		
+		this.groupeID = -1l;
+		this.elevesIDs = new ArrayList<Long>();
+		
+		if(nom == null || nom.isEmpty()){
+			throw new IllegalArgumentException("Il faut absoluement qu'un sous-groupe possède un nom !");
+		}else{
+			this.nom = nom;
+		}
+		
+	}
 	
 	/*
 	 * GETTERS and SETTERS
 	 */
-	public Groupe getGroupe() {
-		return groupe;
+	
+	public long getID(){
+		return this.id;
 	}
 	
-	public void setGroupe(Groupe groupe) {
-		this.groupe = groupe;
+	public void addEleveID(long eleveID){
+		this.elevesIDs.add(eleveID);
 	}
-
-	public ArrayList<Long> getEleves() {
-		return eleves;
+	
+	public void removeEleveID(long eleveID){
+		this.elevesIDs.remove(eleveID);
 	}
-
-	public void setEleves(ArrayList<Long> eleves) {
-		this.eleves = eleves;
-	}
-
+	
 	public String getNom() {
 		return nom;
 	}
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public long getGroupeID() {
+		return groupeID;
+	}
+
+	public void setGroupeID(long groupeID) {
+		this.groupeID = groupeID;
+	}
+
+	public ArrayList<Long> getElevesIDs() {
+		return elevesIDs;
+	}
+
+	public void setElevesIDs(ArrayList<Long> elevesIDs) {
+		this.elevesIDs = elevesIDs;
 	}
 }
