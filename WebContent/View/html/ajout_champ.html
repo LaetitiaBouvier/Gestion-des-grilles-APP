@@ -1,73 +1,55 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Test</title>
-<script type="text/javascript"> 
-
-	function addInput(name,champ){
-
-		var i=1;
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Création Grille de Compétences d'APP</title>
+		<script src="./../js/ajout_champ.js"> </script>
+	</head>
+	<body>
+		<div id="wrapper" class="container">
+			<div id="page-wrapper" style="min-height: 683px;">
+				<div class="row">
+				
+					<div class="col-lg-12">
+						<h1 class="page-header">Création Grille de Compétences d'APP</h1>
+					</div>
+					
+					<div class="col-lg-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Création de la grille et des compétences associées</div>
+							<div class="panel-body">
+								<div>
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane active" id="grille">
+											<div class="container" style="margin-top: 30px;">
+												<form method="POST" action="" class="form-horizontal">
+													<div class="form-group">
+														<div id="champ_1">
+															<input type="text" name="tab1[]" value="compétence"/>
+															<input type="text" name="tab1[]" value="coef"/>
+															<input type="text" name="tab1[]" value="description"/>
+														</div>
+														<div class="fields"></div>
+													</div>
+												</form>
+												<button type="button" onclick="addField('tab1[]',champ_1)" >+</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		
-		/*var formgroup = document.createElement('div');
-	    formgroup.setAttribute("class", "form-group");
-	    champ.appendChild(formgroup);*/
-					    
-	    /*document.getElementById('fields').innerHTML = "<div class='form-group'>"
-		+"<label for='nom_grille' class='col-sm-2 control-label'>Compétence n°"+(i)+"</label>"
-		+"<div class='form-vertical'>"
-		+"<div id='fields'>"
-		+"<div class='col-sm-6'>"	
-	    +"<div class='input-group'>"
-	    +"<div class='input-group-addon'>nom : </div>";*/
-	    	    	    
-		var competence = document.createElement("input");
-		competence.name = "nom_competence"+(i);
-		competence.type = "text";
-		champ.appendChild(competence);
 		
-		//document.getElementById('').innerHTML("<div class='input-group-addon'>coef. :</div>");
-		
-		var coef = document.createElement("input");
-		coef.name = "coef_competence"+(i);
-		coef.type = "number";
-		champ.appendChild(coef);
-		
-		/*document.innerHTML("</div><br /><div class='input-group'>"
-				+"<div class='input-group-addon'>desc. : </div>");*/
-		
-		var description = document.createElement("input");
-		description.name = "desc_competence"+(i);
-		description.type = "text";
-		champ.appendChild(description);
-		
-		/*document.innerHTML("</div></div>"
-			    +"</div></div></div></div></div><br/>");*/
-		
-		var i=i+1;
-	}
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+			<script
+				src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
-	function addField(nom,champ) {
-		document.getElementById('fields').innerHTML = "<div class='form-group'>" +
-		addInput(nom,champ) +
-		"</div>";
-	}
-</script>
-</head>
-<body>
-
-Tableau 1
-<div id="champ_1"><input type="text" name="tab1[]" value="compétence"/><input type="text" name="tab1[]" value="coef"/><input type="text" name="tab1[]" value="description"/></div>
-<div class="fields"></div>
-<button type="button" onclick="addField('tab1[]',champ_1)" >+</button>
-
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-</body>
+	</body>
 </html>
