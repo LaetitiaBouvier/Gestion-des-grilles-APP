@@ -91,25 +91,10 @@ public class ObjectDBUtilServlet extends HttpServlet{
 				try{
 					
 					List<Grille> grilleModelList = em.createQuery("SELECT c FROM Grille c WHERE id="+grilleModelID, Grille.class).getResultList();
-
-					if(grilleModelList == null || grilleModelList.size() == 0){
-						throw new IllegalArgumentException("La grille "+grilleModelID+" n'existe pas !");
-					}
-					else if(grilleModelList.size() > 1){
-						throw new IllegalArgumentException("Plusieurs grilles semblent partager le même ID : "+grilleModelID+"  !");
-					} 
-					
 					List<User> eleveList = em.createQuery("SELECT c FROM User c WHERE id="+eleveID, User.class).getResultList();
 					
-					if(eleveList == null || eleveList.size() == 0){
-						throw new IllegalArgumentException("L'élève "+eleveID+" n'existe pas !");
-					}
-					else if(eleveList.size() > 1){
-						throw new IllegalArgumentException("Plusieurs élèves semblent partager le même ID : "+eleveID+" !");
-					} 
-
-					Grille grilleModel = grilleModelList.get(0);
-					User eleve = eleveList.get(0);
+					Grille grilleModel = (Grille) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(grilleModelList);
+					User eleve = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(eleveList);
 					
 					associateStudentToGrid(em, eleve, grilleModel);
 
@@ -154,16 +139,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			
 			ArrayList<Competence> competencesListCopy = new ArrayList<>();
 			for(long competenceID : grilleModel.getCompetencesIDs()){
+				
 				List<Competence> competenceTempList = em.createQuery("SELECT c FROM Competence c WHERE id="+competenceID, Competence.class).getResultList();
-				
-				if(competenceTempList == null || competenceTempList.size() == 0){
-					throw new IllegalArgumentException("L'ID : "+competenceID+" de cette compétence n'existe pas !");
-				}
-				else if(competenceTempList.size() > 1){
-					throw new IllegalArgumentException("Plusieurs compétences semblent partager le même ID : "+competenceID+" !");
-				}
-				
-				Competence competence = competenceTempList.get(0);
+				Competence competence = (Competence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(competenceTempList);
 				Competence competenceCopy = competenceTempList.get(0).deepCopy();
 				competenceCopy.setGrilleID(grilleModelCopy.getID());
 				
@@ -175,16 +153,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 				
 				ArrayList<SousCompetence> sousCompetencesListCopy = new ArrayList<>();
 				for(long sousCompetenceID : competence.getSousCompetencesIDs()){
+					
 					List<SousCompetence> sousCompetenceTempList = em.createQuery("SELECT c FROM SousCompetence c WHERE id="+sousCompetenceID, SousCompetence.class).getResultList();
-					
-					if(sousCompetenceTempList == null || sousCompetenceTempList.size() == 0){
-						throw new IllegalArgumentException("L'ID : "+sousCompetenceID+" de cette sous-compétence n'existe pas !");
-					}
-					else if(sousCompetenceTempList.size() > 1){
-						throw new IllegalArgumentException("Plusieurs sous-compétences semblent partager le même ID : "+sousCompetenceID+" !");
-					}
-					
-					SousCompetence sousCompetence = sousCompetenceTempList.get(0);
+					SousCompetence sousCompetence = (SousCompetence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousCompetenceTempList);
 					SousCompetence sousCompetenceCopy = sousCompetenceTempList.get(0).deepCopy();
 					sousCompetenceCopy.setCompetenceID(competenceCopy.getID());
 					
@@ -196,16 +167,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					
 					ArrayList<Point> pointsListCopy = new ArrayList<>();
 					for(long pointID : sousCompetence.getPointsIDs()){
+						
 						List<Point> pointsTempList = em.createQuery("SELECT c FROM Point c WHERE id="+pointID, Point.class).getResultList();
-						
-						if(pointsTempList == null || pointsTempList.size() == 0){
-							throw new IllegalArgumentException("L'ID : "+pointID+" de ce point n'existe pas !");
-						}
-						else if(pointsTempList.size() > 1){
-							throw new IllegalArgumentException("Plusieurs points semblent partager le même ID : "+pointID+" !");
-						}
-						
-						Point point = pointsTempList.get(0);
+						Point point = (Point) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(pointsTempList);
 						Point pointCopy = pointsTempList.get(0).deepCopy();
 						pointCopy.setSousCompetenceID(sousCompetenceCopy.getID());
 						
@@ -217,16 +181,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 						
 						ArrayList<SousPoint> sousPointsListCopy = new ArrayList<>();
 						for(long sousPointID : point.getSousPointsIDs()){
+							
 							List<SousPoint> sousPointsTempList = em.createQuery("SELECT c FROM SousPoint c WHERE id="+sousPointID, SousPoint.class).getResultList();
-							
-							if(sousPointsTempList == null || sousPointsTempList.size() == 0){
-								throw new IllegalArgumentException("L'ID : "+sousPointID+" de ce sous-point n'existe pas !");
-							}
-							else if(sousPointsTempList.size() > 1){
-								throw new IllegalArgumentException("Plusieurs sous-points semblent partager le même ID : "+sousPointID+" !");
-							}
-							
-							SousPoint sousPointCopy = sousPointsTempList.get(0).deepCopy();
+							SousPoint sousPointCopy = ((SousPoint) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousPointsTempList)).deepCopy();
 							sousPointCopy.setPointID(pointCopy.getID());
 							
 							em.getTransaction().begin();
@@ -400,15 +357,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			//  Associer les élèves à une grille "model" :
 
 			List<Grille> grilleModelList = em.createQuery("SELECT c FROM Grille c WHERE isModel=TRUE AND titre='GrilleModelTest'", Grille.class).getResultList();
-
-			if(grilleModelList == null || grilleModelList.size() == 0){
-				throw new IllegalArgumentException("La grille \"GrilleModelTest\" n'existe pas !");
-			}
-			else if(grilleModelList.size() > 1){
-				throw new IllegalArgumentException("Plusieurs grilles semblent partager l'ID de \"GrilleModelTest\" : "+grilleModelList.get(0).getID()+" !");
-			} 
-
-			Grille grilleModel = grilleModelList.get(0);
+			Grille grilleModel = (Grille) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(grilleModelList);
 
 			associateStudentToGrid(em, eleveST, grilleModel);
 			associateStudentToGrid(em, elevePPC, grilleModel);
@@ -741,5 +690,24 @@ public class ObjectDBUtilServlet extends HttpServlet{
 				em.getTransaction().rollback();
 			em.close();
 		}
+	}
+	
+	public static Object extractOnlyOneObjectManagingExceptions(List<?> objectList){
+		
+		if(objectList == null || objectList.size() == 0){
+			throw new IllegalArgumentException("La liste récupérée, suite à la requête faite à ObjectDB, est vide !");
+		}
+		else if(objectList.size() > 1){
+			throw new IllegalArgumentException("La liste récupérée, suite à la requête faite à ObjectDB, contient plusieurs instances de "+objectList.get(0).getClass().getName()+" !");
+		}
+		return objectList.get(0);
+	}
+	
+	public static List<?> extractMultipleObjectsManagingExceptions(List<?> objectList){
+		
+		if(objectList == null || objectList.size() == 0){
+			throw new IllegalArgumentException("La liste renvoyée par la requête faite à ObjectDB est vide !");
+		}
+		return objectList;
 	}
 }
