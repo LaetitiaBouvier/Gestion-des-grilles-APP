@@ -32,10 +32,10 @@ public class ObjectDbTestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String code = "initializeDataBase";
-		request.setAttribute("code", code);
-		request.getRequestDispatcher("ObjectDBUtilServlet").include(request,response);
-		request.removeAttribute("code");
+//		String code = "initializeDataBase";
+//		request.setAttribute("code", code);
+//		request.getRequestDispatcher("ObjectDBUtilServlet").include(request,response);
+//		request.removeAttribute("code");
 
 		// Obtain a database connection:
 		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
@@ -56,12 +56,11 @@ public class ObjectDbTestServlet extends HttpServlet {
 
 			// ____________
 			// Requete SQL
-//			List<User> userList = em.createQuery("SELECT c FROM User c WHERE numero='"+(9482)+"'", User.class).getResultList();
 			List<User> userList = em.createQuery("SELECT c FROM User c", User.class).getResultList();
 			
 			request.setAttribute("userList", userList);
 			request.getRequestDispatcher("/View/jsp/TestObjectDb.jsp").forward(request, response);
- 
+			
 		} finally {
 			// Close the database connection:
 			if (em.getTransaction().isActive())
