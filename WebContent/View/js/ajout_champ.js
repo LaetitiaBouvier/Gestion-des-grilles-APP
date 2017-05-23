@@ -1,7 +1,7 @@
+	
+	function addInputCompetence(field,i){
 
-	function addInputCompetence(field){
-
-		var i=2;
+		
 	    	    	    
 		var competence = document.createElement("input");
 		competence.name = "nom_competence"+(i);
@@ -9,45 +9,44 @@
 		competence.placeholder = "compétence";
 		competence.id = "nom_competence";
 		field.appendChild(competence);
-				
-		var i=i+1;
+			
 	}
 	
-	function addInputCoef(field){
+	function addInputCoef(field,i){
 
-		var i=1;
-	    	    	    
-		var competence = document.createElement("input");
-		competence.name = "nom_competence"+(i);
-		competence.type = "text";
-		competence.placeholder = "compétence";
-		competence.id = "nom_competence";
-		field.appendChild(competence);
 		
-				
+		
 		var coef = document.createElement("input");
 		coef.name = "coef_competence"+(i);
 		coef.type = "number";
 		coef.placeholder = "coefficient";
+		coef.id = "coefficient";
 		field.appendChild(coef);
-				
+		
+	}
+	
+	function addInputDescription(field,i){
+
+		
+						
 		var description = document.createElement("input");
 		description.name = "desc_competence"+(i);
 		description.type = "text";
 		description.placeholder = "description";
+		description.id = "description";
 		field.appendChild(description);
 		
-		var i=i+1;
 	}
 	
-	function addField(field) {
-		var j=2;
+	
+	function addField(field,i) {
+		
 		var f=document.getElementById(field);
 		f.setAttribute("class","form-group");
-	//	f.setAttribute("id","field"+j);
-		//innerHTML = "<div class='form-group' id='field_"+(j)+"'>" +
-		console.log(f);
-		addInputCompetence(f);
-		//+"</div>";
-		var j=j+1;
+		//console.log(f);
+		addInputCompetence(f,i);
+		addInputCoef(f,i);
+		addInputDescription(f,i);
+		i=i+1;
+		
 	}
