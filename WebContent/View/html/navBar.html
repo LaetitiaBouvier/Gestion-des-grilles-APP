@@ -11,15 +11,17 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="./../css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     
     <!-- Custom CSS -->
-    <link href="./../css/sb-admin-2.css" rel="stylesheet">
+    <link href="https://rawcdn.githack.com/hinamoru1/CssTest/master/sb-admin-2.css" rel="stylesheet">
 
 
     <!-- Custom Fonts -->
-    <link href="./../ressources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Font for the selects -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,7 +32,8 @@
 
 </head>
 <body>
-	<div class="col-md-2 col-sm-2" style="position:fixed">
+		<!-- NavBar -->
+	<div class="col-md-2 col-sm-2" style="position:fixed;">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="border:none;">
             <div class="navbar-header">
@@ -86,35 +89,241 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw"></i> Vue d'ensemble</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw"></i> Communication</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw"></i> Travail en équipe</a>
-                        </li>
-						<li>
-                            <a href="#"><i class="fa fa-fw"></i> Conduite de Projet </a>
-                        </li>                                 
-						<li>                                  
-                            <a href="#"><i class="fa fa-fw"></i> Prossionnel responsable </a>
-                        </li>                                 
-						<li>                                  
-                            <a href="#"><i class="fa fa-fw"></i> Electronique </a>
-                        </li>                                 
-						<li>                                  
-                            <a href="#"><i class="fa fa-fw"></i> Informatique </a>
-                        </li>                                 
-						<li>          
-                            <a href="#"><i class="fa fa-fw"></i> Télécomunications </a>
-                        </li>                                 
-						<li>                                  
-                            <a href="#"><i class="fa fa-fw"></i> Traitement du signal </a>
-                        </li>                                 
-						<li>                                  
-                            <a href="#"><i class="fa fa-fw"></i> Présence </a>
+                        <li style="overflow-y: scroll; height:70vh;">
+						  <div class="panel-group" id="NavCompetenceAccordion">
+						    <div class="panel panel-default">
+						      <div class="panel-heading">
+						        <h4 class="panel-title">
+						          <a data-toggle="collapse" data-parent="#NavCompetenceAccordion" href="#CollapseNavCompetenceAccordion1">Vue d'ensemble</a>
+						        </h4>
+						      </div>
+						      <div id="CollapseNavCompetenceAccordion1" class="panel-collapse collapse in">
+						        <div class="panel-body">
+						        	<ul class="list-group">
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence1"> Sous Competence 1</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence2"> Sous Competence 2</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            </ul>
+						        </div>
+						      </div>
+						    </div>
+						    <div class="panel panel-default">
+						      <div class="panel-heading">
+						        <h4 class="panel-title">
+						          <a data-toggle="collapse" data-parent="#NavCompetenceAccordion" href="#CollapseNavCompetenceAccordion2">Communication</a>
+						        </h4>
+						      </div>
+						      <div id="CollapseNavCompetenceAccordion2" class="panel-collapse collapse">
+						        <div class="panel-body">
+						        	<ul class="list-group">
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence1"> Sous Competence 1</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence2"> Sous Competence 2</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            </ul>
+						        </div>
+						      </div>
+						    </div>
+						    <div class="panel panel-default">
+						      <div class="panel-heading">
+						        <h4 class="panel-title">
+						          <a data-toggle="collapse" data-parent="#NavCompetenceAccordion" href="#CollapseNavCompetenceAccordion3">Travail en équipe</a>
+						        </h4>
+						      </div>
+						      <div id="CollapseNavCompetenceAccordion3" class="panel-collapse collapse">
+						        <div class="panel-body">
+						        	<ul class="list-group">
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence1"> Sous Competence 1</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence2"> Sous Competence 2</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            </ul>
+						        </div>
+						      </div>
+						    </div>
+						    <div class="panel panel-default">
+						      <div class="panel-heading">
+						        <h4 class="panel-title">
+						          <a data-toggle="collapse" data-parent="#NavCompetenceAccordion" href="#CollapseNavCompetenceAccordion4">Conduite de prjet</a>
+						        </h4>
+						      </div>
+						      <div id="CollapseNavCompetenceAccordion4" class="panel-collapse collapse">
+						        <div class="panel-body">
+						        	<ul class="list-group">
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence1"> Sous Competence 1</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence2"> Sous Competence 2</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            </ul>
+						        </div>
+						      </div>
+						    </div>
+						    <div class="panel panel-default">
+						      <div class="panel-heading">
+						        <h4 class="panel-title">
+						          <a data-toggle="collapse" data-parent="#NavCompetenceAccordion" href="#CollapseNavCompetenceAccordion5">Professionel responsable</a>
+						        </h4>
+						      </div>
+						      <div id="CollapseNavCompetenceAccordion5" class="panel-collapse collapse">
+						        <div class="panel-body">
+						        	<ul class="list-group">
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence1"> Sous Competence 1</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence2"> Sous Competence 2</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            </ul>
+						        </div>
+						      </div>
+						    </div>
+						    <div class="panel panel-default">
+						      <div class="panel-heading">
+						        <h4 class="panel-title">
+						          <a data-toggle="collapse" data-parent="#NavCompetenceAccordion" href="#CollapseNavCompetenceAccordion6">Electronique</a>
+						        </h4>
+						      </div>
+						      <div id="CollapseNavCompetenceAccordion6" class="panel-collapse collapse">
+						        <div class="panel-body">
+						        	<ul class="list-group">
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence1"> Sous Competence 1</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence2"> Sous Competence 2</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            </ul>
+						        </div>
+						      </div>
+						    </div>
+						    <div class="panel panel-default">
+						      <div class="panel-heading">
+						        <h4 class="panel-title">
+						          <a data-toggle="collapse" data-parent="#NavCompetenceAccordion" href="#CollapseNavCompetenceAccordion7">Informatique</a>
+						        </h4>
+						      </div>
+						      <div id="CollapseNavCompetenceAccordion7" class="panel-collapse collapse">
+						        <div class="panel-body">
+						        	<ul class="list-group">
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence1"> Sous Competence 1</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence2"> Sous Competence 2</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            </ul>
+						        </div>
+						      </div>
+						    </div>
+						    <div class="panel panel-default">
+						      <div class="panel-heading">
+						        <h4 class="panel-title">
+						          <a data-toggle="collapse" data-parent="#NavCompetenceAccordion" href="#CollapseNavCompetenceAccordion8">Télécommunication</a>
+						        </h4>
+						      </div>
+						      <div id="CollapseNavCompetenceAccordion8" class="panel-collapse collapse">
+						        <div class="panel-body">
+						        	<ul class="list-group">
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence1"> Sous Competence 1</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence2"> Sous Competence 2</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            </ul>
+						        </div>
+						      </div>
+						    </div>
+						    <div class="panel panel-default">
+						      <div class="panel-heading">
+						        <h4 class="panel-title">
+						          <a data-toggle="collapse" data-parent="#NavCompetenceAccordion" href="#CollapseNavCompetenceAccordion9">Traitement du signal</a>
+						        </h4>
+						      </div>
+						      <div id="CollapseNavCompetenceAccordion9" class="panel-collapse collapse">
+						        <div class="panel-body">
+						        	<ul class="list-group">
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence1"> Sous Competence 1</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence2"> Sous Competence 2</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            </ul>
+						        </div>
+						      </div>
+						    </div>
+						    <div class="panel panel-default">
+						      <div class="panel-heading">
+						        <h4 class="panel-title">
+						          <a data-toggle="collapse" data-parent="#NavCompetenceAccordion" href="#CollapseNavCompetenceAccordion10">Présence</a>
+						        </h4>
+						      </div>
+						      <div id="CollapseNavCompetenceAccordion10" class="panel-collapse collapse">
+						        <div class="panel-body">
+						        	<ul class="list-group">
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence1"> Sous Competence 1</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence2"> Sous Competence 2</a>
+		                            	</li>
+		                            	<li class="list-group-item" style="border:none;">
+		                            		<a href="#idCompetence1-idSousCompetence3"> Sous Competence 3</a>
+		                            	</li>
+		                            </ul>
+						        </div>
+						      </div>
+						    </div>
+						  </div> 
                         </li>
                     </ul>
                 </div>
@@ -123,6 +332,7 @@
             <!-- /.navbar-static-side -->
         </nav>
 	</div>
+    <div class="col-md-2 col-sm-2"></div> 
         
         
 <!-- tableau -->
@@ -132,10 +342,13 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="./../jquery/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="./../js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <!-- Bootstrap JavaScript for the select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 
 </body>
 
