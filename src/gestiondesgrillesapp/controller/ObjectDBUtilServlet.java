@@ -284,9 +284,10 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			User eleveST = new User("Stéphane", "Tzvetkov", "9482", "stephane.tzvetkov@isep.fr", false);
 			User elevePPC = new User("Pierre-Philippe", "Cordier", "9551", "pierre-philippe.corder@isep.fr", false);
 			User eleveND = new User("Nicolas", "Dubes", "9502", "nicolas.dubes@isep.fr", false);
+			User eleveTest = new User("Test", "Test", "0000", "test.test@isep.fr", false);
 
-			User elebeLB = new User("Laëtitia", "Bouvier", "9555", "laetitia.bouvier@isep.fr", false);
-			User elebeCB = new User("Camille", "Duboue", "9648", "camille.duboue@isep.fr", false);
+			User eleveLB = new User("Laëtitia", "Bouvier", "9555", "laetitia.bouvier@isep.fr", false);
+			User eleveCB = new User("Camille", "Duboue", "9648", "camille.duboue@isep.fr", false);
 
 			SousGroupe sousGroupeGarçons = new SousGroupe("Garçons");
 			SousGroupe sousGroupeFilles = new SousGroupe("Filles");
@@ -300,8 +301,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			em.persist(eleveST);
 			em.persist(elevePPC);
 			em.persist(eleveND);
-			em.persist(elebeLB);
-			em.persist(elebeCB);
+			em.persist(eleveTest);
+			em.persist(eleveLB);
+			em.persist(eleveCB);
 
 			em.persist(sousGroupeGarçons);
 			em.persist(sousGroupeFilles);
@@ -319,12 +321,15 @@ public class ObjectDBUtilServlet extends HttpServlet{
 
 			sousGroupeGarçons.addEleveID(eleveND.getID());
 			eleveND.setSousGroupeEleveID(sousGroupeGarçons.getID());
+			
+			sousGroupeGarçons.addEleveID(eleveTest.getID());
+			eleveTest.setSousGroupeEleveID(sousGroupeGarçons.getID());
 
-			sousGroupeFilles.addEleveID(elebeLB.getID());
-			elebeLB.setSousGroupeEleveID(sousGroupeFilles.getID());
+			sousGroupeFilles.addEleveID(eleveLB.getID());
+			eleveLB.setSousGroupeEleveID(sousGroupeFilles.getID());
 
-			sousGroupeFilles.addEleveID(elebeCB.getID());
-			elebeCB.setSousGroupeEleveID(sousGroupeFilles.getID());
+			sousGroupeFilles.addEleveID(eleveCB.getID());
+			eleveCB.setSousGroupeEleveID(sousGroupeFilles.getID());
 
 			groupeLogiciel.addSousGroupeID(sousGroupeGarçons.getID());
 			sousGroupeGarçons.setGroupeID(groupeLogiciel.getID());
@@ -345,8 +350,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			em.persist(eleveST);
 			em.persist(elevePPC);
 			em.persist(eleveND);
-			em.persist(elebeLB);
-			em.persist(elebeCB);
+			em.persist(eleveTest);
+			em.persist(eleveLB);
+			em.persist(eleveCB);
 
 			em.persist(sousGroupeGarçons);
 			em.persist(sousGroupeFilles);
@@ -362,8 +368,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			associateStudentToGrid(em, eleveST, grilleModel);
 			associateStudentToGrid(em, elevePPC, grilleModel);
 			associateStudentToGrid(em, eleveND, grilleModel);
-			associateStudentToGrid(em, elebeLB, grilleModel);
-			associateStudentToGrid(em, elebeCB, grilleModel);
+			associateStudentToGrid(em, eleveTest, grilleModel);
+			associateStudentToGrid(em, eleveLB, grilleModel);
+			associateStudentToGrid(em, eleveCB, grilleModel);
 
 		} finally {
 			// Close the database connection:

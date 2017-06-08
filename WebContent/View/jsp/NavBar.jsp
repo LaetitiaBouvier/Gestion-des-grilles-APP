@@ -1,146 +1,181 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@page import="java.util.*,gestiondesgrillesapp.model.*"%>
 
-<!DOCTYPE html>
-<html lang="fr">
+<%@page
+	import="java.util.*,gestiondesgrillesapp.model.*, javax.servlet.http.HttpServlet"%>
 
-<head>
+<%
+	HttpSession sess = request.getSession(false);
+	User user = (User) sess.getAttribute("user");
+	String prenom;
+	String nom;
+	String numero;
+	if (user == null) {
+		prenom = "___";
+		nom = "___";
+		numero = "___";
+	} else {
+		prenom = user.getPrenom();
+		nom = user.getNom();
+		numero = user.getNumero();
+	}
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	ArrayList<Competence> competencesList = (ArrayList<Competence>) sess.getAttribute("competences");
+	HashMap<Competence, ArrayList<SousCompetence>> sousCompetences = (HashMap<Competence, ArrayList<SousCompetence>>) sess
+			.getAttribute("souscompetences");
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+	/* Competence competenceSelected = competencesList.get(0); */
+	Competence competenceSelected = (Competence) sess.getAttribute("competenceSelected");
 
-    <!-- Bootstrap Core CSS -->
-    <link href="./../css/bootstrap.min.css" rel="stylesheet">
+	System.out.println("\nNavBar : competenceSelected = " + competenceSelected.getTitre());
+%>
 
-    
-    <!-- Custom CSS -->
-    <link href="./../css/sb-admin-2.css" rel="stylesheet">
+<!-- NavBar -->
+<div class="col-md-2 col-sm-2" style="position: fixed;">
+	<!-- Navigation -->
+	<nav class="navbar navbar-default navbar-static-top" role="navigation"
+		style="border: none;">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<!-- <a class="navbar-brand" href="index.html">SB Admin v2.0</a> -->
+		</div>
 
-
-    <!-- Custom Fonts -->
-    <link href="./../ressources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body>
-
-   <div class="col-md-2 col-sm-2">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="border:none;">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!-- <a class="navbar-brand" href="index.html">SB Admin v2.0</a> -->
-            </div>
-
-            <div class="navbar-default" role="navigation" style="margin-top: 0px;">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-						<li>
-							<a href="http://www.isep.fr/">
-								<i class="fa">
-									<img src="http://www.isep.fr/parcours/logoISEP.png" class="img-fluid img-responsive" alt="ISEP logo">
-								</i>
-							</a>
-						</li>
-						<li><h2 class="text-center">Evaluation de l'APP</h2></li>
-<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------- !-->
-						<li>
-							<!-- <table class="table" style="margin-bottom:0px">
+		<div class="navbar-default" role="navigation" style="margin-top: 0px;">
+			<div class="sidebar-nav navbar-collapse">
+				<ul class="nav" id="side-menu">
+					<li><a href="http://www.isep.fr/"> <i class="fa"> <img
+								src="http://www.isep.fr/parcours/logoISEP.png"
+								class="img-fluid img-responsive" alt="ISEP logo">
+						</i>
+					</a></li>
+					<li><h2 class="text-center">Evaluation de l'APP</h2></li>
+					<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------- !-->
+					<li>
+						<!-- <table class="table" style="margin-bottom:0px">
 								<tbody>
 									<tr>
 										<td class="text-center">Nom</td>
 										<td class="text-center">Prenom</td>
 									</tr>
 									<tr>
-										<td class="text-center"><button type="button" class="btn btn-primary">déconnexion</button></td>
-										<td class="text-center" style="vertical-align:middle;">N°Etudiant</td>
+										<td class="text-center"><button type="button" class="btn btn-primary">d�connexion</button></td>
+										<td class="text-center" style="vertical-align:middle;">N�Etudiant</td>
 									</tr>
 								</tbody>
 							</table> -->
-							<p class="text-center">nom - prenom - n°etudiant</p>
-							<div class="text-center" style="margin-bottom:3px;">
-								<button type="button" class="btn btn-primary">déconnexion</button>
+						<p class="text-center">
+							<%=nom%>
+							-
+							<%=prenom%>
+							-
+							<%=numero%></p>
+						<div class="text-center" style="margin-bottom: 3px;">
+							<button type="button" class="btn btn-primary">d�connexion</button>
+						</div>
+
+					</li>
+					<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------- !-->
+					<li class="sidebar-search">
+						<div class="input-group custom-search-form">
+							<input type="text" class="form-control" placeholder="Search...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button">
+									<i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div> <!-- /input-group -->
+					</li>
+					<li class="myAccordion">
+						<div class="panel-group" id="NavCompetenceAccordion">
+							<%
+								for (int i = 0; i < competencesList.size(); i++) {
+									Competence competence = competencesList.get(i);
+									String nomCompetence = competence.getTitre();
+							%>
+
+							<div 
+							<%
+								if (competence == competenceSelected) {
+							%>
+								class="panel panel-default in"
+							<%
+								} else {
+							%>
+								class="panel panel-default"
+							<%
+								}
+							%>
+							>
+									<div class="panel-heading">
+										<form action="NavBarServlet" method="post">
+											<h4 class="panel-title">
+												<%-- <a data-toggle="collapse"
+											data-parent="#NavCompetenceAccordion"
+											href="#CollapseNavCompetenceAccordion<%=i%>"><%=nomCompetence%></a> --%>
+												<input type="submit" name="submitbutton"
+													value="<%=nomCompetence%>">
+											</h4>
+										</form>
+									</div>
+										<div id="CollapseNavCompetenceAccordion<%=i%>" 
+									<%
+										if (competence == competenceSelected) {
+									%>
+										class="panel-collapse collapse in"
+									<%
+										} else {
+									%>
+										class="panel-collapse collapse"
+									<%
+										}
+									%>
+										>
+											<%-- <div class="panel-body">
+												<ul class="list-group">
+
+													<%
+														ArrayList<SousCompetence> sousCompetencesList = sousCompetences.get(competence);
+
+															for (SousCompetence sousCompetence : sousCompetencesList) {
+																String contenuSousCompetence = sousCompetence.getContenu();
+													%>
+													<li class="list-group-item" style="border: none;"><a
+														href="#<%=competence.getID()%>-<%=sousCompetence.getID()%>"
+														onclick="<%competenceSelected = competence;%>"> <%=contenuSousCompetence%></a></li>
+													<%
+														}
+													%>
+												</ul>
+											</div> --%>
+										</div>
+									</div>
+									<%
+										}
+									%>
+								</div>
 							</div>
-							
-						</li>
-<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------- !-->
-	                    <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw"></i> Vue d'ensemble</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw"></i> Communication</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw"></i> Travail en équipe</a>
-                        </li>
-						<li>
-                            <a href="#"><i class="fa fa-fw"></i> Conduite de Projet </a>
-                        </li>                                 
-						<li>                                  
-                            <a href="#"><i class="fa fa-fw"></i> Prossionnel responsable </a>
-                        </li>                                 
-						<li>                                  
-                            <a href="#"><i class="fa fa-fw"></i> Electronique </a>
-                        </li>                                 
-						<li>                                  
-                            <a href="#"><i class="fa fa-fw"></i> Informatique </a>
-                        </li>                                 
-						<li>          
-                            <a href="#"><i class="fa fa-fw"></i> Télécomunications </a>
-                        </li>                                 
-						<li>                                  
-                            <a href="#"><i class="fa fa-fw"></i> Traitement du signal </a>
-                        </li>                                 
-						<li>                                  
-                            <a href="#"><i class="fa fa-fw"></i> Présence </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-	</div>
+					</li>
+				</ul>
+			</div>
+			<!-- /.sidebar-collapse -->
+		</div>
+		<!-- /.navbar-static-side -->
+	</nav>
+</div>
+<div class="col-md-2 col-sm-2"></div>
 
 
-    </div>
-    <!-- /#wrapper -->
+<!-- jQuery -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-    <!-- jQuery -->
-    <script src="./../jquery/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="./../js/bootstrap.min.js"></script>
-
-</body>
-
-</html>
+<!-- Bootstrap JavaScript for the select -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
