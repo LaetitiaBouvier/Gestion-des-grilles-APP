@@ -283,7 +283,7 @@
 			$.ajax({
 				method : 'POST',
 				url : 'DetailCompetenceJSServlet',
-				/* data : $(this).serializeArray(), */
+				data : $(this).serializeArray(),
 				dataType : 'JSON',
 				success : function() {
 					console.log('success');
