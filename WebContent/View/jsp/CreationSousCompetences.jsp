@@ -10,14 +10,7 @@
 // METTRE ICI LES SCRIPTS POUR AJOUTER DES CHAMPS
 
 		</script>
-		<%
-            @SuppressWarnings("unchecked")
-            List<Competence> compList = (List<Competence>) request.getAttribute("compList");
-        	if(compList != null){
-	            for (Competence comp : compList) { %>
-	                <li> <%= comp.getTitre()%> : <%= comp.getDescription()%> </li> <%
-	        }
-        }%>
+
 	</head>
 	<body>
 		<div id="wrapper" class="container">
@@ -43,9 +36,17 @@
 							  <!-- Nav tabs : COMPETENCES-->
 							  <ul class="nav nav-tabs" role="tablist">
 							    
-<!-- 							    <li role="presentation" class="active"><a href="#vue_ensemble" aria-controls="vue_ensemble" role="tab" data-toggle="tab">Vue d'ensemble<span class="badge" style="margin-left:2px;">15</span></a></li> -->
-<!-- 							    <li role="presentation"><a href="#communication" aria-controls="communication" role="tab" data-toggle="tab">Communication<span class="badge" style="margin-left:2px;">2</span></a></li> -->
-							    
+							    <li role="presentation" class="active"><a href="#vue_ensemble" aria-controls="vue_ensemble" role="tab" data-toggle="tab">Liste des compétences</a></li>
+							    <%
+					            @SuppressWarnings("unchecked")
+					            List<Competence> compList = (List<Competence>) request.getAttribute("compList");
+					        	if(compList != null){
+					        		for (Competence comp : compList) { %>
+					        		String titreComp = comp.getTitre();
+							    <li role="presentation"><a href="#<%= comp.getTitre()%>" aria-controls="<%= comp.getTitre()%>" role="tab" data-toggle="tab"><%= comp.getTitre()%><span class="badge" style="margin-left:2px;"><%= comp.getCoefficient()%></span></a></li>
+							    	<%
+						        }
+					        }%>
 							  </ul>
 							<br /><br />
 							  <!-- Tab panes -->
@@ -134,33 +135,6 @@
 									</div>
 							    	
 							    </div>
-<!-- 							    <div role="tabpanel" class="tab-pane" id="communication"> -->
-							    
-<!-- 							    </div> -->
-<!-- 							    <div role="tabpanel" class="tab-pane" id="travail_equipe"> -->
-							    
-<!-- 							    </div> -->
-<!-- 							    <div role="tabpanel" class="tab-pane" id="conduite_projet"> -->
-							    
-<!-- 							    </div> -->
-<!-- 							    <div role="tabpanel" class="tab-pane" id="professionnel_responsable"> -->
-							    
-<!-- 							    </div> -->
-<!-- 							    <div role="tabpanel" class="tab-pane" id="electronique"> -->
-							    
-<!-- 							    </div> -->
-<!-- 							    <div role="tabpanel" class="tab-pane" id="informatique"> -->
-							    
-<!-- 							    </div> -->
-<!-- 							    <div role="tabpanel" class="tab-pane" id="telecommunications"> -->
-							    
-<!-- 							    </div> -->
-<!-- 							    <div role="tabpanel" class="tab-pane" id="traitement_signal"> -->
-							    
-<!-- 							    </div> -->
-<!-- 							    <div role="tabpanel" class="tab-pane" id="presence"> -->
-							    
-<!-- 							    </div> -->
 							  </div>
 							
 							</div>
