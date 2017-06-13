@@ -1,17 +1,13 @@
 package gestiondesgrillesapp.controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Enumeration;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import gestiondesgrillesapp.model.User;
 
 /**
  * Servlet implementation class ObjectDbTestServlet
@@ -31,6 +27,15 @@ public class ObjectDbTestServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+//		String content = request.getParameter("content");
+//		System.out.println(content);
+//		
+//		Enumeration<String> enu = request.getParameterNames();
+//		while(enu.hasMoreElements())
+//		{
+//			System.out.println(enu.nextElement());
+//		}
 		
 		String code = "initializeDataBase";
 		request.setAttribute("code", code);

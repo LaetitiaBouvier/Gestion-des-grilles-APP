@@ -1,7 +1,6 @@
 package gestiondesgrillesapp.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +26,7 @@ public class SousCompetence {
 	
 	private String commentaireEquipe;
 	private String commentaireTuteurTuteur;
-	private HashMap<User, String> commentairesIndividuels;
+	private String commentaireIndividuel;
 	
 	/*
 	 * CONSTRUCTEUR(S)
@@ -41,6 +40,7 @@ public class SousCompetence {
 		this.eleveID = -1l;
 		this.commentaireEquipe = "";
 		this.commentaireTuteurTuteur = "";
+		this.commentaireIndividuel = "";
 		this.niveau = "";
 		this.coefficient = 0.;
 		
@@ -65,10 +65,6 @@ public class SousCompetence {
 	
 	public void removePointID(long pointID){
 		this.pointsIDs.remove(pointID);
-	}
-	
-	public void putCommentaireIndividuel(User user, String commentaire){
-		this.commentairesIndividuels.put(user, commentaire);
 	}
 	
 	public long getCompetenceID() {
@@ -146,11 +142,11 @@ public class SousCompetence {
 		this.commentaireTuteurTuteur = commentaireTuteurTuteur;
 	}
 
-	public HashMap<User, String> getCommentairesIndividuels() {
-		return commentairesIndividuels;
+	public String getCommentaireIndividuel() {
+		return commentaireIndividuel;
 	}
 
-	public void setCommentairesIndividuels(HashMap<User, String> commentairesIndividuels) {
-		this.commentairesIndividuels = commentairesIndividuels;
+	public void setCommentaireIndividuel(String commentaireIndividuel) {
+		this.commentaireIndividuel = commentaireIndividuel;
 	}
 }

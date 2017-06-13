@@ -20,6 +20,7 @@ import gestiondesgrillesapp.model.Competence;
 import gestiondesgrillesapp.model.Grille;
 import gestiondesgrillesapp.model.Point;
 import gestiondesgrillesapp.model.SousCompetence;
+import gestiondesgrillesapp.model.SousGroupe;
 import gestiondesgrillesapp.model.SousPoint;
 import gestiondesgrillesapp.model.User;
 
@@ -44,8 +45,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession(true);		// Création de la session
-		Object testSession = new Object();					// ...
-		session.setAttribute("testSession", testSession);	// ... example de création de session
+//		Object testSession = new Object();					// ...
+//		session.setAttribute("testSession", testSession);	// ... example de création de session
 
 		String id = request.getParameter("ISEPid");
 		String pw = request.getParameter("ISEPpassword");
@@ -67,9 +68,9 @@ public class LoginServlet extends HttpServlet {
 				User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userList);
 				session.setAttribute("user", user);
 
-				fillSessionForEleve(em, session, user);
+				fillSession(em, session, user);
 
-				request.getRequestDispatcher("/View/jsp/DetailCompetence.jsp").forward(request, response);
+				request.getRequestDispatcher("/View/jsp/DetailCompetenceJS.jsp").forward(request, response);
 			}
 			else
 			{
@@ -96,7 +97,7 @@ public class LoginServlet extends HttpServlet {
 
 				}
 				else{
-					fillSessionForEleve(em, session, user);
+					fillSession(em, session, user);
 				}
 			}
 
@@ -111,68 +112,95 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 
-	public void fillSessionForEleve(EntityManager em, HttpSession session, User user){
+	public static void fillSession(EntityManager em, HttpSession session, User user)
+	{
+		ArrayList<User> membresSousGroupe = new ArrayList<>();
 
-		List<Grille> grillesList = em.createQuery("SELECT c FROM Grille c WHERE id="+user.getGrilleEleveID(), Grille.class).getResultList();
-		Grille grille = (Grille) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(grillesList);
-		System.out.println("\nGrille associée : "+grille.getTitre());
+		List<SousGroupe> sousGroupeTemp = em.createQuery("SELECT c FROM SousGroupe c WHERE id="+user.getSousGroupeEleveID(), SousGroupe.class).getResultList();
+		SousGroupe sousGroupe = (SousGroupe) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousGroupeTemp);
 
-		session.setAttribute("grille", grille);
-
-		ArrayList<Competence> competences = new ArrayList<>();
-		for(long competenceID : grille.getCompetencesIDs())
+		for(Long eleveID : sousGroupe.getElevesIDs())
 		{
-			List<Competence> competencesTemp = em.createQuery("SELECT c FROM Competence c WHERE id="+competenceID, Competence.class).getResultList();
-			Competence competence = (Competence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(competencesTemp);
-			competences.add(competence);
+			List<User> userTemp = em.createQuery("SELECT c FROM User c WHERE id="+eleveID, User.class).getResultList();
+			User userMembre = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userTemp);
+			membresSousGroupe.add(userMembre);
 		}
-		session.setAttribute("competences", competences);
 
+		HashMap<String, Grille> grillesMembres = new HashMap<>();
+		HashMap<Grille, ArrayList<Competence>> competences = new HashMap<>();
 		HashMap<Competence, ArrayList<SousCompetence>> sousCompetences = new HashMap<>();
 		HashMap<SousCompetence, ArrayList<Point>> points = new HashMap<>();
 		HashMap<Point, ArrayList<SousPoint>> sousPoints = new HashMap<>();
 
-		for( Competence competence : competences)
+		for(User u : membresSousGroupe)
 		{
-			ArrayList<SousCompetence> sousCompentencesList = new ArrayList<>();
-			for(long souscompetenceID : competence.getSousCompetencesIDs())
-			{
-				List<SousCompetence> sousCompetencesTemp = em.createQuery("SELECT c FROM SousCompetence c WHERE id="+souscompetenceID, SousCompetence.class).getResultList();
-				SousCompetence sousCompetence = (SousCompetence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousCompetencesTemp);
-				sousCompentencesList.add(sousCompetence);
-			}
-			sousCompetences.put(competence, sousCompentencesList);
+			List<Grille> grillesList = em.createQuery("SELECT c FROM Grille c WHERE id="+u.getGrilleEleveID(), Grille.class).getResultList();
+			Grille grille = (Grille) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(grillesList);
+
+			grillesMembres.put(u.getNumero(), grille);
 			
-			for(SousCompetence sousCompetence : sousCompentencesList)
+			ArrayList<Competence> compentencesList = new ArrayList<>();
+			for(long competenceID : grille.getCompetencesIDs())
 			{
-				ArrayList<Point> pointsList = new ArrayList<>();
-				for(long pointID : sousCompetence.getPointsIDs())
+				List<Competence> competencesTemp = em.createQuery("SELECT c FROM Competence c WHERE id="+competenceID, Competence.class).getResultList();
+				Competence competence = (Competence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(competencesTemp);
+				compentencesList.add(competence);
+			}
+			competences.put(grille, compentencesList);
+			
+			for(Competence competence : compentencesList)
+			{
+				ArrayList<SousCompetence> sousCompentencesList = new ArrayList<>();
+				for(long souscompetenceID : competence.getSousCompetencesIDs())
 				{
-					List<Point> pointsTemp = em.createQuery("SELECT c FROM Point c WHERE id="+pointID, Point.class).getResultList();
-					Point point = (Point) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(pointsTemp);
-					pointsList.add(point);
+					List<SousCompetence> sousCompetencesTemp = em.createQuery("SELECT c FROM SousCompetence c WHERE id="+souscompetenceID, SousCompetence.class).getResultList();
+					SousCompetence sousCompetence = (SousCompetence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousCompetencesTemp);
+					sousCompentencesList.add(sousCompetence);
 				}
-				points.put(sousCompetence, pointsList);
-				
-				for(Point point : pointsList)
+				sousCompetences.put(competence, sousCompentencesList);
+
+				for(SousCompetence sousCompetence : sousCompentencesList)
 				{
-					ArrayList<SousPoint> sousPointsList = new ArrayList<>();
-					for(long sousPointID : point.getSousPointsIDs())
+					ArrayList<Point> pointsList = new ArrayList<>();
+					for(long pointID : sousCompetence.getPointsIDs())
 					{
-						List<SousPoint> sousPointsTemp = em.createQuery("SELECT c FROM SousPoint c WHERE id="+sousPointID, SousPoint.class).getResultList();
-						SousPoint sousPoint = (SousPoint) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousPointsTemp);
-						sousPointsList.add(sousPoint);
+						List<Point> pointsTemp = em.createQuery("SELECT c FROM Point c WHERE id="+pointID, Point.class).getResultList();
+						Point point = (Point) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(pointsTemp);
+						pointsList.add(point);
 					}
-					sousPoints.put(point, sousPointsList);
+					points.put(sousCompetence, pointsList);
+
+					for(Point point : pointsList)
+					{
+						ArrayList<SousPoint> sousPointsList = new ArrayList<>();
+						for(long sousPointID : point.getSousPointsIDs())
+						{
+							List<SousPoint> sousPointsTemp = em.createQuery("SELECT c FROM SousPoint c WHERE id="+sousPointID, SousPoint.class).getResultList();
+							SousPoint sousPoint = (SousPoint) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousPointsTemp);
+							sousPointsList.add(sousPoint);
+						}
+						sousPoints.put(point, sousPointsList);
+					}
 				}
 			}
 		}
 
-		session.setAttribute("souscompetences", sousCompetences);
-		session.setAttribute("points", points);
-		session.setAttribute("souspoints", sousPoints);
-		session.setAttribute("competenceSelected", competences.get(0));
-		System.out.println("\nServlet : competenceSelected = "+competences.get(0).getTitre());
+		session.removeAttribute("grillesMembres");
+		session.setAttribute(   "grillesMembres", grillesMembres);
+		session.removeAttribute("competences");
+		session.setAttribute(   "competences", competences);
+		session.removeAttribute("sousCompetences");
+		session.setAttribute(   "sousCompetences", sousCompetences);
+		session.removeAttribute("points");
+		session.setAttribute(   "points", points);
+		session.removeAttribute("sousPoints");
+		session.setAttribute(   "sousPoints", sousPoints);
+		session.removeAttribute("membresSousGroupe");
+		session.setAttribute(   "membresSousGroupe", membresSousGroupe);
+		Grille grilleUtilisateur = grillesMembres.get(user.getNumero());
+		System.out.println("\nServlet : competenceSelected = "+competences.get(grilleUtilisateur).get(0).getTitre());
+		session.removeAttribute("competenceSelected");
+		session.setAttribute(   "competenceSelected", competences.get(grilleUtilisateur).get(0));
 	}
 
 	/**

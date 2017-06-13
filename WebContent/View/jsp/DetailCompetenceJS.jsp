@@ -49,9 +49,9 @@
 						class="fa fa-angle-double-down fa-2x pull-right fa-inverse myDropDownButton"></span></a>
 				</div>
 				<!-- commentaire tuteur a tuteur -->
-				<form method="POST" action="DetailCompetenceServlet">
+				<form class="jsCallText" method="POST" action="DetailCompetenceJSServlet">
 					<div>
-						<textarea class="form-control myBoxSize myTuTu" placeholder="commentaire tuteur a tuteur"></textarea>
+						<textarea class="form-control myBoxSize myTuTu" placeholder="commentaire tuteur a tuteur" name="CommentaireTuteurTuteurSousCompetence_<%=sousCompetence.getContenu()%>"></textarea>
 						<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
 					</div>
 				</form>
@@ -62,7 +62,7 @@
 				<!-- textarea permettant l'observation global du groupe -->
 				<div>
 					<!-- 75vh a adapter en fonction du nb d'eleve -->
-					<form method="POST" action="DetailCompetenceServlet">
+					<form class="jsCallText" method="POST" action="DetailCompetenceJSServlet">
 						<div>
 <!--Attention au nb d'élèves ! 84-1 pour 5 élèves   -->
 							<textarea class="form-control " placeholder="write here the evaluation of the team" style="height:<%=16.6*membresSousGroupe.size()%>vh;"></textarea>
@@ -82,7 +82,7 @@
 					for(User userMembre : membresSousGroupe)
 					{
 					%>
-					<form method="POST" action="DetailCompetenceServlet" class="myBoxSizePlus">
+					<form class="jsCallText" method="POST" action="DetailCompetenceJSServlet" class="myBoxSizePlus">
 						<div>
 							<%
 							Object[] obj = new Object[4];
@@ -111,7 +111,7 @@
 					for(User userMembre : membresSousGroupe)
 					{
 					%>
-					<form method="POST" action="DetailCompetenceServlet" class="myBoxSizePlus">
+					<form method="POST" action="DetailCompetenceJSServlet" class="myBoxSizePlus">
 						<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-2.1vh;">
 							<select class="selectpicker selectwidthauto">
 								<option>Non assigné</option>
@@ -202,7 +202,7 @@
 							for(User userMembre : membresSousGroupe)
 							{
 							%>
-							<form method="POST" action="DetailCompetenceServlet" class="myBoxSizeDDPlus">
+							<form class="jsCallText" method="POST" action="DetailCompetenceJSServlet" class="myBoxSizeDDPlus">
 								<div>
 									<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
 									<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
@@ -219,7 +219,7 @@
 							for(User userMembre : membresSousGroupe)
 							{
 							%>
-							<form method="POST" action="DetailCompetenceServlet" class="myBoxSizeDDPlus">
+							<form method="POST" action="DetailCompetenceJSServlet" class="myBoxSizeDDPlus">
 								<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-2.1vh;">
 									<select class="selectpicker selectwidthauto">
 										<option>Non assigné</option>
@@ -276,6 +276,23 @@
 	</div>
 </div>
 
+	<script>
+		console.log($('form.jsCallText'));
+		$('form.jsCallText').submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				method : 'POST',
+				url : 'DetailCompetenceJSServlet',
+				/* data : $(this).serializeArray(), */
+				dataType : 'JSON',
+				success : function() {
+					console.log('success');
+				},
+				error : function() {
+				}
+			});
+		})
+	</script>
 
 </body>
 </html>

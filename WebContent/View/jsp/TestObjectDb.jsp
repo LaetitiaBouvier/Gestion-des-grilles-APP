@@ -6,7 +6,7 @@
  
 <html>
     <head>
-        <title>JPA Guest Book Web Application Tutorial</title>
+        <title>JSP Test</title>
     </head>
  
     <body>
@@ -15,7 +15,7 @@
             <input type="submit" value="Add" />
         </form>
  
-        <hr><ol> <%
+        <%-- <hr><ol> <%
             @SuppressWarnings("unchecked")
             List<User> userList = (List<User>) request.getAttribute("userList");
         	if(userList != null){
@@ -26,6 +26,6 @@
         </ol><hr>
  
         <!-- <iframe src="http://www.objectdb.com/pw.html?web-eclipse"
-            frameborder="0" scrolling="no" width="100%" height="30"> </iframe> -->
+            frameborder="0" scrolling="no" width="100%" height="30"> </iframe> --> --%>
      </body>
  </html>
