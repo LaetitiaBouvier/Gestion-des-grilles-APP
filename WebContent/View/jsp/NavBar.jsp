@@ -17,10 +17,12 @@
 		nom = user.getNom();
 		numero = user.getNumero();
 	}
+	
+	HashMap<String, Grille> grillesMembres = (HashMap<String, Grille>) sess.getAttribute("grillesMembres");
+	Grille grille = grillesMembres.get(user.getNumero());
 
-	ArrayList<Competence> competencesList = (ArrayList<Competence>) sess.getAttribute("competences");
-	HashMap<Competence, ArrayList<SousCompetence>> sousCompetences = (HashMap<Competence, ArrayList<SousCompetence>>) sess
-			.getAttribute("souscompetences");
+	HashMap<Grille, ArrayList<Competence>> competences = (HashMap<Grille, ArrayList<Competence>>) sess.getAttribute("competences");
+	HashMap<Competence, ArrayList<SousCompetence>> sousCompetences = (HashMap<Competence, ArrayList<SousCompetence>>) sess.getAttribute("sousCompetences");
 
 	/* Competence competenceSelected = competencesList.get(0); */
 	Competence competenceSelected = (Competence) sess.getAttribute("competenceSelected");
@@ -91,6 +93,7 @@
 					<li class="myAccordion">
 						<div class="panel-group" id="NavCompetenceAccordion">
 							<%
+								ArrayList<Competence> competencesList = competences.get(grille);
 								for (int i = 0; i < competencesList.size(); i++) {
 									Competence competence = competencesList.get(i);
 									String nomCompetence = competence.getTitre();

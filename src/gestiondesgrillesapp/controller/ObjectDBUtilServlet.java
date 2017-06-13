@@ -119,7 +119,6 @@ public class ObjectDBUtilServlet extends HttpServlet{
 		em.getTransaction().begin();
 		em.persist(eleve);
 		em.getTransaction().commit();	// Ici on MAJ seulement "eleve"
-
 	}
 	
 	public Grille grilleModelDeepCopy(Grille grilleModel){
