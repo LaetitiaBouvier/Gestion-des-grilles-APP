@@ -29,7 +29,7 @@
   <img src="../ressources/tableauEleves.png" height="60px"/></br></br>
   Veillez à ne pas laisser de champs vide, au besoin inscrire "null" dans les cases vides.</p>
 </div>
-<form method="POST" action="../../CreationEleve" class="form-horizontal">
+<form method="POST" action="../../CreationEleveServlet" class="form-horizontal">
 
 						<div id="dataTables_wrapper" class="dataTables_wrapper form-inline no-footer">
 							<div class="row">
