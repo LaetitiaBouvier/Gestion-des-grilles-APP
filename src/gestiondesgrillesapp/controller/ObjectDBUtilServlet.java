@@ -318,51 +318,75 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 			//  ____________________________________
 			//  Associations entres les élèves, tuteurs et (sous-)groupes
+			
+			tuteurJB.addGroupeTuteurID(groupeLogiciel.getID());
+			tuteurJB.addGroupeTuteurID(groupeSI.getID());
+			
+			
 
-			sousGroupeGarçons.addEleveID(eleveST.getID());
 			eleveST.setSousGroupeEleveID(sousGroupeGarçons.getID());
 			eleveST.setGroupeID(groupeLogiciel.getID());
 			eleveST.setPromotionID(promotion2018.getID());
 
-			sousGroupeGarçons.addEleveID(elevePPC.getID());
 			elevePPC.setSousGroupeEleveID(sousGroupeGarçons.getID());
 			elevePPC.setGroupeID(groupeLogiciel.getID());
 			elevePPC.setPromotionID(promotion2018.getID());
 
-			sousGroupeGarçons.addEleveID(eleveND.getID());
 			eleveND.setSousGroupeEleveID(sousGroupeGarçons.getID());
 			eleveND.setGroupeID(groupeLogiciel.getID());
 			eleveND.setPromotionID(promotion2018.getID());
 			
-			sousGroupeGarçons.addEleveID(eleveTest.getID());
 			eleveTest.setSousGroupeEleveID(sousGroupeGarçons.getID());
 			eleveTest.setGroupeID(groupeLogiciel.getID());
 			eleveTest.setPromotionID(promotion2018.getID());
 
-			sousGroupeFilles.addEleveID(eleveLB.getID());
 			eleveLB.setSousGroupeEleveID(sousGroupeFilles.getID());
 			eleveLB.setGroupeID(groupeSI.getID());
 			eleveLB.setPromotionID(promotion2018.getID());
 
-			sousGroupeFilles.addEleveID(eleveCB.getID());
 			eleveCB.setSousGroupeEleveID(sousGroupeFilles.getID());
 			eleveCB.setGroupeID(groupeSI.getID());
 			eleveCB.setPromotionID(promotion2018.getID());
 			
+			
+			
+			sousGroupeGarçons.addEleveID(eleveST.getID());
+			sousGroupeGarçons.addEleveID(elevePPC.getID());
+			sousGroupeGarçons.addEleveID(eleveND.getID());
+			sousGroupeGarçons.addEleveID(eleveTest.getID());
+			sousGroupeFilles.addEleveID(eleveLB.getID());
+			sousGroupeFilles.addEleveID(eleveCB.getID());
+			
+			sousGroupeGarçons.setGroupeID(groupeLogiciel.getID());
+			sousGroupeFilles.setGroupeID(groupeSI.getID());
+			
+			
+			
+			groupeLogiciel.setPromotionID(promotion2018.getID());
+			groupeLogiciel.addSousGroupeID(sousGroupeGarçons.getID());
+			groupeLogiciel.addTuteurID(tuteurJB.getID());
+			groupeLogiciel.addEleveID(eleveST.getID());
+			groupeLogiciel.addEleveID(elevePPC.getID());
+			groupeLogiciel.addEleveID(eleveND.getID());
+			groupeLogiciel.addEleveID(eleveTest.getID());
+			
+			groupeSI.setPromotionID(promotion2018.getID());
+			groupeSI.addSousGroupeID(sousGroupeFilles.getID());
+			groupeSI.addTuteurID(tuteurJB.getID());
+			groupeSI.addEleveID(eleveLB.getID());
+			groupeSI.addEleveID(eleveCB.getID());
+			
+			
+			
 			promotion2018.addGroupeID(groupeLogiciel.getID());
 			promotion2018.addGroupeID(groupeSI.getID());
-
-			groupeLogiciel.addSousGroupeID(sousGroupeGarçons.getID());
-			sousGroupeGarçons.setGroupeID(groupeLogiciel.getID());
-
-			groupeLogiciel.addTuteurID(tuteurJB.getID());
-			tuteurJB.addGroupeTuteurID(groupeLogiciel.getID());
-
-			groupeSI.addSousGroupeID(sousGroupeFilles.getID());
-			sousGroupeFilles.setGroupeID(groupeSI.getID());
-
-			groupeSI.addTuteurID(tuteurJB.getID());
-			tuteurJB.addGroupeTuteurID(groupeSI.getID());
+			
+			promotion2018.addEleveID(eleveST.getID());
+			promotion2018.addEleveID(elevePPC.getID());
+			promotion2018.addEleveID(eleveND.getID());
+			promotion2018.addEleveID(eleveTest.getID());
+			promotion2018.addEleveID(eleveLB.getID());
+			promotion2018.addEleveID(eleveCB.getID());
 
 			//  ____________________________________
 			//  Enregistrement de la MAJ des objets dans la BDD :
@@ -379,6 +403,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			em.persist(sousGroupeFilles);
 			em.persist(groupeLogiciel);
 			em.persist(groupeSI);
+			em.persist(promotion2018);
 			em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 			//  ____________________________________
 			//  Associer les élèves à une grille "model" :
