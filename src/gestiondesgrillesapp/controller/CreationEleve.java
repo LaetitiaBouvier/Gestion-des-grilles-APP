@@ -47,7 +47,8 @@ public class CreationEleve extends HttpServlet {
 			long i ;
 			long j ;
 			
-			for (i=1; i<nbLignes; i++){
+			//ATTENTION : l'ideal serait de preciser 
+			for (i=1; i<nbLignes+1; i++){
 				String numeroUser = request.getParameter("champ["+i+"][0]");
 				if (numeroUser != null){
 				System.out.println(numeroUser);
