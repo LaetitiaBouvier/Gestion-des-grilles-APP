@@ -2,6 +2,7 @@ package gestiondesgrillesapp.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import gestiondesgrillesapp.model.Competence;
+import gestiondesgrillesapp.model.Grille;
+import gestiondesgrillesapp.model.User;
 
 /**
  * Servlet implementation class NavBarServlet
@@ -40,10 +43,15 @@ public class NavBarServlet extends HttpServlet {
 		
 		Competence competenceSelected = null;
 		HttpSession sess = request.getSession(false);
-		ArrayList<Competence> competencesList = (ArrayList<Competence>) sess.getAttribute("competences");
+		
+		User user = (User) sess.getAttribute("user");
+		HashMap<String, Grille> grillesMembres = (HashMap<String, Grille>) sess.getAttribute("grillesMembres");
+		Grille grille = grillesMembres.get(user.getNumero());
+		
+		HashMap<Grille, ArrayList<Competence>> competencesList = (HashMap<Grille, ArrayList<Competence>>) sess.getAttribute("competences");
 		System.out.println(competencesList.size());
 		
-		for(Competence competence : competencesList)
+		for(Competence competence : competencesList.get(grille))
 		{
 			if(competence.getTitre().equals(competenceSelectedTitle))
 			{
@@ -59,7 +67,7 @@ public class NavBarServlet extends HttpServlet {
 		
 		sess.removeAttribute("competenceSelected");
 		sess.setAttribute("competenceSelected", competenceSelected);
-		request.getRequestDispatcher("/View/jsp/DetailCompetence.jsp").forward(request, response);
+		request.getRequestDispatcher("/View/jsp/DetailCompetenceJS.jsp").forward(request, response);
 	}
 
 	/**

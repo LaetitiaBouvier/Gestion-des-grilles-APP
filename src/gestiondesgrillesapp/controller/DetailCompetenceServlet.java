@@ -95,10 +95,6 @@ public class DetailCompetenceServlet extends HttpServlet {
 //				SousCompetence sousCompetence = (SousCompetence) obj[2];
 //				sousCompetence.setCommentaireIndividuel(req);
 			}
-			
-			List<SousCompetence> sousCompetencesTemp = em.createQuery("SELECT c FROM SousCompetence c WHERE id="+Long.parseLong(id), SousCompetence.class).getResultList();
-			SousCompetence sousCompetence = (SousCompetence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousCompetencesTemp);
-			System.out.println("======>"+sousCompetence.getCommentaireIndividuel()+"<======");
 		}
 		finally
 		{

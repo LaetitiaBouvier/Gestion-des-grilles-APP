@@ -5,8 +5,12 @@
 <%@ include file = "NavBar.jsp" %>
 
 <%
-	HashMap<SousCompetence, ArrayList<Point>> points = (HashMap<SousCompetence, ArrayList<Point>>) sess.getAttribute("points");
-	HashMap<Point, ArrayList<SousPoint>> sousPoints = (HashMap<Point, ArrayList<SousPoint>>) sess.getAttribute("sousPoints");
+	HashMap<String, SousCompetence> sousCompetencesHashContent 	= (HashMap<String, SousCompetence>) sess.getAttribute("sousCompetencesHashContent");
+	HashMap<String, SousPoint> 		sousPointsHashContent 		= (HashMap<String, SousPoint>) 		sess.getAttribute("sousPointsHashContent");
+
+	HashMap<SousCompetence	, ArrayList<Point>> 	points 		= (HashMap<SousCompetence	, ArrayList<Point>>) 		sess.getAttribute("points");
+	HashMap<Point			, ArrayList<SousPoint>> sousPoints 	= (HashMap<Point			, ArrayList<SousPoint>>) 	sess.getAttribute("sousPoints");
+	
 	ArrayList<User> membresSousGroupe = (ArrayList<User>) sess.getAttribute("membresSousGroupe");
 	
 	competenceSelected = (Competence) sess.getAttribute("competenceSelected");
@@ -51,7 +55,7 @@
 				<!-- commentaire tuteur a tuteur -->
 				<form class="jsCallText" method="POST" action="DetailCompetenceJSServlet">
 					<div>
-						<textarea class="form-control myBoxSize myTuTu" placeholder="commentaire tuteur a tuteur" name="CommentaireTuteurTuteurSousCompetence_<%=sousCompetence.getContenu()%>"></textarea>
+						<textarea class="form-control myBoxSize myTuTu" placeholder="commentaire tuteur a tuteur" name="CommentaireTuteurTuteurSousCompetence_<%=sousCompetence.getContenu()%>"><%=sousCompetence.getCommentaireTuteurTuteur()%></textarea>
 						<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
 					</div>
 				</form>
@@ -65,7 +69,7 @@
 					<form class="jsCallText" method="POST" action="DetailCompetenceJSServlet">
 						<div>
 <!--Attention au nb d'élèves ! 84-1 pour 5 élèves   -->
-							<textarea class="form-control " placeholder="write here the evaluation of the team" style="height:<%=16.6*membresSousGroupe.size()%>vh;"></textarea>
+							<textarea class="form-control " placeholder="write here the evaluation of the team" name="CommentaireEquipeSousCompetence_<%=sousCompetence.getContenu()%>" style="height:<%=16.6*membresSousGroupe.size()%>vh;"><%=sousCompetence.getCommentaireEquipe()%></textarea>
 							<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
 						</div>
 					</form>
@@ -81,22 +85,15 @@
 					<%
 					for(User userMembre : membresSousGroupe)
 					{
+						SousCompetence sousCompetenceSelected = sousCompetencesHashContent.get(userMembre.getID()+""+sousCompetence.getContenu());
+						if(sousCompetenceSelected == null) throw new RuntimeException("La sous compétence sélectionnée ne doit pas être null !");
 					%>
-					<form class="jsCallText" method="POST" action="DetailCompetenceJSServlet" class="myBoxSizePlus">
+					<form class="jsCallText myBoxSizePlus" method="POST" action="DetailCompetenceJSServlet">
 						<div>
-							<%
-							Object[] obj = new Object[4];
-							obj[0] = "CommentaireIndividuelSousCompetence";
-							obj[1] = sousCompetence.getID();
-							obj[2] = sousCompetence;
-							obj[3] = competenceSelected;
-							sess.removeAttribute("obj");
-							sess.setAttribute("obj", obj);
-							%>
 							<textarea 	class="form-control myBoxSize"
 										<%-- <%if(sousCompetenceSelected.getCommentaireIndividuel().equals("")){%> placeholder="write here the evaluation of Eleve" <%}%> --%>
 										placeholder="write here the evaluation of Eleve"
-										name="CommentaireIndividuelSousCompetence_<%=sousCompetence.getID()%>"><%-- <%if(!sousCompetenceSelected.getCommentaireIndividuel().equals("")){ %> <%=sousCompetenceSelected.getCommentaireIndividuel()%> <%}%> --%><%=sousCompetence.getCommentaireIndividuel()%></textarea>
+										name="CommentaireIndividuelSousCompetence_<%=sousCompetenceSelected.getID()%>"><%=sousCompetenceSelected.getCommentaireIndividuel()%></textarea>
 							<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
 						</div>
 					</form>
@@ -110,16 +107,18 @@
 					<%
 					for(User userMembre : membresSousGroupe)
 					{
+						SousCompetence sousCompetenceSelected = sousCompetencesHashContent.get(userMembre.getID()+""+sousCompetence.getContenu());
+						if(sousCompetenceSelected == null) throw new RuntimeException("La sous compétence sélectionnée ne doit pas être null !");
 					%>
-					<form method="POST" action="DetailCompetenceJSServlet" class="myBoxSizePlus">
+					<form class="jsCallText myBoxSizePlus" method="POST" action="DetailCompetenceJSServlet">
 						<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-2.1vh;">
-							<select class="selectpicker selectwidthauto">
-								<option>Non assigné</option>
-								<option>Au dela</option>
-								<option>Attendu</option>
-								<option>Très proche</option>
-								<option>Proche</option>
-								<option>Loin</option>
+							<select class="selectpicker selectwidthauto" name="NiveauSousCompetence_<%=sousCompetenceSelected.getID()%>">
+								<option value="Non assigné"	<% if(sousCompetenceSelected.getNiveau().equals("Non assigné"))	{ %> <%=("selected")%> <% } %>>Non assigné</option>
+								<option value="Au dela"		<% if(sousCompetenceSelected.getNiveau().equals("Au dela"))		{ %> <%=("selected")%> <% } %>>Au dela</option>
+								<option value="Attendu"		<% if(sousCompetenceSelected.getNiveau().equals("Attendu"))		{ %> <%=("selected")%> <% } %>>Attendu</option>
+								<option value="Très proche"	<% if(sousCompetenceSelected.getNiveau().equals("Très proche"))	{ %> <%=("selected")%> <% } %>>Très proche</option>
+								<option value="Proche"		<% if(sousCompetenceSelected.getNiveau().equals("Proche"))		{ %> <%=("selected")%> <% } %>>Proche</option>
+								<option value="Loin"		<% if(sousCompetenceSelected.getNiveau().equals("Loin"))		{ %> <%=("selected")%> <% } %>>Loin</option>
 							</select>	
 						</div>
 						<div style="position:relative;">
@@ -201,10 +200,12 @@
 							<%
 							for(User userMembre : membresSousGroupe)
 							{
+								SousPoint sousPointSelected = sousPointsHashContent.get(userMembre.getID()+""+sousPoint.getContenu());
+								if(sousPointSelected == null) throw new RuntimeException("Le sous point sélectionnée ne doit pas être null !");
 							%>
-							<form class="jsCallText" method="POST" action="DetailCompetenceJSServlet" class="myBoxSizeDDPlus">
+							<form class="jsCallText myBoxSizeDDPlus" method="POST" action="DetailCompetenceJSServlet">
 								<div>
-									<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
+									<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve" name="CommentaireIndividuelSousPoint_<%=sousPointSelected.getID()%>"><%=sousPointSelected.getCommentaireIndividuel()%></textarea>
 									<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
 								</div>
 							</form>
@@ -218,13 +219,15 @@
 							<%
 							for(User userMembre : membresSousGroupe)
 							{
+								SousPoint sousPointSelected = sousPointsHashContent.get(userMembre.getID()+""+sousPoint.getContenu());
+								if(sousPointSelected == null) throw new RuntimeException("Le sous point sélectionnée ne doit pas être null !");
 							%>
-							<form method="POST" action="DetailCompetenceJSServlet" class="myBoxSizeDDPlus">
+							<form class="jsCallText myBoxSizeDDPlus" method="POST" action="DetailCompetenceJSServlet">
 								<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-2.1vh;">
-									<select class="selectpicker selectwidthauto">
-										<option>Non assigné</option>
-										<option>Acquis</option>
-										<option>Non acquis</option>
+									<select class="selectpicker selectwidthauto" name="NiveauSousPoint_<%=sousPointSelected.getID()%>">
+										<option value="Non assigné"	<% if(sousPointSelected.getNiveau().equals("Non assigné"))	{ %> <%=("selected")%> <% } %>>Non assigné</option>
+										<option value="Acquis"		<% if(sousPointSelected.getNiveau().equals("Acquis")) 		{ %> <%=("selected")%> <% } %>>Acquis</option>
+										<option value="Non acquis"	<% if(sousPointSelected.getNiveau().equals("Non acquis")) 	{ %> <%=("selected")%> <% } %>>Non acquis</option>
 									</select>
 								</div>
 								<div style="position:relative;">

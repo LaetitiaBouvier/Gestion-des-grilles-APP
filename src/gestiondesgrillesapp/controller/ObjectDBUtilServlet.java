@@ -108,7 +108,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 	
 	public void associateStudentToGrid(EntityManager em, User eleve, Grille grilleModel){
 
-		Grille grilleCopy = grilleModelDeepCopy(grilleModel);
+		Grille grilleCopy = grilleModelDeepCopy(grilleModel, eleve.getID());
 
 		if(grilleCopy == null){
 			throw new RuntimeException("Une erreur est survenue au moment de copier la grille \"model\" pour associer la copie à l'élève !");
@@ -121,7 +121,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 		em.getTransaction().commit();	// Ici on MAJ seulement "eleve"
 	}
 	
-	public Grille grilleModelDeepCopy(Grille grilleModel){
+	public Grille grilleModelDeepCopy(Grille grilleModel, long eleveID){
 
 		// Obtain a database connection:
 		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
@@ -141,8 +141,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 				
 				List<Competence> competenceTempList = em.createQuery("SELECT c FROM Competence c WHERE id="+competenceID, Competence.class).getResultList();
 				Competence competence = (Competence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(competenceTempList);
-				Competence competenceCopy = competenceTempList.get(0).deepCopy();
+				Competence competenceCopy = competence.deepCopy();
 				competenceCopy.setGrilleID(grilleModelCopy.getID());
+				competenceCopy.setEleveID(eleveID);
 				
 				em.getTransaction().begin();
 				em.persist(competenceCopy);
@@ -155,8 +156,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					
 					List<SousCompetence> sousCompetenceTempList = em.createQuery("SELECT c FROM SousCompetence c WHERE id="+sousCompetenceID, SousCompetence.class).getResultList();
 					SousCompetence sousCompetence = (SousCompetence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousCompetenceTempList);
-					SousCompetence sousCompetenceCopy = sousCompetenceTempList.get(0).deepCopy();
+					SousCompetence sousCompetenceCopy = sousCompetence.deepCopy();
 					sousCompetenceCopy.setCompetenceID(competenceCopy.getID());
+					sousCompetenceCopy.setEleveID(eleveID);
 					
 					em.getTransaction().begin();
 					em.persist(sousCompetenceCopy);
@@ -169,8 +171,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 						
 						List<Point> pointsTempList = em.createQuery("SELECT c FROM Point c WHERE id="+pointID, Point.class).getResultList();
 						Point point = (Point) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(pointsTempList);
-						Point pointCopy = pointsTempList.get(0).deepCopy();
+						Point pointCopy = point.deepCopy();
 						pointCopy.setSousCompetenceID(sousCompetenceCopy.getID());
+						pointCopy.setEleveID(eleveID);
 						
 						em.getTransaction().begin();
 						em.persist(pointCopy);
@@ -184,6 +187,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 							List<SousPoint> sousPointsTempList = em.createQuery("SELECT c FROM SousPoint c WHERE id="+sousPointID, SousPoint.class).getResultList();
 							SousPoint sousPointCopy = ((SousPoint) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousPointsTempList)).deepCopy();
 							sousPointCopy.setPointID(pointCopy.getID());
+							sousPointCopy.setEleveID(eleveID);
 							
 							em.getTransaction().begin();
 							em.persist(sousPointCopy);

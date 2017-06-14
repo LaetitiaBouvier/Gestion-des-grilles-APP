@@ -131,9 +131,13 @@ public class LoginServlet extends HttpServlet {
 		HashMap<Competence, ArrayList<SousCompetence>> sousCompetences = new HashMap<>();
 		HashMap<SousCompetence, ArrayList<Point>> points = new HashMap<>();
 		HashMap<Point, ArrayList<SousPoint>> sousPoints = new HashMap<>();
+		
+		HashMap<String, SousCompetence> sousCompetencesHashContent = new HashMap<>();
+		HashMap<String, SousPoint> sousPointsHashContent = new HashMap<>();
 
 		for(User u : membresSousGroupe)
 		{
+			System.out.println(u.getNumero());
 			List<Grille> grillesList = em.createQuery("SELECT c FROM Grille c WHERE id="+u.getGrilleEleveID(), Grille.class).getResultList();
 			Grille grille = (Grille) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(grillesList);
 
@@ -155,9 +159,11 @@ public class LoginServlet extends HttpServlet {
 				{
 					List<SousCompetence> sousCompetencesTemp = em.createQuery("SELECT c FROM SousCompetence c WHERE id="+souscompetenceID, SousCompetence.class).getResultList();
 					SousCompetence sousCompetence = (SousCompetence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousCompetencesTemp);
+					sousCompetencesHashContent.put(sousCompetence.getEleveID()+""+sousCompetence.getContenu(), sousCompetence);
 					sousCompentencesList.add(sousCompetence);
 				}
 				sousCompetences.put(competence, sousCompentencesList);
+//				sousCompetencesHash.put("", value)
 
 				for(SousCompetence sousCompetence : sousCompentencesList)
 				{
@@ -177,6 +183,7 @@ public class LoginServlet extends HttpServlet {
 						{
 							List<SousPoint> sousPointsTemp = em.createQuery("SELECT c FROM SousPoint c WHERE id="+sousPointID, SousPoint.class).getResultList();
 							SousPoint sousPoint = (SousPoint) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousPointsTemp);
+							sousPointsHashContent.put(sousPoint.getEleveID()+""+sousPoint.getContenu(), sousPoint);
 							sousPointsList.add(sousPoint);
 						}
 						sousPoints.put(point, sousPointsList);
@@ -191,10 +198,14 @@ public class LoginServlet extends HttpServlet {
 		session.setAttribute(   "competences", competences);
 		session.removeAttribute("sousCompetences");
 		session.setAttribute(   "sousCompetences", sousCompetences);
+		session.removeAttribute("sousCompetencesHashContent");
+		session.setAttribute(	"sousCompetencesHashContent", sousCompetencesHashContent);
 		session.removeAttribute("points");
 		session.setAttribute(   "points", points);
 		session.removeAttribute("sousPoints");
 		session.setAttribute(   "sousPoints", sousPoints);
+		session.removeAttribute("sousPointsHashContent");
+		session.setAttribute(	"sousPointsHashContent", sousPointsHashContent);
 		session.removeAttribute("membresSousGroupe");
 		session.setAttribute(   "membresSousGroupe", membresSousGroupe);
 		Grille grilleUtilisateur = grillesMembres.get(user.getNumero());

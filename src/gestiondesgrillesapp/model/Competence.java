@@ -19,6 +19,7 @@ public class Competence {
 	private long grilleID;
 	private ArrayList<Long> sousCompetencesIDs;
 	
+	private long eleveID;
 	private String titre;
 	private String description;
 	private double coefficient;
@@ -30,6 +31,7 @@ public class Competence {
 	public Competence(String titre, String description){
 		
 		this.grilleID = -1l;
+		this.eleveID = -1l;
 		this.sousCompetencesIDs = new ArrayList<Long>();
 		
 		if((titre == null || titre.isEmpty()) || (description == null || description.isEmpty())){
@@ -80,6 +82,14 @@ public class Competence {
 
 	public void setGrilleID(long grilleID) {
 		this.grilleID = grilleID;
+	}
+	
+	public long getEleveID() {
+		return eleveID;
+	}
+
+	public void setEleveID(long eleveID) {
+		this.eleveID = eleveID;
 	}
 
 	public ArrayList<Long> getSousCompetencesIDs() {

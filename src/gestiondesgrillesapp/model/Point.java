@@ -18,6 +18,7 @@ public class Point {
 	
 	private long sousCompetenceID;
 	private ArrayList<Long> sousPointsIDs;
+	private long eleveID;
 	private String titre;
 	
 	/*
@@ -27,6 +28,7 @@ public class Point {
 	public Point(String titre){
 		
 		this.sousCompetenceID = -1l;
+		this.eleveID = -1l;
 		this.sousPointsIDs = new ArrayList<Long>();
 		
 		if(titre == null || titre.isEmpty()){
@@ -50,6 +52,14 @@ public class Point {
 	
 	public void removeSousPointID(long sousPointID){
 		this.sousPointsIDs.remove(sousPointID);
+	}
+	
+	public long getEleveID() {
+		return eleveID;
+	}
+
+	public void setEleveID(long eleveID) {
+		this.eleveID = eleveID;
 	}
 	
 	public String getTitre() {

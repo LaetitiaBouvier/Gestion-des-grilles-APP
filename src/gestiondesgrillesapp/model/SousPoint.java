@@ -1,7 +1,5 @@
 package gestiondesgrillesapp.model;
 
-import java.util.HashMap;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,7 +18,7 @@ public class SousPoint {
 	private long eleveID;
 	private String contenu;
 	private String niveau;
-	private HashMap<User, String> commentairesIndividuels;
+	private String commentaireIndividuel;
 	
 	/*
 	 * CONSTRUCTEUR(S)
@@ -32,6 +30,7 @@ public class SousPoint {
 		this.eleveID = -1l;
 		
 		this.niveau = "";
+		this.commentaireIndividuel = "";
 		
 		if(contenu == null || contenu.isEmpty()){
 			throw new IllegalArgumentException("Il faut absoluement qu'un sous-point possède un contenu !");
@@ -46,10 +45,6 @@ public class SousPoint {
 	
 	public long getID(){
 		return this.id;
-	}
-	
-	public void putCommentairesIndividuelsIDs(User user, String commentaire){
-		this.commentairesIndividuels.put(user, commentaire);
 	}
 	
 	public String getContenu() {
@@ -93,11 +88,11 @@ public class SousPoint {
 		this.niveau = niveau;
 	}
 
-	public HashMap<User, String> getCommentairesIndividuels() {
-		return commentairesIndividuels;
+	public String getCommentaireIndividuel() {
+		return commentaireIndividuel;
 	}
 
-	public void setCommentairesIndividuelsIDs(HashMap<User, String> commentairesIndividuels) {
-		this.commentairesIndividuels = commentairesIndividuels;
+	public void setCommentaireIndividuel(String commentaireIndividuel) {
+		this.commentaireIndividuel = commentaireIndividuel;
 	}
 }
