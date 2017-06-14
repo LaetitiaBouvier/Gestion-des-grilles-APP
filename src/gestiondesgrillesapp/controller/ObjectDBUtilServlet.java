@@ -16,6 +16,7 @@ import gestiondesgrillesapp.model.Competence;
 import gestiondesgrillesapp.model.Grille;
 import gestiondesgrillesapp.model.Groupe;
 import gestiondesgrillesapp.model.Point;
+import gestiondesgrillesapp.model.Promotion;
 import gestiondesgrillesapp.model.SousCompetence;
 import gestiondesgrillesapp.model.SousGroupe;
 import gestiondesgrillesapp.model.SousPoint;
@@ -296,6 +297,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			SousGroupe sousGroupeFilles = new SousGroupe("Filles");
 			Groupe groupeLogiciel = new Groupe("Groupe Logiciel");
 			Groupe groupeSI = new Groupe("GroupeSI");
+			Promotion promotion2018 = new Promotion(2018);
 
 			//  ____________________________________
 			//  Enregistrement des objets dans la BDD :
@@ -312,27 +314,43 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			em.persist(sousGroupeFilles);
 			em.persist(groupeLogiciel);
 			em.persist(groupeSI);
+			em.persist(promotion2018);
 			em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 			//  ____________________________________
 			//  Associations entres les élèves, tuteurs et (sous-)groupes
 
 			sousGroupeGarçons.addEleveID(eleveST.getID());
 			eleveST.setSousGroupeEleveID(sousGroupeGarçons.getID());
+			eleveST.setGroupeID(groupeLogiciel.getID());
+			eleveST.setPromotionID(promotion2018.getID());
 
 			sousGroupeGarçons.addEleveID(elevePPC.getID());
 			elevePPC.setSousGroupeEleveID(sousGroupeGarçons.getID());
+			elevePPC.setGroupeID(groupeLogiciel.getID());
+			elevePPC.setPromotionID(promotion2018.getID());
 
 			sousGroupeGarçons.addEleveID(eleveND.getID());
 			eleveND.setSousGroupeEleveID(sousGroupeGarçons.getID());
+			eleveND.setGroupeID(groupeLogiciel.getID());
+			eleveND.setPromotionID(promotion2018.getID());
 			
 			sousGroupeGarçons.addEleveID(eleveTest.getID());
 			eleveTest.setSousGroupeEleveID(sousGroupeGarçons.getID());
+			eleveTest.setGroupeID(groupeLogiciel.getID());
+			eleveTest.setPromotionID(promotion2018.getID());
 
 			sousGroupeFilles.addEleveID(eleveLB.getID());
 			eleveLB.setSousGroupeEleveID(sousGroupeFilles.getID());
+			eleveLB.setGroupeID(groupeSI.getID());
+			eleveLB.setPromotionID(promotion2018.getID());
 
 			sousGroupeFilles.addEleveID(eleveCB.getID());
 			eleveCB.setSousGroupeEleveID(sousGroupeFilles.getID());
+			eleveCB.setGroupeID(groupeSI.getID());
+			eleveCB.setPromotionID(promotion2018.getID());
+			
+			promotion2018.addGroupeID(groupeLogiciel.getID());
+			promotion2018.addGroupeID(groupeSI.getID());
 
 			groupeLogiciel.addSousGroupeID(sousGroupeGarçons.getID());
 			sousGroupeGarçons.setGroupeID(groupeLogiciel.getID());
