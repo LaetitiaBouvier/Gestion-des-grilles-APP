@@ -63,25 +63,42 @@ public class CreationEleveServlet extends HttpServlet {
 				em.persist(eleve);					
 				em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 				// Recherche de la promo dans la BDD
-				Promotion promo = em.createQuery("SELECT p FROM Promotion p WHERE anneeObtensionDiplome="+nomPromotionUser, Promotion.class).getSingleResult();
-				if (promo == null){
+				List<Promotion> promoList = em.createQuery("SELECT p FROM Promotion p WHERE anneeObtensionDiplome="+nomPromotionUser, Promotion.class).getResultList();
+				if (promoList == null){
+					System.out.println("PromoList="+promoList);
 					//creation de la promotion
 					Promotion promotionUser = new Promotion(Long.parseLong(nomPromotionUser));
 					em.getTransaction().begin();	
 					em.persist(promotionUser);					
 					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 					long idPromo = promotionUser.getID();
+					System.out.println("idPromo="+idPromo);
 					eleve.setPromotionID(idPromo);
+					em.getTransaction().begin();	
+					em.persist(eleve);					
+					em.getTransaction().commit();
+					System.out.println("idPromo="+idPromo);// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+					
 					}
-				if (promo != null){
+				if (promoList != null){
+					for (Promotion promo : promoList){
+						System.out.println("Promo="+promo);
 					long idPromo = promo.getID();
+					System.out.println("idPromo="+idPromo);
 					eleve.setPromotionID(idPromo);
+					em.getTransaction().begin();	
+					em.persist(eleve);					
+					em.getTransaction().commit();
+					System.out.println("idPromo="+idPromo);// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+					
 					}
+				}
 				// Recherche du groupe dans la BDD
-				Promotion promogroupe = em.createQuery("SELECT p FROM Promotion p WHERE anneeObtensionDiplome="+nomPromotionUser, Promotion.class).getSingleResult();
+				List<Promotion> promogroupeList = em.createQuery("SELECT p FROM Promotion p WHERE anneeObtensionDiplome="+nomPromotionUser, Promotion.class).getResultList();
+				for (Promotion promogroupe : promogroupeList){
 				Long idPromoGroupe = promogroupe.getID();
-				Groupe grp = em.createQuery("SELECT g FROM Groupe g WHERE nom="+nomGroupeUser+" AND promotion="+(idPromoGroupe), Groupe.class).getSingleResult();
-				if (grp == null){
+				List<Groupe> grpList = em.createQuery("SELECT g FROM Groupe g WHERE nom="+nomGroupeUser+" AND promotion="+(idPromoGroupe), Groupe.class).getResultList();
+				if (grpList == null){
 					//creation du groupe
 					Groupe groupeUser = new Groupe(nomGroupeUser);
 					em.getTransaction().begin();	
@@ -89,18 +106,31 @@ public class CreationEleveServlet extends HttpServlet {
 					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 					long idGroupe = groupeUser.getID();
 					eleve.setGroupeID(idGroupe);
+					em.getTransaction().begin();	
+					em.persist(eleve);					
+					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+					
 				}
-				if (grp != null){
+				if (grpList != null){
+					for (Groupe grp : grpList){
 					long idGroupe = grp.getID();
 					eleve.setGroupeID(idGroupe);
+					em.getTransaction().begin();	
+					em.persist(eleve);					
+					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+					
+					}
+				}
 				}
 				// Recherche du sous groupe dans la BDD
-				Promotion promosousgroupe = em.createQuery("SELECT p FROM Promotion p WHERE anneeObtensionDiplome="+nomPromotionUser, Promotion.class).getSingleResult();
+				List<Promotion> promosousgroupeList = em.createQuery("SELECT p FROM Promotion p WHERE anneeObtensionDiplome="+nomPromotionUser, Promotion.class).getResultList();
+				for (Promotion promosousgroupe : promosousgroupeList){
 				Long idPromoSousGroupe = promosousgroupe.getID();
-				Groupe groupesousgroupe = em.createQuery("SELECT g FROM Groupe g WHERE nom="+nomGroupeUser+" AND promotion="+(idPromoSousGroupe), Groupe.class).getSingleResult();
+				List<Groupe> groupesousgroupeList = em.createQuery("SELECT g FROM Groupe g WHERE nom="+nomGroupeUser+" AND promotion="+(idPromoSousGroupe), Groupe.class).getResultList();
+				for (Groupe groupesousgroupe : groupesousgroupeList){
 				long idGroupe = groupesousgroupe.getID();
-				SousGroupe sousGrp = em.createQuery("SELECT sg FROM SousGroupe sg WHERE nom="+nomSousGroupeUser+" AND groupeID="+idGroupe, SousGroupe.class).getSingleResult();
-				if (sousGrp == null){
+				List<SousGroupe> sousGrpList = em.createQuery("SELECT sg FROM SousGroupe sg WHERE nom="+nomSousGroupeUser+" AND groupeID="+idGroupe, SousGroupe.class).getResultList();
+				if (sousGrpList == null){
 					//creation du sous-groupe
 					SousGroupe sousGroupeUser = new SousGroupe(nomSousGroupeUser);
 					em.getTransaction().begin();	
@@ -108,23 +138,39 @@ public class CreationEleveServlet extends HttpServlet {
 					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 					long idSousGroupe = sousGroupeUser.getID();
 					eleve.setSousGroupeEleveID(idSousGroupe);
+					em.getTransaction().begin();	
+					em.persist(eleve);					
+					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+					
 				}
-				if (sousGrp != null){
+				if (sousGrpList != null){
+					for (SousGroupe sousGrp : sousGrpList){
 					long idSousGroupe = sousGrp.getID();
 					eleve.setSousGroupeEleveID(idSousGroupe);
+					em.getTransaction().begin();	
+					em.persist(eleve);					
+					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+					
+					}
 				}
+				}}
+//				em.getTransaction().begin();	
+//				em.persist(eleve);					
+//				em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 				
+				
+				//pour tester : affichage en console des choses enregistrées
 				long eleveID = eleve.getID();
 				String numero = eleve.getNumero();
 				String nom = eleve.getNom();
 				String prenom = eleve.getPrenom();
 				String mail = eleve.getEmail();
-				Long sousgroupe = eleve.getSousGroupeEleveID();
-				Long groupe = eleve.getGroupeID();
-				Long promotion = eleve.getPromotionID();
-				em.getTransaction().begin();	//
-				em.persist(eleve);					//
-				em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+				long sousgroupe = eleve.getSousGroupeEleveID();
+				long groupe = eleve.getGroupeID();
+				long promotion = eleve.getPromotionID();
+//				em.getTransaction().begin();	//
+//				em.persist(eleve);					//
+//				em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 				System.out.println("Eleve ID "+eleveID+" : numero "+numero+", nom "+nom+", prenom "+prenom+", mail "+mail+", promo "+promotion+", groupe "+groupe+", sousgroupe "+sousgroupe);
 
 				if (em.getTransaction().isActive())
