@@ -38,36 +38,44 @@ public class NavBarServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String competenceSelectedTitle = (String) request.getParameter("submitbutton");
-		System.out.println(competenceSelectedTitle);
+		String onglet = (String) request.getParameter("submitbutton");
 		
-		Competence competenceSelected = null;
-		HttpSession sess = request.getSession(false);
-		
-		User user = (User) sess.getAttribute("user");
-		HashMap<String, Grille> grillesMembres = (HashMap<String, Grille>) sess.getAttribute("grillesMembres");
-		Grille grille = grillesMembres.get(user.getNumero());
-		
-		HashMap<Grille, ArrayList<Competence>> competencesList = (HashMap<Grille, ArrayList<Competence>>) sess.getAttribute("competences");
-		System.out.println(competencesList.size());
-		
-		for(Competence competence : competencesList.get(grille))
+		if(onglet.equals("Vue d'ensemble"))
 		{
-			if(competence.getTitre().equals(competenceSelectedTitle))
+			request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
+		}
+		else
+		{
+			String competenceSelectedTitle = onglet;
+			System.out.println(competenceSelectedTitle);
+			
+			Competence competenceSelected = null;
+			HttpSession sess = request.getSession(false);
+			
+			User user = (User) sess.getAttribute("user");
+			HashMap<String, Grille> grillesMembres = (HashMap<String, Grille>) sess.getAttribute("grillesMembres");
+			Grille grille = grillesMembres.get(user.getNumero());
+			
+			HashMap<Grille, ArrayList<Competence>> competencesList = (HashMap<Grille, ArrayList<Competence>>) sess.getAttribute("competences");
+			System.out.println(competencesList.size());
+			
+			for(Competence competence : competencesList.get(grille))
 			{
-				System.out.println(competence.getTitre());
-				competenceSelected = competence;
+				if(competence.getTitre().equals(competenceSelectedTitle))
+				{
+					competenceSelected = competence;
+				}
 			}
+			
+			if(competenceSelected == null)
+			{
+				throw new RuntimeException("The competence selected cannot be null !");
+			}
+			
+			sess.removeAttribute("competenceSelected");
+			sess.setAttribute("competenceSelected", competenceSelected);
+			request.getRequestDispatcher("/View/jsp/DetailCompetenceJS.jsp").forward(request, response);
 		}
-		
-		if(competenceSelected == null)
-		{
-			throw new RuntimeException("The competence selected cannot be null !");
-		}
-		
-		sess.removeAttribute("competenceSelected");
-		sess.setAttribute("competenceSelected", competenceSelected);
-		request.getRequestDispatcher("/View/jsp/DetailCompetenceJS.jsp").forward(request, response);
 	}
 
 	/**

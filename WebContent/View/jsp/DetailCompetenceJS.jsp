@@ -204,9 +204,11 @@
 								if(sousPointSelected == null) throw new RuntimeException("Le sous point sélectionnée ne doit pas être null !");
 							%>
 							<form class="jsCallText myBoxSizeDDPlus" method="POST" action="DetailCompetenceJSServlet">
-								<div>
+								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+									<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
+								</div>
+								<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
 									<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve" name="CommentaireIndividuelSousPoint_<%=sousPointSelected.getID()%>"><%=sousPointSelected.getCommentaireIndividuel()%></textarea>
-									<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
 								</div>
 							</form>
 							<%
@@ -279,7 +281,7 @@
 	</div>
 </div>
 
-	<script>
+	<!-- <script>
 		console.log($('form.jsCallText'));
 		$('form.jsCallText').submit(function(e){
 			e.preventDefault();
@@ -295,6 +297,30 @@
 				}
 			});
 		})
+	</script> -->
+
+	<script>
+	<!-- -------------------------- --> console.log($('form.myBoxSize'));
+		$('form.jsCallText').submit( function(e) {
+			e.preventDefault();
+			
+			$('#logoIsepForTick').append('<img id="2Bremoved" src="https://openclipart.org/image/2400px/svg_to_png/167549/Kliponious-green-tick.png" style="position:relative; top:0; left:0; right:0; bottom:0; margin-left:auto%; height:auto; width:100%; overflow:visible;"></img>')
+				setTimeout(function() {
+					$("#2Bremoved").remove();
+			}, 800);
+			
+			$.ajax({
+				method : 'POST',
+				url : 'DetailCompetenceJSServlet',
+				data : $(this).serializeArray(),
+				dataType : 'JSON',
+				success : function() {
+					console.log('success');
+				},
+				error : function() {
+				}
+			});
+		});
 	</script>
 
 </body>

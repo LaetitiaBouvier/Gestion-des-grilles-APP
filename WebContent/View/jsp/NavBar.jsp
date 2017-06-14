@@ -46,9 +46,9 @@
 		</div>
 
 		<div class="navbar-default" role="navigation" style="margin-top: 0px;">
-			<div class="sidebar-nav navbar-collapse">
+			<div class="sidebar-nav navbar-collapse" >
 				<ul class="nav" id="side-menu">
-					<li><a href="http://www.isep.fr/"> <i class="fa"> <img
+					<li><a href="http://www.isep.fr/" id="logoIsepForTick"> <i class="fa"> <img
 								src="http://www.isep.fr/parcours/logoISEP.png"
 								class="img-fluid img-responsive" alt="ISEP logo">
 						</i>
@@ -92,6 +92,45 @@
 					</li>
 					<li class="myAccordion">
 						<div class="panel-group" id="NavCompetenceAccordion">
+						
+						
+						<div class="panel panel-default in" >
+									<div class="panel-heading">
+										<form action="NavBarServlet" method="post">
+											<h4 class="panel-title">
+												<%-- <a data-toggle="collapse"
+											data-parent="#NavCompetenceAccordion"
+											href="#CollapseNavCompetenceAccordion<%=i%>"><%=nomCompetence%></a> --%>
+												<input type="submit" name="submitbutton"
+													value="Vue d'ensemble">
+											</h4>
+										</form>
+									</div>
+										<div id="CollapseNavCompetenceAccordion00" 
+										class="panel-collapse collapse in"
+										>
+											<%-- <div class="panel-body">
+												<ul class="list-group">
+
+													<%
+														ArrayList<SousCompetence> sousCompetencesList = sousCompetences.get(competence);
+
+															for (SousCompetence sousCompetence : sousCompetencesList) {
+																String contenuSousCompetence = sousCompetence.getContenu();
+													%>
+													<li class="list-group-item" style="border: none;"><a
+														href="#<%=competence.getID()%>-<%=sousCompetence.getID()%>"
+														onclick="<%competenceSelected = competence;%>"> <%=contenuSousCompetence%></a></li>
+													<%
+														}
+													%>
+												</ul>
+											</div> --%>
+										</div>
+									</div>
+						
+						
+						
 							<%
 								ArrayList<Competence> competencesList = competences.get(grille);
 								for (int i = 0; i < competencesList.size(); i++) {
