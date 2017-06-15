@@ -29,18 +29,16 @@
 
 						<div id="dataTables_wrapper" class="dataTables_wrapper form-inline no-footer">
 							<div class="row">
-
 								<div class="col-md-8">
+								<div class="col-md-4">
 									<h5>
 										<small>
 											Veuillez sélectionner un fichier CSV à importer.<br/>
-
 											Pour connaître la forme du fichier à importer, cliquer sur "Créer un fichier CSV à partir d'un fichier type"
 										</small>
 									</h5>
 								</div>
 								<div class="col-md-2">
-
 								</div>
 								<div class="col-md-6">
 									<div class="">
@@ -83,10 +81,6 @@
 
 								  <img src="https://github.com/LaetitiaBouvier/Gestion-des-grilles-APP/tree/master/WebContent/View/ressources/tableauGrille.png" height="100%"/></br></br>
 								  <h5><small>Veillez à ne pas laisser de champs vide, inscrire "null" dans les cases vides.</small></h5>
-<<<<<<< Upstream, based on origin/master
-
-=======
->>>>>>> 78a08c5 "petit changement"
 							
 								</div>
 								
