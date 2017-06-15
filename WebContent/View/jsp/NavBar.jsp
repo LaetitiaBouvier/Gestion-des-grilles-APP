@@ -1,6 +1,6 @@
 
 <%@page
-	import="java.util.*,gestiondesgrillesapp.model.*, javax.servlet.http.HttpServlet"%>
+	import="java.util.*, gestiondesgrillesapp.model.*, javax.servlet.http.HttpServlet"%>
 
 <%
 	HttpSession sess = request.getSession(false);
@@ -97,6 +97,45 @@
 					<li class="myAccordion">
 						<div class="panel-group" id="NavCompetenceAccordion">
 						
+						<% if(!userIsAStudent) {%>
+						
+						<div class="panel panel-default in" >
+									<div class="panel-heading">
+										<form action="NavBarServlet" method="post">
+											<h4 class="panel-title">
+												<%-- <a data-toggle="collapse"
+											data-parent="#NavCompetenceAccordion"
+											href="#CollapseNavCompetenceAccordion<%=i%>"><%=nomCompetence%></a> --%>
+												<input type="submit" name="submitbutton"
+													value="Navigation">
+											</h4>
+										</form>
+									</div>
+										<div id="CollapseNavCompetenceAccordion00" 
+										class="panel-collapse collapse in"
+										>
+											<%-- <div class="panel-body">
+												<ul class="list-group">
+
+													<%
+														ArrayList<SousCompetence> sousCompetencesList = sousCompetences.get(competence);
+
+															for (SousCompetence sousCompetence : sousCompetencesList) {
+																String contenuSousCompetence = sousCompetence.getContenu();
+													%>
+													<li class="list-group-item" style="border: none;"><a
+														href="#<%=competence.getID()%>-<%=sousCompetence.getID()%>"
+														onclick="<%competenceSelected = competence;%>"> <%=contenuSousCompetence%></a></li>
+													<%
+														}
+													%>
+												</ul>
+											</div> --%>
+										</div>
+									</div>
+						
+						<div style="height:5vh"></div>
+						<%} %>
 						
 						<div class="panel panel-default in" >
 									<div class="panel-heading">

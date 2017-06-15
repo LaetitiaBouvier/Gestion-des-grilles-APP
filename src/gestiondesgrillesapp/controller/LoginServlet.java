@@ -61,7 +61,11 @@ public class LoginServlet extends HttpServlet {
 			{
 				List<User> userList = em.createQuery("SELECT c FROM User c WHERE numero='007'", User.class).getResultList();
 				User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userList);
+				session.removeAttribute("user");
 				session.setAttribute("user", user);
+				
+				session.removeAttribute("userFill");
+				session.setAttribute("userFill", user);
 
 				fillSession(em, session, user);
 
@@ -74,7 +78,11 @@ public class LoginServlet extends HttpServlet {
 			{
 				List<User> userList = em.createQuery("SELECT c FROM User c WHERE numero='0000'", User.class).getResultList();
 				User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userList);
+				session.removeAttribute("user");
 				session.setAttribute("user", user);
+				
+				session.removeAttribute("userFill");
+				session.setAttribute("userFill", user);
 
 				fillSession(em, session, user);
 

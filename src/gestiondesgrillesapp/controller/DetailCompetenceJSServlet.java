@@ -85,7 +85,7 @@ public class DetailCompetenceJSServlet extends HttpServlet {
 						em.getTransaction().commit();
 						
 						// MAJ Session première étape
-						LoginServlet.fillSession(em, sess, (User) sess.getAttribute("user"));
+						LoginServlet.fillSession(em, sess, (User) sess.getAttribute("userFill"));
 					}
 				}
 				
@@ -107,7 +107,7 @@ public class DetailCompetenceJSServlet extends HttpServlet {
 						em.getTransaction().commit();
 						
 						// MAJ Session première étape
-						LoginServlet.fillSession(em, sess, (User) sess.getAttribute("user"));
+						LoginServlet.fillSession(em, sess, (User) sess.getAttribute("userFill"));
 					}
 				}
 				
@@ -122,7 +122,7 @@ public class DetailCompetenceJSServlet extends HttpServlet {
 					em.getTransaction().commit();
 					
 					// MAJ Session
-					LoginServlet.fillSession(em, sess, (User) sess.getAttribute("user"));
+					LoginServlet.fillSession(em, sess, (User) sess.getAttribute("userFill"));
 				}
 				
 				if(codeCommentaire.equals("CommentaireIndividuelSousPoint"))
@@ -136,7 +136,7 @@ public class DetailCompetenceJSServlet extends HttpServlet {
 					em.getTransaction().commit();
 					
 					// MAJ Session
-					LoginServlet.fillSession(em, sess, (User) sess.getAttribute("user"));
+					LoginServlet.fillSession(em, sess, (User) sess.getAttribute("userFill"));
 				}
 			}
 			else
@@ -158,7 +158,7 @@ public class DetailCompetenceJSServlet extends HttpServlet {
 					em.getTransaction().commit();
 					
 					// MAJ Session
-					LoginServlet.fillSession(em, sess, (User) sess.getAttribute("user"));
+					LoginServlet.fillSession(em, sess, (User) sess.getAttribute("userFill"));
 				}
 				
 				if(codeNiveau.equals("NiveauSousPoint"))
@@ -172,7 +172,7 @@ public class DetailCompetenceJSServlet extends HttpServlet {
 					em.getTransaction().commit();
 					
 					// MAJ Session
-					LoginServlet.fillSession(em, sess, (User) sess.getAttribute("user"));
+					LoginServlet.fillSession(em, sess, (User) sess.getAttribute("userFill"));
 				}
 			}
 		}

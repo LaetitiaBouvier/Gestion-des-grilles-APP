@@ -3,7 +3,10 @@ package gestiondesgrillesapp.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import gestiondesgrillesapp.model.Competence;
 import gestiondesgrillesapp.model.Grille;
+import gestiondesgrillesapp.model.Groupe;
+import gestiondesgrillesapp.model.SousGroupe;
 import gestiondesgrillesapp.model.User;
 
 /**
@@ -40,9 +45,51 @@ public class NavBarServlet extends HttpServlet {
 		
 		String onglet = (String) request.getParameter("submitbutton");
 		
-		if(onglet.equals("Vue d'ensemble"))
+		if(onglet.contains("Vue d'ensemble"))
 		{
+			HttpSession session = request.getSession(false);
+			
+			if(onglet.contains(":")){
+				long sousGroupeID = Long.parseLong(onglet.split(":")[1]);
+				
+				EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+				EntityManager em = emf.createEntityManager();
+				
+				try{
+					
+					List<SousGroupe> sousGroupesTemp = em.createQuery("SELECT c FROM SousGroupe c WHERE id="+sousGroupeID, SousGroupe.class).getResultList();
+					SousGroupe sousGroupe = (SousGroupe) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousGroupesTemp);
+					
+					List<User> usersTemp = em.createQuery("SELECT c FROM User c WHERE id="+sousGroupe.getElevesIDs().get(0), User.class).getResultList();
+					User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(usersTemp);
+					
+					session.removeAttribute("userFill");
+					session.setAttribute("userFill", user);
+					
+					LoginServlet.fillSession(em, session, user);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					// Close the database connection:
+					if (em.getTransaction().isActive())
+						em.getTransaction().rollback();
+					em.close();
+				}
+			}
+			
 			request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
+		}
+		else if(onglet.equals("Navigation"))
+		{
+			HttpSession session = request.getSession(false);
+			EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+			EntityManager em = emf.createEntityManager();
+			
+			session.removeAttribute("em");
+			session.setAttribute(	"em", em);
+			
+			request.getRequestDispatcher("/View/jsp/Navigation.jsp").forward(request, response);
 		}
 		else
 		{
