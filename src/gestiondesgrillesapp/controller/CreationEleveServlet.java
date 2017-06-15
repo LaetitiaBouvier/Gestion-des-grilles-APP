@@ -215,7 +215,7 @@ public class CreationEleveServlet extends HttpServlet {
     				
     				// ____________________________________
     				// Gestion de l'élève en question
-    				List<User> usersList = em.createQuery("SELECT u FROM User u WHERE nom="+nomUser+" AND prenom="+prenomUser+" AND numero="+numeroUser, User.class).getResultList();
+    				List<User> usersList = em.createQuery("SELECT u FROM User u WHERE numero=\""+numeroUser+"\"", User.class).getResultList();
     				User eleve = null;
     				
     				if(usersList.size() != 0)
@@ -261,7 +261,7 @@ public class CreationEleveServlet extends HttpServlet {
     				
     				// ____________________________________
     				// Recherche du groupe dans la BDD
-    				List<Groupe> groupesList = em.createQuery("SELECT g FROM Groupe g WHERE nom="+nomGroupeUser+" AND promotionID="+promotion.getID(), Groupe.class).getResultList();
+    				List<Groupe> groupesList = em.createQuery("SELECT g FROM Groupe g WHERE g.nom=\""+nomGroupeUser+"\" AND g.promotionID="+promotion.getID(), Groupe.class).getResultList();
     				Groupe groupe = null;
     				
     				if(groupesList.size() != 0)
@@ -290,7 +290,7 @@ public class CreationEleveServlet extends HttpServlet {
     				
     				// ____________________________________
     				// Recherche du sous-groupe dans la BDD
-    				List<SousGroupe> sousGroupesList = em.createQuery("SELECT g FROM SousGroupe g WHERE nom="+nomSousGroupeUser+" AND groupeID="+groupe.getID(), SousGroupe.class).getResultList();
+    				List<SousGroupe> sousGroupesList = em.createQuery("SELECT g FROM SousGroupe g WHERE g.nom=\""+nomSousGroupeUser+"\" AND g.groupeID="+groupe.getID(), SousGroupe.class).getResultList();
     				SousGroupe sousGroupe = null;
     				
     				if(sousGroupesList.size() != 0)
