@@ -33,7 +33,7 @@
 									</div>
 									<div class="row" style="margin-bottom: 10px;">
 										<div class="col-md-12" style=" margin-left: 20px; margin-bottom: 10px;">		
-										  	<img src="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/ressources/tableauEleves.png" style="width:80%;"/>
+										  	<img class="center-block"  src="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/ressources/tableauEleves.png" style="width:60%;"/>
 									  	</div>
 									</div>
 									<div class="row" style=" margin-bottom: 10px;">
@@ -62,7 +62,7 @@
 					                        <div class="panel-heading">
 					                            <div class="row">
 					                                <div class="col-xs-3">
-					                                    <i class="fa fa-support fa-5x"></i>
+					                                    <i class="fa fa-table fa-5x"></i>
 					                                </div>
 					                                <div class="col-xs-9 text-right">
 					                                    <div>Créer un fichier CSV à partir d'un fichier type</div>

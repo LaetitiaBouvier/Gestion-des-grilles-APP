@@ -9,7 +9,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
-		
+<%-- 		<%@ include file = "NavBar.jsp" %> --%>
 		<div id="wrapper" class="container">
 			
 			<div id="page-wrapper" style="min-height: 683px;">
@@ -36,11 +36,32 @@
 				                                    <i class="fa fa-save fa-5x"></i>
 				                                </div>
 				                                <div class="col-xs-9 text-right">
-				                                    <div>Créer un Grille de Compétences</div>
+				                                    <div>Créer/Importer une Grille de Compétences</div>
 				                                </div>
 				                            </div>
 				                        </div>
-				                        <a href="creation_grille.html">
+				                        <a href="CreationGrille.jsp">
+				                            <div class="panel-footer">
+				                                <span class="pull-left">View Details</span>
+				                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+				                                <div class="clearfix"></div>
+				                            </div>
+				                        </a>
+				                    </div>
+				                </div>
+				                <div class="col-lg-3 col-md-6">
+				                    <div class="panel panel-danger">
+				                        <div class="panel-heading">
+				                            <div class="row">
+				                                <div class="col-xs-3">
+				                                    <i class="fa fa-save fa-5x"></i>
+				                                </div>
+				                                <div class="col-xs-9 text-right">
+				                                    <div>Créer/Importer promotions / groupes /sous-groupes</div>
+				                                </div>
+				                            </div>
+				                        </div>
+				                        <a href="ImportEleves.jsp">
 				                            <div class="panel-footer">
 				                                <span class="pull-left">View Details</span>
 				                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -58,27 +79,6 @@
 				                                </div>
 				                                <div class="col-xs-9 text-right">
 				                                    <div>Gestion des promotions / groupes /sous-groupes</div>
-				                                </div>
-				                            </div>
-				                        </div>
-				                        <a href="gestion_promotions.html">
-				                            <div class="panel-footer">
-				                                <span class="pull-left">View Details</span>
-				                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-				                                <div class="clearfix"></div>
-				                            </div>
-				                        </a>
-				                    </div>
-				                </div>
-				                <div class="col-lg-3 col-md-6">
-				                    <div class="panel panel-danger">
-				                        <div class="panel-heading">
-				                            <div class="row">
-				                                <div class="col-xs-3">
-				                                    <i class="fa fa-save fa-5x"></i>
-				                                </div>
-				                                <div class="col-xs-9 text-right">
-				                                    <div>Import promotions / groupes /sous-groupes</div>
 				                                </div>
 				                            </div>
 				                        </div>

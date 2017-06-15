@@ -13,7 +13,7 @@
 		src="./../js/bootstrap.min.js"></script>
 </head>
 <body>
-
+	<%@ include file = "NavBar.jsp" %>
 	<div id="wrapper" class="container">
 		<div id="page-wrapper" style="min-height: 683px;">
 			<div class="row">
