@@ -73,7 +73,11 @@
 								<div class="col-md-2">
 								</div>
 								<div class="col-md-6">									
+<<<<<<< Upstream, based on origin/master
 									<h5><small>Merci de veiller à remplir le tableau de la façon suivante et d'utiliser l'entête présentée sur la première ligne de votre fichier .csv.</small></h5>
+=======
+									<h5><small>Merci d'utiliser l'entête suivante sur la première ligne de votre tableau .csv :</small></h5>
+>>>>>>> 0c7fe17 creationgrille
 								  <img src="https://github.com/LaetitiaBouvier/Gestion-des-grilles-APP/tree/master/WebContent/View/ressources/tableauGrille.png" height="100%"/></br></br>
 								  <h5><small>Veillez à ne pas laisser de champs vide, inscrire "null" dans les cases vides.</small></p></h5>
 							
