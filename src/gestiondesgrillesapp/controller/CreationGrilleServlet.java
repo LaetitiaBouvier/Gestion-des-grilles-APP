@@ -49,33 +49,10 @@ public class CreationGrilleServlet extends HttpServlet {
 			if (em.getTransaction().isActive())
 				em.getTransaction().rollback();
 			
-			for(int i = 1; i <=100; i++){
-					String nomCompetence = request.getParameter("nom_competence"+i);
-					if(nomCompetence != null){
-						String descCompetence = request.getParameter("desc_competence"+i);
-						String coefCompetence = request.getParameter("coef_competence"+i);
-						Competence comp = new Competence(nomCompetence,descCompetence);
-						comp.setCoefficient(Double.valueOf(coefCompetence));
-						comp.setGrilleID(gID);
-						
-						em.getTransaction().begin();
-						em.persist(comp);					
-						em.getTransaction().commit();  // Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-						
-						long compID=comp.getID();
-						String titreComp=comp.getTitre();
-						String descComp=comp.getDescription();
-						double coefComp=comp.getCoefficient();
-						
-//						System.out.println("Competence n°:"+compID+"; nomCompetence : "+nomCompetence+"; descCompetence : "+descCompetence+"; coefCompetence : "+coefCompetence);
-						System.out.println("Competence n°:"+compID+"; nomCompetence : "+titreComp+"; descCompetence : "+descComp+"; coefCompetence : "+coefComp);
-						
-					}
-							}
-			List<Competence> compList = em.createQuery("SELECT c FROM Competence c WHERE grilleID="+gID, Competence.class).getResultList();
+//			List<Competence> compList = em.createQuery("SELECT c FROM Competence c WHERE grilleID="+gID, Competence.class).getResultList();
 			
-			request.setAttribute("compList", compList);
-			request.getRequestDispatcher("/View/jsp/CreationSousCompetences.jsp")
+			request.setAttribute("grilleID", gID);
+			request.getRequestDispatcher("/View/jsp/ImportGrille.jsp")
 //			request.getRequestDispatcher("CreationSousCompetencesServlet")
 			.forward(request, response);
 			if (em.getTransaction().isActive())

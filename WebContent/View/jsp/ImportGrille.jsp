@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8" />
 <title>Import Grille</title>
-<link href="./../css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -23,36 +23,42 @@
 						<h3>Grille de compétences</h3>
 					</div>
 					<div class="panel-body">
-					<div class="container">
-					<p>Merci d'utiliser l'entête suivante sur la première ligne de votre tableau .csv :</br></br>
 					
-  <img src="../ressources/tableau.png" height="60px"/></br></br>
-  Veillez à ne pas laisser de champs vide, inscrire "null" dans les cases vides.</p>
-</div>
 						<div id="dataTables_wrapper" class="dataTables_wrapper form-inline no-footer">
 							<div class="row">
-								<div class="col-md-4">
-									<div id="dataTables_length" class="dataTables_length">
-										<label>
-											Show
-											<select class="form-control input-sm" name="dataTables_length" aria-controls="dataTables">
-												<option value="10">10</option>
-												<option value="25">25</option>
-												<option value="50">50</option>
-												<option value="100">100</option>
-											</select>
-											entries
-										</label>
-									</div>
+								<div class="col-md-8">
+									<h5>
+										<small>
+											Veuillez sélectionner un fichier CSV à importer.<br/>
+											Pour connaître la forme du fichier à importer, cliquer sur "Créer un fichier CSV à partir d'un fichier type"
+										</small>
+									</h5>
 								</div>
 								<div class="col-md-4">
-									<div id="dataTables_filter" class="dataTables_filter">
-										<label>
-											Search:
-											<input class="form-control input-sm" placeholder="" aria-controls="dataTables" type="search">
-										</label>
-									</div>
+									<div class="">
+					                    <div class="panel panel-warning">
+					                        <div class="panel-heading">
+					                            <div class="row">
+					                                <div class="col-xs-3">
+					                                    <i class="fa fa-support fa-5x"></i>
+					                                </div>
+					                                <div class="col-xs-9 text-right">
+					                                    <div>Créer un fichier CSV à partir d'un fichier type</div>
+					                                </div>
+					                            </div>
+					                        </div>
+					                        <a href="gestion_promotions2.html">
+					                            <div class="panel-footer">
+					                                <span class="pull-left">View Details</span>
+					                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					                                <div class="clearfix"></div>
+					                            </div>
+					                        </a>
+					                    </div>
+					                </div>
 								</div>
+							</div>
+							<div class="row">
 								<div class="col-md-4">									
 									<div id="inputs" class="clearfix">
 							    		<input type="file" id="files" name="files[]" multiple />
@@ -62,16 +68,31 @@
 							  		</output>
 							  		<hr />
 								</div>
+								<div class="col-md-2">
+								</div>
+								<div class="col-md-6">									
+									<h5><small>Merci d'utiliser l'entête suivante sur la première ligne de votre tableau .csv :</small></h5>
+								  <img src="https://github.com/LaetitiaBouvier/Gestion-des-grilles-APP/tree/master/WebContent/View/ressources/tableauGrille.png" height="100%"/></br></br>
+								  <h5><small>Veillez à ne pas laisser de champs vide, inscrire "null" dans les cases vides.</small></p></h5>
+							
+								</div>
+								
 							</div>
 							
 							<div class="row">
-							  <div class="col-xs-6"></div>
-							  <div class="col-xs-6">
-							  
-							  </div>
+								<div class="col-md-12">
+									<div class="alert alert-success alert-dismissable" style="display:none;">
+									    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+							            <strong>Success!</strong> Votre fichier a bien été intégré à la base de données.
+							        </div>
+								</div>
 							</div>
-							<table class="table table-striped table-bordered table-hover table-condensed" id="contents" style="width:100%; height:400px;">
-			  				</table>
+							<div class="row">
+								<div class="col-sm-12">
+									<table id="contents" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline collapsed" role="grid" style="width:100%;">
+			  						</table>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -85,7 +106,7 @@
   
 	
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-  <script src="./../js/jquery.csv.js"></script>
+  <script src="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/js/jquery.csv.js"></script>
   <script>
     $(document).ready(function() {
       if(isAPIAvailable()) {
@@ -158,6 +179,7 @@
         html += '<input type="hidden" id="colonne" name="colonne" value="'+colonne+'">';
         html += '<br /><br /><input type="submit" class="btn btn-primary" value="Soumettre cette grille" /> </div>';
         $('#contents').html(html);
+        $('.alert').show()
       };
       reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
     }
