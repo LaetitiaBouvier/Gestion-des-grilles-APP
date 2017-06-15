@@ -83,7 +83,10 @@
 
 								  <img src="https://github.com/LaetitiaBouvier/Gestion-des-grilles-APP/tree/master/WebContent/View/ressources/tableauGrille.png" height="100%"/></br></br>
 								  <h5><small>Veillez à ne pas laisser de champs vide, inscrire "null" dans les cases vides.</small></h5>
+<<<<<<< Upstream, based on origin/master
 
+=======
+>>>>>>> 78a08c5 "petit changement"
 							
 								</div>
 								
