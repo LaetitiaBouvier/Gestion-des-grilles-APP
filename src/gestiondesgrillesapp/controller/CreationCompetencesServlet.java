@@ -19,26 +19,28 @@ import gestiondesgrillesapp.model.*;
 @WebServlet("/CreationCompetencesServlet")
 public class CreationCompetencesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CreationCompetencesServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public CreationCompetencesServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Obtain a database connection:
 		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
 		EntityManager em = emf.createEntityManager();
 
 		try {
 			// Handle a new guest (if any):
-			
+
+			//numero de la grille !! A ENVOYER !!!!!!
+			long gID = Long.parseLong(request.getParameter("gID"));
 			// nombres de lignes et de colonnes
 			String lignes = request.getParameter("ligne");
 			long nbLignes = Long.parseLong(lignes);
@@ -46,146 +48,90 @@ public class CreationCompetencesServlet extends HttpServlet {
 			long nbColonnes = Long.parseLong(colonnes);
 			long i ;
 			long j ;
-			 
-			for (i=1; i<nbLignes+1; i++){
-				String numeroUser = request.getParameter("champ["+i+"][0]");
-				if (numeroUser != null){
-				// Récupération des valeurs des inputs
-				String nomUser = request.getParameter("champ["+i+"][1]");
-				String prenomUser = request.getParameter("champ["+i+"][2]");
-				String mailUser = request.getParameter("champ["+i+"][3]");
-				String nomPromotionUser = request.getParameter("champ["+i+"][4]");
-				String nomGroupeUser = request.getParameter("champ["+i+"][5]");
-				String nomSousGroupeUser = request.getParameter("champ["+i+"][6]");
-				// Enregistrement dans la BDD de l'eleve
-				User eleve = new User(nomUser, prenomUser, numeroUser, mailUser, false);
-				em.getTransaction().begin();	
-				em.persist(eleve);					
-				em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-				// Recherche de la promo dans la BDD
-				List<Promotion> promoList = em.createQuery("SELECT p FROM Promotion p WHERE anneeObtensionDiplome="+Long.parseLong(nomPromotionUser), Promotion.class).getResultList();
-				System.out.println(promoList.size());
-				if (promoList.size() != 0){
-					for (Promotion promo : promoList){
-						System.out.println("Promoexistante="+promo);
-					long idPromo = promo.getID();
-					eleve.setPromotionID(idPromo);
-					em.getTransaction().begin();	
-					em.persist(eleve);					
-					em.getTransaction().commit();
-					System.out.println("idPromoexistante="+idPromo);// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-					}
-				}
-				else {
-					//creation de la promotion
-					Promotion promotionUser = new Promotion(Long.parseLong(nomPromotionUser));
-					em.getTransaction().begin();	
-					em.persist(promotionUser);					
-					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-					long idPromo = promotionUser.getID();
-					eleve.setPromotionID(idPromo);
-					em.getTransaction().begin();	
-					em.persist(eleve);					
-					em.getTransaction().commit();
-					System.out.println("idPromonouvelle="+idPromo);// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-					
-				}
-//				// Recherche du groupe dans la BDD
-//				List<Promotion> promogroupeList = em.createQuery("SELECT p FROM Promotion p WHERE anneeObtensionDiplome='"+nomPromotionUser+"'", Promotion.class).getResultList();
-//				for (Promotion promogroupe : promogroupeList){
-//				Long idPromoGroupe = promogroupe.getID();
-//				List<Groupe> grpList = em.createQuery("SELECT g FROM Groupe g WHERE nom="+nomGroupeUser+" AND promotion="+(idPromoGroupe), Groupe.class).getResultList();
-//				if (grpList == null){
-//					//creation du groupe
-//					Groupe groupeUser = new Groupe(nomGroupeUser);
-//					em.getTransaction().begin();	
-//					em.persist(groupeUser);					
-//					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-//					long idGroupe = groupeUser.getID();
-//					eleve.setGroupeID(idGroupe);
-//					em.getTransaction().begin();	
-//					em.persist(eleve);					
-//					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-//					
-//				}
-//				if (grpList != null){
-//					for (Groupe grp : grpList){
-//					long idGroupe = grp.getID();
-//					eleve.setGroupeID(idGroupe);
-//					em.getTransaction().begin();	
-//					em.persist(eleve);					
-//					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-//					
-//					}
-//				}
-//				}
-//				// Recherche du sous groupe dans la BDD
-//				List<Promotion> promosousgroupeList = em.createQuery("SELECT p FROM Promotion p WHERE anneeObtensionDiplome="+nomPromotionUser, Promotion.class).getResultList();
-//				for (Promotion promosousgroupe : promosousgroupeList){
-//				Long idPromoSousGroupe = promosousgroupe.getID();
-//				List<Groupe> groupesousgroupeList = em.createQuery("SELECT g FROM Groupe g WHERE nom="+nomGroupeUser+" AND promotion="+(idPromoSousGroupe), Groupe.class).getResultList();
-//				for (Groupe groupesousgroupe : groupesousgroupeList){
-//				long idGroupe = groupesousgroupe.getID();
-//				List<SousGroupe> sousGrpList = em.createQuery("SELECT sg FROM SousGroupe sg WHERE nom="+nomSousGroupeUser+" AND groupeID="+idGroupe, SousGroupe.class).getResultList();
-//				if (sousGrpList == null){
-//					//creation du sous-groupe
-//					SousGroupe sousGroupeUser = new SousGroupe(nomSousGroupeUser);
-//					em.getTransaction().begin();	
-//					em.persist(sousGroupeUser);					
-//					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-//					long idSousGroupe = sousGroupeUser.getID();
-//					eleve.setSousGroupeEleveID(idSousGroupe);
-//					em.getTransaction().begin();	
-//					em.persist(eleve);					
-//					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-//					
-//				}
-//				if (sousGrpList != null){
-//					for (SousGroupe sousGrp : sousGrpList){
-//					long idSousGroupe = sousGrp.getID();
-//					eleve.setSousGroupeEleveID(idSousGroupe);
-//					em.getTransaction().begin();	
-//					em.persist(eleve);					
-//					em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-//					
-//					}
-//				}
-//				}}
-//				em.getTransaction().begin();	
-//				em.persist(eleve);					
-//				em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-				
-				
-				//pour tester : affichage en console des choses enregistrées
-				long eleveID = eleve.getID();
-				String numero = eleve.getNumero();
-				String nom = eleve.getNom();
-				String prenom = eleve.getPrenom();
-				String mail = eleve.getEmail();
-				long sousgroupe = eleve.getSousGroupeEleveID();
-				long groupe = eleve.getGroupeID();
-				long promotion = eleve.getPromotionID();
-//				em.getTransaction().begin();	//
-//				em.persist(eleve);					//
-//				em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
-				System.out.println("Eleve ID "+eleveID+" : numero "+numero+", nom "+nom+", prenom "+prenom+", mail "+mail+", promo "+promotion+", groupe "+groupe+", sousgroupe "+sousgroupe);
 
-				if (em.getTransaction().isActive())
-					em.getTransaction().rollback();
+			for (i=1; i<nbLignes+1; i++)
+			{
+				String titreCompetence = request.getParameter("champ["+i+"][0]");
+				System.out.println("titrecompétence champ["+i+"][0] : "+titreCompetence);
+				if (titreCompetence != null)
+				{
+					// Récupération des valeurs des 7 premiers inputs intéressants
+					String descCompetence = request.getParameter("champ["+i+"][1]");
+					String nomCoefCompetence = request.getParameter("champ["+i+"][2]");
+					String nomSousCompetence = request.getParameter("champ["+i+1+"][3]");
+					String nomCoefSousCompetence = request.getParameter("champ["+i+1+"][4]");
+					String nomPoint = request.getParameter("champ["+i+2+"][5]");
+					String nomSousPoint = request.getParameter("champ["+i+2+"][6]");
+					
+					// Gestion de la compétence en question
+					Competence competence = null;
+
+    				// Création et enregistrement dans la BDD de la compétence, paramétrage de ses attributs
+    				competence = new Competence(titreCompetence, descCompetence);
+    				em.getTransaction().begin();	
+    				em.persist(competence);					
+    				em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+    				long IDcomp = competence.getID();
+    				competence.setGrilleID(gID);
+    				competence.setCoefficient(Double.valueOf(nomCoefCompetence));
+    				// Création et enregistrement dans la BDD de la souscompétence, paramétrage de ses attributs
+    				SousCompetence sousCompetence = null;
+    				sousCompetence = new SousCompetence(nomSousCompetence);
+    				em.getTransaction().begin();	
+    				em.persist(sousCompetence);					
+    				em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+    				long IDsousComp = sousCompetence.getID();
+    				sousCompetence.setCompetenceID(IDcomp);
+    				sousCompetence.setCoefficient(Double.valueOf(nomCoefSousCompetence));
+    				competence.addSousCompetenceID(IDsousComp);
+    				// Création et enregistrement dans la BDD du point, paramétrage de ses attributs
+    				Point point = null;
+    				point = new Point(nomPoint);
+    				em.getTransaction().begin();	
+    				em.persist(point);					
+    				em.getTransaction().commit();
+    				point.setSousCompetenceID(IDsousComp);
+    				long IDpoint = point.getID();
+    				sousCompetence.addPointID(IDpoint);
+    				// Création et enregistrement dans la BDD du sous-point, paramétrage de ses attributs*
+    				SousPoint sousPoint = null;
+    				sousPoint = new SousPoint(nomSousPoint);
+    				em.getTransaction().begin();	
+    				em.persist(sousPoint);					
+    				em.getTransaction().commit();
+    				sousPoint.setPointID(IDpoint);
+    				long IDsousPoint = sousPoint.getID();
+    				point.addSousPointID(IDsousPoint);
+    				
+    				//on fait persister les informations ajoutées
+    				em.getTransaction().begin();	
+    				em.persist(competence);
+    				em.persist(sousCompetence);
+    				em.persist(point);
+    				em.persist(sousPoint);
+    				em.getTransaction().commit();
+    				
+    				//on ADD les trucs dans les groupes
+    				System.out.println("CompetenceID "+competence.getID()+" : description "+competence.getDescription()+", coefficient "+competence.getCoefficient()+", id de la grille "+competence.getGrilleID());
+    				System.out.println("SousCompetenceID "+sousCompetence.getID()+" : coefficient "+sousCompetence.getCoefficient());
+    				
+    				
+    				
+					}					
 				}
+			}
 		
-				}}
-		finally {
-			// Close the database connection:
-			em.close();
+				finally {
+					// Close the database connection:
+					em.close();
+				}
+			}
+
+			/**
+			 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+			 */
+			protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+				// TODO Auto-generated method stub
+				doGet(request, response);
+			}
 		}
-	}
-		
-		/**
-		 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-		 */
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			// TODO Auto-generated method stub
-			doGet(request, response);
-		}
-	}
