@@ -14,21 +14,23 @@
 		<div id="page-wrapper" style="min-height: 683px">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Import de la grille</h1>
+					<h1 class="page-header">Import des compétences</h1>
 				</div>
 			</div>
 			<div class="row">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3>Grille de compétences</h3>
+						<h3>Liste des compétences, sous-compétences, points et sous-points</h3>
 					</div>
 					<div class="panel-body">
 					<div class="container">
-					<p>Merci d'utiliser l'entête suivante sur la première ligne de votre tableau .csv :</br></br>
+					<p>Merci de veiller à remplir le tableau de la façon suivante et d'utiliser l'entête présentée sur la première ligne de votre fichier .csv.</br></br></br>
 					
-  <img src="../ressources/tableau.png" height="60px"/></br></br>
-  Veillez à ne pas laisser de champs vide, inscrire "null" dans les cases vides.</p>
+  <img src="../ressources/tableauGrille.png" height="250px"/></br></br>
+  Veillez à ne pas laisser de champ vide, au besoin, entrer un point "." dans les cases vides.</p>
 </div>
+<form method="POST" action="../../CreationEleveServlet" class="form-horizontal">
+
 						<div id="dataTables_wrapper" class="dataTables_wrapper form-inline no-footer">
 							<div class="row">
 								<div class="col-md-4">
@@ -73,6 +75,8 @@
 							<table class="table table-striped table-bordered table-hover table-condensed" id="contents" style="width:100%; height:400px;">
 			  				</table>
 						</div>
+						<input type="submit" class="btn btn-primary" value="Soumettre cette grille" />
+						</form>
 					</div>
 				</div>
 			</div>
@@ -143,20 +147,23 @@
         var ligne = -1;
         
         var html = '';
-        html += '<form method="POST" action="../../CreationGrilleServlet2" class="form-horizontal">';
+//         html += '<form method="POST" action="./../CreationEleve" class="form-horizontal">';
         for(var row in data) {
           ligne += 1;
           var colonne = -1;
           html += '<tr role="row">\r\n';
           for(var item in data[row]) {
+        	  if (data[row][item] !== null){
             colonne += 1;
-            html += '<td><input type="hidden" id="champ['+ligne+']['+colonne+']" name="champ['+ligne+']['+colonne+']" value="'+ data[row][item]+'">'+ data[row][item] +'</td>\r\n';
-          }
+            html += '<td><input type="hidden" id="champ['+ligne+']['+colonne+']" name="champ['+ligne+']['+colonne+']" value="'+ data[row][item]+'"/>'+ data[row][item] +'</td>\r\n';
+        	  }}
           html += '</tr>\r\n';
         }
-        html += '<input type="hidden" id="ligne" name="ligne" value="'+ligne+'">';
-        html += '<input type="hidden" id="colonne" name="colonne" value="'+colonne+'">';
-        html += '<br /><br /><input type="submit" class="btn btn-primary" value="Soumettre cette grille" /> </div>';
+        html += '<input type="hidden" id="ligne" name="ligne" value="'+ligne+'"/>';
+        html += '<input type="hidden" id="colonne" name="colonne" value="'+colonne+'"/>';
+        html += '<br /><br />';
+//         html +='<input type="submit" class="btn btn-primary" value="Soumettre cette grille" />';
+//         html += '</form>';
         $('#contents').html(html);
       };
       reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
