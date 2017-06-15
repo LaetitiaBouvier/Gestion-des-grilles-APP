@@ -71,7 +71,7 @@
 				                                </div>
 				                            </div>
 				                        </div>
-				                        <a href="gestion_promotions2.html">
+				                        <a href="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/html/gestion_promotions2.html">
 				                            <div class="panel-footer">
 				                                <span class="pull-left">View Details</span>
 				                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -84,9 +84,10 @@
 							
 							<div class="row">
 								<div class="col-md-12">
-									<div class="alert alert-success alert-dismissable" style="display:none;">
+									<div class="alert alert-warning alert-dismissable" style="display:none;">
 									    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-							            <strong>Success!</strong> Votre fichier a bien été intégré à la base de données.
+							            <strong>Warning!</strong> Votre fichier a bien été téléchargé, soumettez le pour enregistrer les données.
+							            <input type="submit" class="btn btn-primary" value="Soumettre cette grille" />
 							        </div>
 								</div>
 							</div>
@@ -97,7 +98,7 @@
 								</div>
 							</div>
 						</div>
-						<input type="submit" class="btn btn-primary" value="Soumettre cette grille" />
+						
 						</form>
 					</div>
 				</div>
