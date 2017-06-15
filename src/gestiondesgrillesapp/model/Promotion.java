@@ -24,21 +24,12 @@ public class Promotion {
 	 * CONSTRUCTEUR(S)
 	 */
 	
-	public Promotion(long anneeObtensionDiplome, ArrayList<Long> groupesIDs, ArrayList<Long> elevesIDs){
+	public Promotion(long anneeObtensionDiplome){
 		
 		this.anneeObtensionDiplome = anneeObtensionDiplome;
 		
-		if(groupesIDs == null){
-			this.groupesIDs = new ArrayList<Long>();
-		}else{
-			this.groupesIDs = groupesIDs;
-		}
-		
-		if(elevesIDs == null){
-			this.elevesIDs = new ArrayList<Long>();
-		}else{
-			this.elevesIDs = elevesIDs;
-		}
+		this.groupesIDs = new ArrayList<Long>();
+		this.elevesIDs = new ArrayList<Long>();
 	}
 
 	/*
@@ -88,5 +79,4 @@ public class Promotion {
 	public void setElevesIDs(ArrayList<Long> elevesIDs) {
 		this.elevesIDs = elevesIDs;
 	}
-	
 }

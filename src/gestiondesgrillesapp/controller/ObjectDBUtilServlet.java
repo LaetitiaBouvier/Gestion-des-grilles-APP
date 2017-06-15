@@ -16,6 +16,7 @@ import gestiondesgrillesapp.model.Competence;
 import gestiondesgrillesapp.model.Grille;
 import gestiondesgrillesapp.model.Groupe;
 import gestiondesgrillesapp.model.Point;
+import gestiondesgrillesapp.model.Promotion;
 import gestiondesgrillesapp.model.SousCompetence;
 import gestiondesgrillesapp.model.SousGroupe;
 import gestiondesgrillesapp.model.SousPoint;
@@ -108,7 +109,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 	
 	public void associateStudentToGrid(EntityManager em, User eleve, Grille grilleModel){
 
-		Grille grilleCopy = grilleModelDeepCopy(grilleModel);
+		Grille grilleCopy = grilleModelDeepCopy(grilleModel, eleve.getID());
 
 		if(grilleCopy == null){
 			throw new RuntimeException("Une erreur est survenue au moment de copier la grille \"model\" pour associer la copie à l'élève !");
@@ -119,10 +120,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 		em.getTransaction().begin();
 		em.persist(eleve);
 		em.getTransaction().commit();	// Ici on MAJ seulement "eleve"
-
 	}
 	
-	public Grille grilleModelDeepCopy(Grille grilleModel){
+	public Grille grilleModelDeepCopy(Grille grilleModel, long eleveID){
 
 		// Obtain a database connection:
 		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
@@ -142,8 +142,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 				
 				List<Competence> competenceTempList = em.createQuery("SELECT c FROM Competence c WHERE id="+competenceID, Competence.class).getResultList();
 				Competence competence = (Competence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(competenceTempList);
-				Competence competenceCopy = competenceTempList.get(0).deepCopy();
+				Competence competenceCopy = competence.deepCopy();
 				competenceCopy.setGrilleID(grilleModelCopy.getID());
+				competenceCopy.setEleveID(eleveID);
 				
 				em.getTransaction().begin();
 				em.persist(competenceCopy);
@@ -156,8 +157,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					
 					List<SousCompetence> sousCompetenceTempList = em.createQuery("SELECT c FROM SousCompetence c WHERE id="+sousCompetenceID, SousCompetence.class).getResultList();
 					SousCompetence sousCompetence = (SousCompetence) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousCompetenceTempList);
-					SousCompetence sousCompetenceCopy = sousCompetenceTempList.get(0).deepCopy();
+					SousCompetence sousCompetenceCopy = sousCompetence.deepCopy();
 					sousCompetenceCopy.setCompetenceID(competenceCopy.getID());
+					sousCompetenceCopy.setEleveID(eleveID);
 					
 					em.getTransaction().begin();
 					em.persist(sousCompetenceCopy);
@@ -170,8 +172,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 						
 						List<Point> pointsTempList = em.createQuery("SELECT c FROM Point c WHERE id="+pointID, Point.class).getResultList();
 						Point point = (Point) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(pointsTempList);
-						Point pointCopy = pointsTempList.get(0).deepCopy();
+						Point pointCopy = point.deepCopy();
 						pointCopy.setSousCompetenceID(sousCompetenceCopy.getID());
+						pointCopy.setEleveID(eleveID);
 						
 						em.getTransaction().begin();
 						em.persist(pointCopy);
@@ -185,6 +188,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 							List<SousPoint> sousPointsTempList = em.createQuery("SELECT c FROM SousPoint c WHERE id="+sousPointID, SousPoint.class).getResultList();
 							SousPoint sousPointCopy = ((SousPoint) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousPointsTempList)).deepCopy();
 							sousPointCopy.setPointID(pointCopy.getID());
+							sousPointCopy.setEleveID(eleveID);
 							
 							em.getTransaction().begin();
 							em.persist(sousPointCopy);
@@ -284,14 +288,16 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			User eleveST = new User("Stéphane", "Tzvetkov", "9482", "stephane.tzvetkov@isep.fr", false);
 			User elevePPC = new User("Pierre-Philippe", "Cordier", "9551", "pierre-philippe.corder@isep.fr", false);
 			User eleveND = new User("Nicolas", "Dubes", "9502", "nicolas.dubes@isep.fr", false);
+			User eleveTest = new User("Test", "Test", "0000", "test.test@isep.fr", false);
 
-			User elebeLB = new User("Laëtitia", "Bouvier", "9555", "laetitia.bouvier@isep.fr", false);
-			User elebeCB = new User("Camille", "Duboue", "9648", "camille.duboue@isep.fr", false);
+			User eleveLB = new User("Laëtitia", "Bouvier", "9555", "laetitia.bouvier@isep.fr", false);
+			User eleveCB = new User("Camille", "Duboue", "9648", "camille.duboue@isep.fr", false);
 
 			SousGroupe sousGroupeGarçons = new SousGroupe("Garçons");
 			SousGroupe sousGroupeFilles = new SousGroupe("Filles");
 			Groupe groupeLogiciel = new Groupe("Groupe Logiciel");
 			Groupe groupeSI = new Groupe("GroupeSI");
+			Promotion promotion2018 = new Promotion(2018);
 
 			//  ____________________________________
 			//  Enregistrement des objets dans la BDD :
@@ -300,43 +306,87 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			em.persist(eleveST);
 			em.persist(elevePPC);
 			em.persist(eleveND);
-			em.persist(elebeLB);
-			em.persist(elebeCB);
+			em.persist(eleveTest);
+			em.persist(eleveLB);
+			em.persist(eleveCB);
 
 			em.persist(sousGroupeGarçons);
 			em.persist(sousGroupeFilles);
 			em.persist(groupeLogiciel);
 			em.persist(groupeSI);
+			em.persist(promotion2018);
 			em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 			//  ____________________________________
 			//  Associations entres les élèves, tuteurs et (sous-)groupes
-
-			sousGroupeGarçons.addEleveID(eleveST.getID());
-			eleveST.setSousGroupeEleveID(sousGroupeGarçons.getID());
-
-			sousGroupeGarçons.addEleveID(elevePPC.getID());
-			elevePPC.setSousGroupeEleveID(sousGroupeGarçons.getID());
-
-			sousGroupeGarçons.addEleveID(eleveND.getID());
-			eleveND.setSousGroupeEleveID(sousGroupeGarçons.getID());
-
-			sousGroupeFilles.addEleveID(elebeLB.getID());
-			elebeLB.setSousGroupeEleveID(sousGroupeFilles.getID());
-
-			sousGroupeFilles.addEleveID(elebeCB.getID());
-			elebeCB.setSousGroupeEleveID(sousGroupeFilles.getID());
-
-			groupeLogiciel.addSousGroupeID(sousGroupeGarçons.getID());
-			sousGroupeGarçons.setGroupeID(groupeLogiciel.getID());
-
-			groupeLogiciel.addTuteurID(tuteurJB.getID());
+			
 			tuteurJB.addGroupeTuteurID(groupeLogiciel.getID());
-
-			groupeSI.addSousGroupeID(sousGroupeFilles.getID());
-			sousGroupeFilles.setGroupeID(groupeSI.getID());
-
-			groupeSI.addTuteurID(tuteurJB.getID());
 			tuteurJB.addGroupeTuteurID(groupeSI.getID());
+			
+			
+
+			eleveST.setSousGroupeEleveID(sousGroupeGarçons.getID());
+			eleveST.setGroupeID(groupeLogiciel.getID());
+			eleveST.setPromotionID(promotion2018.getID());
+
+			elevePPC.setSousGroupeEleveID(sousGroupeGarçons.getID());
+			elevePPC.setGroupeID(groupeLogiciel.getID());
+			elevePPC.setPromotionID(promotion2018.getID());
+
+			eleveND.setSousGroupeEleveID(sousGroupeGarçons.getID());
+			eleveND.setGroupeID(groupeLogiciel.getID());
+			eleveND.setPromotionID(promotion2018.getID());
+			
+			eleveTest.setSousGroupeEleveID(sousGroupeGarçons.getID());
+			eleveTest.setGroupeID(groupeLogiciel.getID());
+			eleveTest.setPromotionID(promotion2018.getID());
+
+			eleveLB.setSousGroupeEleveID(sousGroupeFilles.getID());
+			eleveLB.setGroupeID(groupeSI.getID());
+			eleveLB.setPromotionID(promotion2018.getID());
+
+			eleveCB.setSousGroupeEleveID(sousGroupeFilles.getID());
+			eleveCB.setGroupeID(groupeSI.getID());
+			eleveCB.setPromotionID(promotion2018.getID());
+			
+			
+			
+			sousGroupeGarçons.addEleveID(eleveST.getID());
+			sousGroupeGarçons.addEleveID(elevePPC.getID());
+			sousGroupeGarçons.addEleveID(eleveND.getID());
+			sousGroupeGarçons.addEleveID(eleveTest.getID());
+			sousGroupeFilles.addEleveID(eleveLB.getID());
+			sousGroupeFilles.addEleveID(eleveCB.getID());
+			
+			sousGroupeGarçons.setGroupeID(groupeLogiciel.getID());
+			sousGroupeFilles.setGroupeID(groupeSI.getID());
+			
+			
+			
+			groupeLogiciel.setPromotionID(promotion2018.getID());
+			groupeLogiciel.addSousGroupeID(sousGroupeGarçons.getID());
+			groupeLogiciel.addTuteurID(tuteurJB.getID());
+			groupeLogiciel.addEleveID(eleveST.getID());
+			groupeLogiciel.addEleveID(elevePPC.getID());
+			groupeLogiciel.addEleveID(eleveND.getID());
+			groupeLogiciel.addEleveID(eleveTest.getID());
+			
+			groupeSI.setPromotionID(promotion2018.getID());
+			groupeSI.addSousGroupeID(sousGroupeFilles.getID());
+			groupeSI.addTuteurID(tuteurJB.getID());
+			groupeSI.addEleveID(eleveLB.getID());
+			groupeSI.addEleveID(eleveCB.getID());
+			
+			
+			
+			promotion2018.addGroupeID(groupeLogiciel.getID());
+			promotion2018.addGroupeID(groupeSI.getID());
+			
+			promotion2018.addEleveID(eleveST.getID());
+			promotion2018.addEleveID(elevePPC.getID());
+			promotion2018.addEleveID(eleveND.getID());
+			promotion2018.addEleveID(eleveTest.getID());
+			promotion2018.addEleveID(eleveLB.getID());
+			promotion2018.addEleveID(eleveCB.getID());
 
 			//  ____________________________________
 			//  Enregistrement de la MAJ des objets dans la BDD :
@@ -345,13 +395,15 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			em.persist(eleveST);
 			em.persist(elevePPC);
 			em.persist(eleveND);
-			em.persist(elebeLB);
-			em.persist(elebeCB);
+			em.persist(eleveTest);
+			em.persist(eleveLB);
+			em.persist(eleveCB);
 
 			em.persist(sousGroupeGarçons);
 			em.persist(sousGroupeFilles);
 			em.persist(groupeLogiciel);
 			em.persist(groupeSI);
+			em.persist(promotion2018);
 			em.getTransaction().commit();	// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 			//  ____________________________________
 			//  Associer les élèves à une grille "model" :
@@ -362,8 +414,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			associateStudentToGrid(em, eleveST, grilleModel);
 			associateStudentToGrid(em, elevePPC, grilleModel);
 			associateStudentToGrid(em, eleveND, grilleModel);
-			associateStudentToGrid(em, elebeLB, grilleModel);
-			associateStudentToGrid(em, elebeCB, grilleModel);
+			associateStudentToGrid(em, eleveTest, grilleModel);
+			associateStudentToGrid(em, eleveLB, grilleModel);
+			associateStudentToGrid(em, eleveCB, grilleModel);
 
 		} finally {
 			// Close the database connection:
@@ -459,6 +512,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceEchanger.addPointID(pointEcouter.getID());
 					sousCompetenceEchanger.addPointID(pointDialoguer.getID());
 					sousCompetenceEchanger.setCompetenceID(competenceCommunication.getID());
+					sousCompetenceEchanger.setCoefficient(1.0);
 							
 							sousPtCommuniquerOral1.setPointID(pointCommuniquerOral.getID());
 						pointCommuniquerOral.addSousPointID(sousPtCommuniquerOral1.getID());
@@ -471,6 +525,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceCommuniquerOral.addPointID(pointCommuniquerOral.getID());
 					sousCompetenceCommuniquerOral.addPointID(pointAnalyserOral.getID());
 					sousCompetenceCommuniquerOral.setCompetenceID(competenceCommunication.getID());
+					sousCompetenceCommuniquerOral.setCoefficient(1.0);
 							
 							sousPtCommuniquer1.setPointID(pointCommuniquerEcrit.getID());
 						pointCommuniquerEcrit.addSousPointID(sousPtCommuniquer1.getID());
@@ -483,11 +538,13 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceCommuniquerEcrit.addPointID(pointCommuniquerEcrit.getID());
 					sousCompetenceCommuniquerEcrit.addPointID(pointAnalyserEcrit.getID());
 					sousCompetenceCommuniquerEcrit.setCompetenceID(competenceCommunication.getID());
+					sousCompetenceCommuniquerEcrit.setCoefficient(1.0);
 							
 				competenceCommunication.addSousCompetenceID(sousCompetenceEchanger.getID());
 				competenceCommunication.addSousCompetenceID(sousCompetenceCommuniquerOral.getID());
 				competenceCommunication.addSousCompetenceID(sousCompetenceCommuniquerEcrit.getID());
 				competenceCommunication.setGrilleID(grilleModel.getEleveID());
+				competenceCommunication.setCoefficient(1.0);
 				
 			grilleModel.addCompetenceID(competenceCommunication.getID());
 			//  ____________________________________
@@ -606,6 +663,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceEquipe.addPointID(pointParticiper.getID());
 					sousCompetenceEquipe.addPointID(pointAnimer.getID());
 					sousCompetenceEquipe.setCompetenceID(competenceTravailEnEquipe.getID());
+					sousCompetenceEquipe.setCoefficient(1.0);
 						
 							sousPtDetecter1.setPointID(pointDetecter.getID());
 						pointDetecter.addSousPointID(sousPtDetecter1.getID());
@@ -618,6 +676,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceConflits.addPointID(pointDetecter.getID());
 					sousCompetenceConflits.addPointID(pointApporter.getID());
 					sousCompetenceConflits.setCompetenceID(competenceTravailEnEquipe.getID());
+					sousCompetenceConflits.setCoefficient(1.0);
 					
 							sousPtEmettre1.setPointID(pointEmettre.getID());
 						pointEmettre.addSousPointID(sousPtEmettre1.getID());
@@ -630,6 +689,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceProposition.addPointID(pointEmettre.getID());
 					sousCompetenceProposition.addPointID(pointJustifier.getID());
 					sousCompetenceProposition.setCompetenceID(competenceTravailEnEquipe.getID());
+					sousCompetenceProposition.setCoefficient(1.0);
 					
 							sousPtUtiliser1.setPointID(pointUtiliser.getID());
 						pointUtiliser.addSousPointID(sousPtUtiliser1.getID());
@@ -642,12 +702,14 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceOutilsCollaboratif.addPointID(pointUtiliser.getID());
 					sousCompetenceOutilsCollaboratif.addPointID(pointOrganiser.getID());
 					sousCompetenceOutilsCollaboratif.setCompetenceID(competenceTravailEnEquipe.getID());
+					sousCompetenceOutilsCollaboratif.setCoefficient(1.0);
 					
 				competenceTravailEnEquipe.addSousCompetenceID(sousCompetenceEquipe.getID());
 				competenceTravailEnEquipe.addSousCompetenceID(sousCompetenceConflits.getID());
 				competenceTravailEnEquipe.addSousCompetenceID(sousCompetenceProposition.getID());
 				competenceTravailEnEquipe.addSousCompetenceID(sousCompetenceOutilsCollaboratif.getID());
 				competenceTravailEnEquipe.setGrilleID(grilleModel.getEleveID());
+				competenceTravailEnEquipe.setCoefficient(1.0);
 				
 			grilleModel.addCompetenceID(competenceTravailEnEquipe.getID());
 			

@@ -16,10 +16,9 @@ public class SousPoint {
 	
 	private long pointID;
 	private long eleveID;
-	private long commentaireEleveID;
-	private long commentaireSousGroupeID;
 	private String contenu;
-	private String isValidate; //a confirmer
+	private String niveau;
+	private String commentaireIndividuel;
 	
 	/*
 	 * CONSTRUCTEUR(S)
@@ -30,9 +29,8 @@ public class SousPoint {
 		this.pointID = -1l;
 		this.eleveID = -1l;
 		
-		this.commentaireEleveID = -1l;
-		this.commentaireSousGroupeID = -1l;
-		this.isValidate = "";	// TODO : je préfèrerai l'initialiser à "" plutôt que null... Mettre des attributs null dans la BDD c'est plutôt mal ! Qu'en penses-tu ma Laeti ?
+		this.niveau = "";
+		this.commentaireIndividuel = "";
 		
 		if(contenu == null || contenu.isEmpty()){
 			throw new IllegalArgumentException("Il faut absoluement qu'un sous-point possède un contenu !");
@@ -48,7 +46,7 @@ public class SousPoint {
 	public long getID(){
 		return this.id;
 	}
-
+	
 	public String getContenu() {
 		return contenu;
 	}
@@ -73,30 +71,6 @@ public class SousPoint {
 		this.eleveID = eleveID;
 	}
 
-	public long getCommentaireEleveID() {
-		return commentaireEleveID;
-	}
-
-	public void setCommentaireEleveID(long commentaireEleveID) {
-		this.commentaireEleveID = commentaireEleveID;
-	}
-	
-	public long getCommentaireSousGroupeID() {
-		return commentaireSousGroupeID;
-	}
-
-	public void setCommentaireSousGroupeID(long commentaireSousGroupeID) {
-		this.commentaireSousGroupeID = commentaireSousGroupeID;
-	}
-
-	public String getIsValidate() {
-		return isValidate;
-	}
-
-	public void setIsValidate(String isValidate) {
-		this.isValidate = isValidate;
-	}
-	
 	public SousPoint deepCopy(){
 		
 		String contenu = new String(this.contenu);
@@ -104,5 +78,21 @@ public class SousPoint {
 		SousPoint sousPoint = new SousPoint(contenu);
 		
 		return sousPoint;
+	}
+	
+	public String getNiveau() {
+		return niveau;
+	}
+	
+	public void setNiveau(String niveau) {
+		this.niveau = niveau;
+	}
+
+	public String getCommentaireIndividuel() {
+		return commentaireIndividuel;
+	}
+
+	public void setCommentaireIndividuel(String commentaireIndividuel) {
+		this.commentaireIndividuel = commentaireIndividuel;
 	}
 }

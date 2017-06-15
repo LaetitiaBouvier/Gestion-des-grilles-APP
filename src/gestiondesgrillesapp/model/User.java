@@ -27,6 +27,8 @@ public class User {
 	private boolean isRespoModule;
 	
 	private long sousGroupeEleveID;
+	private long groupeID;
+	private long promotionID;
 	private long grilleEleveID;
 	private ArrayList<Long> grillesHistoriqueEleveIDs;
 	// login pwd? => LDAP
@@ -38,6 +40,8 @@ public class User {
 	public User (String nom, String prenom, String numero, String email, boolean isTuteur){
 
 		this.sousGroupeEleveID = -1l;
+		this.groupeID = -1l;
+		this.promotionID = -1l;
 		this.grilleEleveID = -1l;
 		this.grillesHistoriqueEleveIDs = new ArrayList<Long>();
 		this.groupesTuteurIDs = new ArrayList<Long>();
@@ -107,15 +111,31 @@ public class User {
 		return sousGroupeEleveID;
 	}
 	
+	public void setSousGroupeEleveID(long sousGroupeID) {
+		this.sousGroupeEleveID = sousGroupeID;
+	}
+	
+	public long getGroupeID() {
+		return groupeID;
+	}
+
+	public void setGroupeID(long groupeID) {
+		this.groupeID = groupeID;
+	}
+
+	public long getPromotionID() {
+		return promotionID;
+	}
+
+	public void setPromotionID(long promotionID) {
+		this.promotionID = promotionID;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
-	public void setSousGroupeEleveID(long sousGroupeID) {
-		this.sousGroupeEleveID = sousGroupeID;
 	}
 
 	public ArrayList<Long> getGrillesHistoriqueEleveIDs() {
@@ -140,6 +160,14 @@ public class User {
 
 	public void setBureauTuteur(String bureauTuteur) {
 		this.bureauTuteur = bureauTuteur;
+	}
+	
+	public ArrayList<Long> getGroupesTuteurIDs(){
+		return groupesTuteurIDs;
+	}
+	
+	public void setGroupesTuteursIDs(ArrayList<Long> groupesTuteurIDs){
+		this.groupesTuteurIDs = groupesTuteurIDs;
 	}
 	
 	public boolean isRespoModule() {

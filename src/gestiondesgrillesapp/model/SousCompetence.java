@@ -20,11 +20,13 @@ public class SousCompetence {
 	private ArrayList<Long> pointsIDs;
 	
 	private long eleveID;
-	private long commentaireEleveID;
-	private long commentaireSousGroupeID;
 	private String contenu;
-	private String evaluation;
+	private String niveau;
 	private double coefficient;
+	
+	private String commentaireEquipe;
+	private String commentaireTuteurTuteur;
+	private String commentaireIndividuel;
 	
 	/*
 	 * CONSTRUCTEUR(S)
@@ -36,9 +38,10 @@ public class SousCompetence {
 		this.pointsIDs = new ArrayList<Long>();
 		
 		this.eleveID = -1l;
-		this.commentaireEleveID = -1l;
-		this.commentaireSousGroupeID = -1l;
-		this.evaluation = "";	// TODO : je préfèrerai l'initialiser à "" plutôt que null... Mettre des attributs null dans la BDD c'est plutôt mal ! Qu'en penses-tu ma Laeti ?
+		this.commentaireEquipe = "";
+		this.commentaireTuteurTuteur = "";
+		this.commentaireIndividuel = "";
+		this.niveau = "Non assigné";
 		this.coefficient = 0.;
 		
 		if(contenu == null || contenu.isEmpty()){
@@ -96,28 +99,12 @@ public class SousCompetence {
 		this.eleveID = eleveID;
 	}
 
-	public long getCommentaireEleveID() {
-		return commentaireEleveID;
+	public String getNiveau() {
+		return niveau;
 	}
 
-	public void setCommentaireEleveID(long commentaireEleveID) {
-		this.commentaireEleveID = commentaireEleveID;
-	}
-	
-	public long getCommentaireSousGroupeID() {
-		return commentaireSousGroupeID;
-	}
-
-	public void setCommentaireSousGroupeID(long commentaireSousGroupeID) {
-		this.commentaireSousGroupeID = commentaireSousGroupeID;
-	}
-
-	public String getEvaluation() {
-		return evaluation;
-	}
-
-	public void setEvaluation(String evaluation) {
-		this.evaluation = evaluation;
+	public void setNiveau(String niveau) {
+		this.niveau = niveau;
 	}
 
 	public double getCoefficient() {
@@ -137,5 +124,29 @@ public class SousCompetence {
 		sousCompetence.setCoefficient(coefficient);
 		
 		return sousCompetence;
+	}
+
+	public String getCommentaireEquipe() {
+		return commentaireEquipe;
+	}
+
+	public void setCommentaireEquipe(String commentaireEquipe) {
+		this.commentaireEquipe = commentaireEquipe;
+	}
+
+	public String getCommentaireTuteurTuteur() {
+		return commentaireTuteurTuteur;
+	}
+
+	public void setCommentaireTuteurTuteur(String commentaireTuteurTuteur) {
+		this.commentaireTuteurTuteur = commentaireTuteurTuteur;
+	}
+
+	public String getCommentaireIndividuel() {
+		return commentaireIndividuel;
+	}
+
+	public void setCommentaireIndividuel(String commentaireIndividuel) {
+		this.commentaireIndividuel = commentaireIndividuel;
 	}
 }

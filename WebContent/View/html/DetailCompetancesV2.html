@@ -15,7 +15,8 @@
 
     
     <!-- Custom CSS -->
-    <link href="https://rawcdn.githack.com/hinamoru1/CssTest/master/sb-admin-2.css" rel="stylesheet">
+    <!-- <link href="https://rawcdn.githack.com/hinamoru1/CssTest/master/sb-admin-2.css" rel="stylesheet"> -->
+    <link href="../css/sb-admin-2.css" rel="stylesheet">
 
 
     <!-- Custom Fonts -->
@@ -346,7 +347,7 @@
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 					<h4 class="myBoxSizeTitle" id="idCompetence1-idSousCompetence1">sous-compétences</h4>
 				<!-- Nom de la sous competence || le 74vh c'est nbEleve*15 - 1 pour que le bouton soit aligner a adapter-->
-					<div class="text-center mySousCompetence" style="height:74vh;">
+					<div class="text-center mySousCompetence" style="height:82vh;">
 						<h2 class="myVerticalCenter">Nom sous competence</h2>
 					</div>
 	<!-- Dropdown bouton a adapter l'id-->
@@ -354,7 +355,16 @@
 						<a data-toggle="collapse" href="#CollapseSousCompetence1"><span class="fa fa-angle-double-down fa-2x pull-right fa-inverse myDropDownButton"></span></a>
 					</div>
 				<!-- commentaire tuteur a tuteur -->
-					<textarea class="form-control myBoxSize myTuTu" placeholder="commentaire tuteur a tuteur"></textarea>
+				
+					<form>
+						<div>
+							<textarea class="form-control myBoxSize myTuTu" placeholder="commentaire tuteur a tuteur"></textarea>
+							<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+						</div>
+					</form>
+					
+				
+				
 				</div>
 			<!-- colone observation sur l'équipe -->		
 				<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
@@ -362,7 +372,16 @@
 				<!-- textarea permettant l'observation global du groupe -->	
 					<div>
 						<!-- 75vh a adapter en fonction du nb d'eleve -->
-						<textarea class="form-control " placeholder="write here the evaluation of the team" style="height:75vh;"></textarea>
+						<form>
+							<div>
+								<textarea class="form-control " placeholder="write here the evaluation of the team" style="height:83vh;"></textarea>
+								<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+							</div>
+						</form>
+						
+						
+						
+						
 					</div>
 				</div>
 <!-- observation individuel niveau individuel et etudiant sont regroupé -> sur les petits écran ils sont les 3 ensemble -->
@@ -372,71 +391,124 @@
 				<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
 					<h4 class="myBoxSizeTitle">Observation individuelles</h4>
 				<!-- il faut créer un nb de textarea depedant du nb d'eleve -->
-					<textarea class="form-control myBoxSize" placeholder="write here the evaluation of Eleve"></textarea>
-					<textarea class="form-control myBoxSize" placeholder="write here the evaluation of Eleve"></textarea>
-					<textarea class="form-control myBoxSize" placeholder="write here the evaluation of Eleve"></textarea>
-					<textarea class="form-control myBoxSize" placeholder="write here the evaluation of Eleve"></textarea>
-					<textarea class="form-control myBoxSize" placeholder="write here the evaluation of Eleve"></textarea>
+					<form>
+						<div>
+							<textarea class="form-control myBoxSize" placeholder="write here the evaluation of Eleve"></textarea>
+							<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+						</div>
+					</form>
+					<form>
+						<div>
+							<textarea class="form-control myBoxSize" placeholder="write here the evaluation of Eleve"></textarea>
+							<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+						</div>
+					</form>
+					<form>
+						<div>
+							<textarea class="form-control myBoxSize" placeholder="write here the evaluation of Eleve"></textarea>
+							<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+						</div>
+					</form>
+					<form>
+						<div>
+							<textarea class="form-control myBoxSize" placeholder="write here the evaluation of Eleve"></textarea>
+							<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+						</div>
+					</form>
+					<form>
+						<div>
+							<textarea class="form-control myBoxSize" placeholder="write here the evaluation of Eleve"></textarea>
+							<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+						</div>
+					</form>
+					
 				</div>
 			<!-- niveau individuel -->
 				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
 					<h4 class="myBoxSizeTitle">Niveau individuel</h4>
-					<div class="btn-group bootstrap-select open myBoxSize text-center col-xs-12">
-						<select class="selectpicker selectwidthauto myVerticalCenter2">
-							<option>Non assigné</option>
-							<option>Au dela</option>
-							<option>Attendu</option>
-							<option>Très proche</option>
-							<option>Proche</option>
-							<option>Loin</option>
-						</select>	
-					</div>
-					<div class="btn-group bootstrap-select open myBoxSize text-center col-xs-12">
-						<select class="selectpicker selectwidthauto myVerticalCenter2">
-							<option>Non assigné</option>
-							<option>Au dela</option>
-							<option>Attendu</option>
-							<option>Très proche</option>
-							<option>Proche</option>
-							<option>Loin</option>
-						</select>	
-					</div>
-					<div class="btn-group bootstrap-select open myBoxSize text-center col-xs-12">
-						<select class="selectpicker selectwidthauto myVerticalCenter2">
-							<option>Non assigné</option>
-							<option>Au dela</option>
-							<option>Attendu</option>
-							<option>Très proche</option>
-							<option>Proche</option>
-							<option>Loin</option>
-						</select>	
-					</div>
-					<div class="btn-group bootstrap-select open myBoxSize text-center col-xs-12">
-						<select class="selectpicker selectwidthauto myVerticalCenter2">
-							<option>Non assigné</option>
-							<option>Au dela</option>
-							<option>Attendu</option>
-							<option>Très proche</option>
-							<option>Proche</option>
-							<option>Loin</option>
-						</select>	
-					</div>
-					<div class="btn-group bootstrap-select open myBoxSize text-center col-xs-12">
-						<select class="selectpicker selectwidthauto myVerticalCenter2">
-							<option>Non assigné</option>
-							<option>Au dela</option>
-							<option>Attendu</option>
-							<option>Très proche</option>
-							<option>Proche</option>
-							<option>Loin</option>
-						</select>	
-					</div>
+					<form class="myBoxSizePlus">
+						<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-1.5vh;">
+							<select class="selectpicker selectwidthauto">
+								<option>Non assigné</option>
+								<option>Au dela</option>
+								<option>Attendu</option>
+								<option>Très proche</option>
+								<option>Proche</option>
+								<option>Loin</option>
+							</select>	
+						</div>
+						<div style="position:absolute;">
+							<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
+						</div>	
+					</form>
+					<form class="myBoxSizePlus">
+						<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-1.5vh;">
+							<select class="selectpicker selectwidthauto">
+								<option>Non assigné</option>
+								<option>Au dela</option>
+								<option>Attendu</option>
+								<option>Très proche</option>
+								<option>Proche</option>
+								<option>Loin</option>
+							</select>	
+						</div>
+						<div style="position:absolute;">
+							<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
+						</div>	
+					</form>
+					<form class="myBoxSizePlus">
+						<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-1.5vh;">
+							<select class="selectpicker selectwidthauto">
+								<option>Non assigné</option>
+								<option>Au dela</option>
+								<option>Attendu</option>
+								<option>Très proche</option>
+								<option>Proche</option>
+								<option>Loin</option>
+							</select>	
+						</div>
+						<div style="position:absolute;">
+							<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
+						</div>	
+					</form>
+					<form class="myBoxSizePlus">
+						<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-1.5vh;">
+							<select class="selectpicker selectwidthauto">
+								<option>Non assigné</option>
+								<option>Au dela</option>
+								<option>Attendu</option>
+								<option>Très proche</option>
+								<option>Proche</option>
+								<option>Loin</option>
+							</select>	
+						</div>
+						<div style="position:absolute;">
+							<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
+						</div>	
+					</form>
+					<form class="myBoxSizePlus">
+						<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-1.5vh;">
+							<select class="selectpicker selectwidthauto">
+								<option>Non assigné</option>
+								<option>Au dela</option>
+								<option>Attendu</option>
+								<option>Très proche</option>
+								<option>Proche</option>
+								<option>Loin</option>
+							</select>	
+						</div>
+						<div style="position:absolute;">
+							<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
+						</div>	
+					</form>
+					
+					
 				</div>
 			<!-- Etudiant -->
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 				<!-- titre de la collone -->
 					<h4 class="myBoxSizeTitle">Etudiants</h4>
-					<div class="btn-group bootstrap-select open col-lg-12 myBoxSize ">
+					<div class="btn-group bootstrap-select open col-lg-12 myBoxSizePhoto ">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 myVerticalCenter">
 							<img src="https://s-media-cache-ak0.pinimg.com/736x/cd/90/d9/cd90d9de63fa2c8e5c5e7117e27b5c18.jpg" class="img-responsive" alt="photo identité">
 						</div>
@@ -447,7 +519,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="btn-group bootstrap-select open col-lg-12  myBoxSize">
+					<div class="btn-group bootstrap-select open col-lg-12 myBoxSizePhoto ">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 myVerticalCenter">
 							<img src="https://s-media-cache-ak0.pinimg.com/736x/cd/90/d9/cd90d9de63fa2c8e5c5e7117e27b5c18.jpg" class="img-responsive" alt="photo identité">
 						</div>
@@ -458,7 +530,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="btn-group bootstrap-select open col-lg-12  myBoxSize">
+					<div class="btn-group bootstrap-select open col-lg-12 myBoxSizePhoto ">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 myVerticalCenter">
 							<img src="https://s-media-cache-ak0.pinimg.com/736x/cd/90/d9/cd90d9de63fa2c8e5c5e7117e27b5c18.jpg" class="img-responsive" alt="photo identité">
 						</div>
@@ -469,7 +541,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="btn-group bootstrap-select open col-lg-12  myBoxSize">
+					<div class="btn-group bootstrap-select open col-lg-12 myBoxSizePhoto ">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 myVerticalCenter">
 							<img src="https://s-media-cache-ak0.pinimg.com/736x/cd/90/d9/cd90d9de63fa2c8e5c5e7117e27b5c18.jpg" class="img-responsive" alt="photo identité">
 						</div>
@@ -480,7 +552,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="btn-group bootstrap-select open col-lg-12  myBoxSize">
+					<div class="btn-group bootstrap-select open col-lg-12 myBoxSizePhoto ">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 myVerticalCenter">
 							<img src="https://s-media-cache-ak0.pinimg.com/736x/cd/90/d9/cd90d9de63fa2c8e5c5e7117e27b5c18.jpg" class="img-responsive" alt="photo identité">
 						</div>
@@ -491,6 +563,7 @@
 							</ul>
 						</div>
 					</div>
+					
 				  </div>
 			<!-- end of the groupe observation individuelles niveau et etudiant -->
 			<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -529,80 +602,133 @@
 						<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
 							<h4 class="myBoxSizeTitle">Observation individuelles</h4>
 							<!-- il faut créer un nb de textarea depedant du nb d'eleve -->
-							<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
-							<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
-							<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
-							<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
-							<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
+							
+							<form>
+								<div>
+									<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
+									<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+								</div>
+							</form>
+							<form>
+								<div>
+									<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
+									<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+								</div>
+							</form>
+							<form>
+								<div>
+									<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
+									<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+								</div>
+							</form>
+							<form>
+								<div>
+									<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
+									<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+								</div>
+							</form>
+							<form>
+								<div>
+									<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve"/></textarea>
+									
+								</div>
+								<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+							</form>
+							
 						</div>
 						<!-- niveau individuel -->
 						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
 							<h4 class="myBoxSizeTitle">Niveau individuel</h4>
-							<div class="btn-group bootstrap-select open myBoxSizeDD text-center col-xs-12">
-								<select class="selectpicker selectwidthauto myVerticalCenter2">
-									<option>Non assigné</option>
-									<option>Acquis</option>
-									<option>Non acquis</option>
-								</select>	
-							</div>
-							<div class="btn-group bootstrap-select open myBoxSizeDD text-center col-xs-12">
-								<select class="selectpicker selectwidthauto myVerticalCenter2">
-									<option>Non assigné</option>
-									<option>Acquis</option>
-									<option>Non acquis</option>
-								</select>	
-							</div>
-							<div class="btn-group bootstrap-select open myBoxSizeDD text-center col-xs-12">
-								<select class="selectpicker selectwidthauto myVerticalCenter2">
-									<option>Non assigné</option>
-									<option>Acquis</option>
-									<option>Non acquis</option>
-								</select>	
-							</div>
-							<div class="btn-group bootstrap-select open myBoxSizeDD text-center col-xs-12">
-								<select class="selectpicker selectwidthauto myVerticalCenter2">
-									<option>Non assigné</option>
-									<option>Acquis</option>
-									<option>Non acquis</option>
-								</select>	
-							</div>
-							<div class="btn-group bootstrap-select open myBoxSizeDD text-center col-xs-12">
-								<select class="selectpicker selectwidthauto myVerticalCenter2">
-									<option>Non assigné</option>
-									<option>Acquis</option>
-									<option>Non acquis</option>
-								</select>	
-							</div>
+							<form class="myBoxSizeDDPlus">
+								<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-1.5vh;">
+									<select class="selectpicker selectwidthauto">
+										<option>Non assigné</option>
+										<option>Acquis</option>
+										<option>Non acquis</option>
+									</select>
+								</div>
+								<div style="position:absolute;">
+									<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
+								</div>
+							</form>
+							<form class="myBoxSizeDDPlus">
+								<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-1.5vh;">
+									<select class="selectpicker selectwidthauto">
+										<option>Non assigné</option>
+										<option>Acquis</option>
+										<option>Non acquis</option>
+									</select>
+								</div>
+								<div style="position:absolute;">
+									<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
+								</div>
+							</form>
+							<form class="myBoxSizeDDPlus">
+								<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-1.5vh;">
+									<select class="selectpicker selectwidthauto">
+										<option>Non assigné</option>
+										<option>Acquis</option>
+										<option>Non acquis</option>
+									</select>
+								</div>
+								<div style="position:absolute;">
+									<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
+								</div>
+							</form>
+							<form class="myBoxSizeDDPlus">
+								<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-1.5vh;">
+									<select class="selectpicker selectwidthauto">
+										<option>Non assigné</option>
+										<option>Acquis</option>
+										<option>Non acquis</option>
+									</select>
+								</div>
+								<div style="position:absolute;">
+									<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
+								</div>
+							</form>
+							<form class="myBoxSizeDDPlus">
+								<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-1.5vh;">
+									<select class="selectpicker selectwidthauto">
+										<option>Non assigné</option>
+										<option>Acquis</option>
+										<option>Non acquis</option>
+									</select>
+								</div>
+								<div style="position:absolute;">
+									<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
+								</div>
+							</form>
 							
 						</div>
 						<!-- Etudiant -->
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 							<h4 class="myBoxSizeTitle">Etudiants</h4>
-							<div class="btn-group bootstrap-select open col-lg-12  myBoxSizeDD">
+							<div class="btn-group bootstrap-select open col-lg-12  myBoxSizeDDPlus">
 								<ul class="myVerticalCenter">
 									<li>Nom</li>
 									<li>Prenom</li>
 								</ul>
 							</div>
-							<div class="btn-group bootstrap-select open col-lg-12  myBoxSizeDD">
+							<div class="btn-group bootstrap-select open col-lg-12  myBoxSizeDDPlus">
 								<ul class="myVerticalCenter">
 									<li>Nom</li>
 									<li>Prenom</li>
 								</ul>
 							</div>
-							<div class="btn-group bootstrap-select open col-lg-12  myBoxSizeDD">
+							<div class="btn-group bootstrap-select open col-lg-12  myBoxSizeDDPlus">
 								<ul class="myVerticalCenter">
 									<li>Nom</li>
 									<li>Prenom</li>
 								</ul>
 							</div>
-							<div class="btn-group bootstrap-select open col-lg-12  myBoxSizeDD">
+							<div class="btn-group bootstrap-select open col-lg-12  myBoxSizeDDPlus">
 								<ul class="myVerticalCenter">
 									<li>Nom</li>
 									<li>Prenom</li>
 								</ul>
 							</div>
-							<div class="btn-group bootstrap-select open col-lg-12  myBoxSizeDD">
+							<div class="btn-group bootstrap-select open col-lg-12  myBoxSizeDDPlus">
 								<ul class="myVerticalCenter">
 									<li>Nom</li>
 									<li>Prenom</li>

@@ -19,6 +19,7 @@ public class Groupe {
 	private long promotionID;
 	private ArrayList<Long> sousGroupesIDs;
 	private ArrayList<Long> tuteursIDs;
+	private ArrayList<Long> elevesIDs;
 	private String nom;
 	
 	/*
@@ -31,6 +32,7 @@ public class Groupe {
 		
 		this.sousGroupesIDs = new ArrayList<Long>();
 		this.tuteursIDs = new ArrayList<Long>();
+		this.elevesIDs = new ArrayList<Long>();
 		
 		if(nom == null || nom.isEmpty()){
 			throw new IllegalArgumentException("Il faut absoluement qu'une groupe possède un nom !");
@@ -62,6 +64,14 @@ public class Groupe {
 	public void removeTuteurID(long tuteurID){
 		this.tuteursIDs.remove(tuteurID);
 	}
+	
+	public void addEleveID(long eleveID){
+		this.elevesIDs.add(eleveID);
+	}
+	
+	public void removeEleveID(long eleveID){
+		this.elevesIDs.remove(eleveID);
+	}
 
 	public long getPromotionID() {
 		return promotionID;
@@ -85,6 +95,14 @@ public class Groupe {
 
 	public void setTuteursIDs(ArrayList<Long> tuteursIDs) {
 		this.tuteursIDs = tuteursIDs;
+	}
+	
+	public ArrayList<Long> getElevesIDs() {
+		return elevesIDs;
+	}
+
+	public void setElevesIDs(ArrayList<Long> elevesIDs) {
+		this.elevesIDs = elevesIDs;
 	}
 
 	public String getNom() {
