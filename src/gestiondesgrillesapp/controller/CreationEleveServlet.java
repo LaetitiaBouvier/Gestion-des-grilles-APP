@@ -207,9 +207,11 @@ public class CreationEleveServlet extends HttpServlet {
     				String nomUser = request.getParameter("champ["+i+"][1]");
     				String prenomUser = request.getParameter("champ["+i+"][2]");
     				String mailUser = request.getParameter("champ["+i+"][3]");
-    				String nomPromotionUser = request.getParameter("champ["+i+"][4]");
-    				String nomGroupeUser = request.getParameter("champ["+i+"][5]");
-    				String nomSousGroupeUser = request.getParameter("champ["+i+"][6]");
+    				String nomPromotionUser = request.getParameter("champ["+i+"][4]"); 	// bureau
+    				String nomGroupeUser = request.getParameter("champ["+i+"][5]");		// isTuteur
+    				String nomSousGroupeUser = request.getParameter("champ["+i+"][6]"); // isRespo
+//    				boolean isTuteur = Boolean.parseBoolean(request.getParameter("champ["+i+"][7]"));
+//    				boolean isRespoModule = Boolean.parseBoolean(request.getParameter("champ["+i+"][8]"));
     				
     				// ____________________________________
     				// Gestion de l'élève en question
