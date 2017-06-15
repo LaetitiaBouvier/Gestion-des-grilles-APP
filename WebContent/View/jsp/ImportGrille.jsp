@@ -25,59 +25,29 @@
 					<div class="panel-body">
 
 					<form method="POST" action="../../CreationEleveServlet" class="form-horizontal">
-
-
 						<div id="dataTables_wrapper" class="dataTables_wrapper form-inline no-footer">
-							<div class="row">
-								<div class="col-md-4" style=" margin-left: 20px;">
-									<h6>
-										Veuillez sélectionner un fichier CSV à importer.<br/><br/>
-										Pour connaître la forme du fichier à importer, cliquer sur "Créer un fichier CSV à partir d'un fichier type"
-									</h6>
-								</div>
-								<div class="col-md-2">
-								</div>
-								<div class="col-md-6">
-									<div class="">
-					                    <div class="panel panel-warning">
-					                        <div class="panel-heading">
-					                            <div class="row">
-					                                <div class="col-xs-3">
-					                                    <i class="fa fa-support fa-5x"></i>
-					                                </div>
-					                                <div class="col-xs-9 text-right">
-					                                    <div>Créer un fichier CSV à partir d'un fichier type</div>
-					                                </div>
-					                            </div>
-					                        </div>
-					                        <a href="gestion_promotions2.html">
-					                            <div class="panel-footer">
-					                                <span class="pull-left">View Details</span>
-					                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					                                <div class="clearfix"></div>
-					                            </div>
-					                        </a>
-					                    </div>
-					                </div>
-								</div>
-							</div>
-							<div class="row" style=" margin-left: 20px;">
-								<div class="col-md-6">
+							<div class="row" style="margin-bottom: 10px;">
+								<div class="col-md-8" style=" margin-left: 20px; margin-bottom: 10px;">
 									<br/><br/><h6>Merci de veiller à remplir le tableau de la façon suivante et d'utiliser l'entête présentée sur la première ligne de votre fichier .csv.</h6>
 								</div>
-								<div class="row" style=" margin-left: 20px;">
-									<div class="col-md-12">		
+								<div class="row" style="margin-bottom: 10px;">
+									<div class="col-md-12" style=" margin-left: 20px; margin-bottom: 10px;">		
 									  	<img src="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/ressources/tableauGrille.png" style="width:80%;"/>
 								  	</div>
 								</div>
-								<div class="row" style=" margin-left: 20px;">
-								  	<div class="col-md-6">
-								  		<h6>Veillez à ne pas laisser de champs vide, inscrire "null" dans les cases vides.</h6><br/><br/>
+								<div class="row" style=" margin-bottom: 10px;">
+								  	<div class="col-md-6" style=" margin-left: 20px; margin-bottom: 10px;">
+								  		<h6>Veillez à ne pas laisser de champ vide, inscrire un point "." dans les cases vides.</h6><br/><br/>
 								  	</div>
 							  	</div>
 							</div>
-							<div class="row" style=" margin-left: 20px;">
-								<div class="col-md-6">									
+							<div class="row" style=" margin-left: 20px; margin-bottom: 10px;">
+								<div class="col-md-4" style="">
+									<h6>
+										Veuillez sélectionner un fichier CSV à importer.<br/><br/>
+									</h6>
+								</div>
+								<div class="col-md-4">		
 									<div id="inputs" class="clearfix">
 							    		<input type="file" id="files" name="files[]" multiple />
 							 		 </div>
@@ -86,7 +56,27 @@
 							  		</output>
 							  		<hr />
 								</div>
-<
+								<div class="col-md-4" >
+				                    <div class="panel panel-warning">
+				                        <div class="panel-heading">
+				                            <div class="row">
+				                                <div class="col-xs-3">
+				                                    <i class="fa fa-support fa-5x"></i>
+				                                </div>
+				                                <div class="col-xs-9 text-right">
+				                                    <div>Créer un fichier CSV à partir d'un fichier type</div>
+				                                </div>
+				                            </div>
+				                        </div>
+				                        <a href="gestion_promotions2.html">
+				                            <div class="panel-footer">
+				                                <span class="pull-left">View Details</span>
+				                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+				                                <div class="clearfix"></div>
+				                            </div>
+				                        </a>
+				                    </div>
+								</div>
 							</div>
 							
 							<div class="row">
