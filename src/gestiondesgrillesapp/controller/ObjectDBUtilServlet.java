@@ -713,8 +713,63 @@ public class ObjectDBUtilServlet extends HttpServlet{
 				
 			grilleModel.addCompetenceID(competenceTravailEnEquipe.getID());
 			
-			
-			
+		//  ____________________________________
+					//  ____________________________________
+					//  ____________________________________
+					//  Création de la compétence informatique :
+					
+						Competence competenceInformatique = new Competence("Informatique", "3-Concevoir et réaliser un site web");
+						
+							SousCompetence sousCompetenceDev = new SousCompetence("Developpement HTML et CSS");
+							
+								Point pointSyntax = new Point("Maitriser la syntaxe et l'environnement de développement");
+									SousPoint sousPtHTML= new SousPoint("HTML balises attributs et formulaires");
+									SousPoint sousPtCSS = new SousPoint("CSS style box et model");
+								
+								Point pointConcept = new Point("Appliquer les concepts intermédiaires des langages");
+									SousPoint sousPtHTML2 = new SousPoint("HTML5 media graphiques etc");
+									SousPoint sousPtCSS2 = new SousPoint("Responsive design et accessibilité");
+					
+						//  ____________________________________
+						//  Enregistrement des objets dans la BDD :
+										
+						em.getTransaction().begin();
+						
+						em.persist(competenceInformatique);
+							em.persist(sousCompetenceDev);
+							em.persist(pointSyntax);
+								em.persist(sousPtHTML);
+								em.persist(sousPtCSS);
+							em.persist(pointConcept);
+								em.persist(sousPtHTML2);
+								em.persist(sousPtCSS2);
+						em.getTransaction().commit();								// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
+						//  ____________________________________
+						//  Association de la compétence travail en équipe à la grille :
+									
+									sousPtCSS2.setPointID(pointConcept.getID());
+									sousPtHTML2.setPointID(pointConcept.getID());
+								pointConcept.addSousPointID(sousPtCSS2.getID());
+								pointConcept.addSousPointID(sousPtHTML2.getID());
+								pointConcept.setSousCompetenceID(sousCompetenceDev.getID());
+								
+									sousPtCSS.setPointID(sousPtCSS.getID());
+									sousPtHTML.setPointID(pointSyntax.getID());
+								pointSyntax.addSousPointID(sousPtCSS.getID());
+								pointSyntax.addSousPointID(sousPtHTML.getID());
+								pointSyntax.setSousCompetenceID(sousCompetenceDev.getID());
+								
+							sousCompetenceDev.addPointID(pointSyntax.getID());
+							sousCompetenceDev.addPointID(pointConcept.getID());
+							sousCompetenceDev.setCompetenceID(competenceInformatique.getID());
+							sousCompetenceDev.setCoefficient(1.0);
+								
+						competenceInformatique.addSousCompetenceID(sousCompetenceDev.getID());
+						competenceInformatique.setGrilleID(grilleModel.getEleveID());
+						competenceInformatique.setCoefficient(1.0);
+						
+					grilleModel.addCompetenceID(competenceInformatique.getID());
+					
 			//  ____________________________________
 			//  Enregistrement de la MAJ des objets dans la BDD :
 							
@@ -722,30 +777,14 @@ public class ObjectDBUtilServlet extends HttpServlet{
 			
 			em.persist(grilleModel);
 			
-			em.persist(competenceTravailEnEquipe);
-				em.persist(sousCompetenceEquipe);
-					em.persist(pointParticiper);
-						em.persist(sousPtParticiper1);
-						em.persist(sousPtParticiper2);
-					em.persist(pointAnimer);
-						em.persist(sousPtAnimer1);
-						em.persist(sousPtAnimer2);
-				em.persist(sousCompetenceConflits);
-					em.persist(pointDetecter);
-						em.persist(sousPtDetecter1);
-					em.persist(pointApporter);
-						em.persist(sousPtApporter1);
-				em.persist(sousCompetenceProposition);
-					em.persist(pointEmettre);
-						em.persist(sousPtEmettre1);
-					em.persist(pointJustifier);
-						em.persist(sousPtJustifier1);
-				em.persist(sousCompetenceOutilsCollaboratif);
-					em.persist(pointUtiliser);
-						em.persist(sousPtUtiliser1);
-					em.persist(pointOrganiser);
-						em.persist(sousPtOrganiser1);
-					
+			em.persist(competenceInformatique);
+				em.persist(sousCompetenceDev);
+					em.persist(pointSyntax);
+						em.persist(sousPtHTML);
+						em.persist(sousPtCSS);
+					em.persist(pointConcept);
+						em.persist(sousPtHTML2);
+						em.persist(sousPtCSS2);
 			em.getTransaction().commit();								// Attention !!! les id's ne sont générées qu'après le commit de l'instance persistante associée !
 			
 		} finally {

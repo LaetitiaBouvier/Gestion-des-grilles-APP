@@ -19,9 +19,6 @@
 	HashMap<Groupe, ArrayList<User>> hashUsersGroupe = new HashMap<>();
 	HashMap<SousGroupe, ArrayList<User>> hashUsersSousGroupe = new HashMap<>();
 	
-	List<Grille> grilleListTemp = em.createQuery("SELECT g FROM Grille g WHERE isModel='true'", Grille.class).getResultList();
-	List<Grille> modelsList = (List<Grille>) ObjectDBUtilServlet.extractMultipleObjectsManagingExceptions(grilleListTemp);
-
 	for (Promotion promotion : promotionList) {
 		System.out.println("" + promotion.getAnneeObtensionDiplome());
 		
@@ -212,23 +209,6 @@ button.list-group-item:focus.unselected {
 										<button type="button" class="list-group-item bigButton unselected"
 											data-groupeid="<%=groupe.getNom()%>"><%=groupe.getNom()%></button>
 
-									<%if(user.isRespoModule()) {%>
-										<form action="NavigationServlet" method="post" class="form-inline text-center col-xs-offset-4"
-											style="margin-top: -3.5vh; width: 50%;">
-											<div class="btn-group bootstrap-select open"
-												style="width: 50%;">
-												<select name="submitbutton" class="selectpicker selectwidthauto">
-												
-												<%for(Grille model : modelsList) {%>
-													<option value="<%=model.getID()%> <%=groupe.getID()%>"><%=model.getTitre()%></option>
-												<%} %>
-												</select>
-											</div>
-											<button type="submit" class="btn btn-primary fa fa-floppy-o"
-												style="position: absolute; z-index: 4;"></button>
-										</form>
-									<%} %>
-
 									<button class="glyphicon glyphicon-menu-right"
 											aria-hidden="true" data-toggleStudent></button>
 									</div>
@@ -391,29 +371,6 @@ button.list-group-item:focus.unselected {
 	
 	</script>
 	
-	<script>
-	<!-- -------------------------- --> console.log($('form.myBoxSize'));
-		$('form').submit( function(e) {
-			e.preventDefault();
-			
-			$('#logoIsepForTick').append('<img id="2Bremoved" src="https://openclipart.org/image/2400px/svg_to_png/167549/Kliponious-green-tick.png" style="position:relative; top:0; left:0; right:0; bottom:0; margin-left:auto%; height:auto; width:100%; overflow:visible;"></img>')
-				setTimeout(function() {
-					$("#2Bremoved").remove();
-			}, 800);
-			
-			$.ajax({
-				method : 'POST',
-				url : 'NavigationServlet',
-				data : $(this).serializeArray(),
-				dataType : 'JSON',
-				success : function() {
-					console.log('success');
-				},
-				error : function() {
-				}
-			});
-		});
-	</script>
 
 </body>
 </html>

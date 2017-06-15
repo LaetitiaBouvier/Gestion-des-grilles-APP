@@ -164,7 +164,7 @@ body, html {
         <div class="card card-container">
             <img id="profile-img" class="profile-img-card" src="http://www.financetesetudes.com/wp-content/uploads/2013/08/logo-isep.jpg" />
             <p id="profile-name" class="profile-name-card">ISEP Evaluation APP Login</p>
-            <form class="form-signin" action="/Gestion_des_grilles_APP/LoginServlet" method="post" id="login-form">
+            <form class="form-signin" action="/Gestion-des-grilles-APP/LoginServlet" method="post" id="login-form">
                 <span id="reauth-email" class="reauth-email">Utilisez vos informations de connexion moodle</span>
                 <input type="text" name="ISEPid" id="ISEPid" class="form-control" placeholder="ISEP id" required autofocus>
                 <input type="password" name="ISEPpassword" id="ISEPpassword" class="form-control" placeholder="ISEP Password" required>
