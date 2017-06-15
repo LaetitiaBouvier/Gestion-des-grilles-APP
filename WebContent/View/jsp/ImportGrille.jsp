@@ -36,7 +36,7 @@
 								</div>
 								<div class="row" style="margin-bottom: 10px;">
 									<div class="col-md-12" style=" margin-left: 20px; margin-bottom: 10px;">		
-									  	<img class="center-block" src="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/ressources/tableauGrille.png" style="width:60%;"/>
+									  	<img class="center-block" src="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/ressources/tableauGrille2.png" style="width:60%;"/>
 								  	</div>
 								</div>
 								<div class="row" style=" margin-bottom: 10px;">
