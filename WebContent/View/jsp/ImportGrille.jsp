@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ include file = "./../html/headCommun.html" %>    
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%-- <%@ include file = "./../html/headCommun.html" %>     --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,27 +11,28 @@
 
 <body>
 	
-	<%@ include file = "NavBar.jsp" %>
+<%-- 	<%@ include file = "NavBar.jsp" %> --%>
 	<div id="wrapper" class="container">
 	
 		<div id="page-wrapper" style="min-height: 683px">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Import des compétences</h1>
+					<h1 class="page-header">Import des compÃ©tences</h1>
 				</div>
 			</div>
 			<div class="row">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3>Liste des compétences, sous-compétences, points et sous-points</h3>
+						<h3>Liste des compÃ©tences, sous-compÃ©tences, points et sous-points</h3>
 					</div>
 					<div class="panel-body">
-
-					<form method="POST" action="../../CreationEleveServlet" class="form-horizontal">
+<% long gID = (long) request.getAttribute("grilleID");
+  %>
+					<form method="POST" action="CreationCompetencesServlet" class="form-horizontal">
 						<div id="dataTables_wrapper" class="dataTables_wrapper form-inline no-footer">
 							<div class="row" style="margin-bottom: 10px;">
 								<div class="col-md-8" style=" margin-left: 20px; margin-bottom: 10px;">
-									<br/><br/><h6>Merci de veiller à remplir le tableau de la façon suivante et d'utiliser l'entête présentée sur la première ligne de votre fichier .csv.</h6>
+									<br/><br/><h6>Merci de veiller Ã  remplir le tableau de la faÃ§on suivante et d'utiliser l'entÃªte prÃ©sentÃ©e sur la premiÃ¨re ligne de votre fichier .csv.</h6>
 								</div>
 								<div class="row" style="margin-bottom: 10px;">
 									<div class="col-md-12" style=" margin-left: 20px; margin-bottom: 10px;">		
@@ -40,14 +41,14 @@
 								</div>
 								<div class="row" style=" margin-bottom: 10px;">
 								  	<div class="col-md-6" style=" margin-left: 20px; margin-bottom: 10px;">
-								  		<h6>Veillez à ne pas laisser de champ vide, inscrire un point "." dans les cases vides.</h6><br/><br/>
+								  		<h6>Veillez Ã  ne pas laisser de champ vide, inscrire un point "." dans les cases vides.</h6><br/><br/>
 								  	</div>
 							  	</div>
 							</div>
 							<div class="row" style=" margin-left: 20px; margin-bottom: 10px;">
 								<div class="col-md-4" style="">
 									<h6>
-										Veuillez sélectionner un fichier CSV à importer.<br/><br/>
+										Veuillez sÃ©lectionner un fichier CSV Ã  importer.<br/><br/>
 									</h6>
 								</div>
 								<div class="col-md-4">								
@@ -67,7 +68,7 @@
 				                                    <i class="fa fa-table fa-5x"></i>
 				                                </div>
 				                                <div class="col-xs-9 text-right">
-				                                    <div>Créer un fichier CSV à partir d'un fichier type</div>
+				                                    <div>CrÃ©er un fichier CSV Ã  partir d'un fichier type</div>
 				                                </div>
 				                            </div>
 				                        </div>
@@ -86,7 +87,7 @@
 								<div class="col-md-12">
 									<div class="alert alert-warning alert-dismissable" style="display:none;">
 									    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-							            <strong>Warning!</strong> Votre fichier a bien été téléchargé, soumettez le pour enregistrer les données.
+							            <strong>Warning!</strong> Votre fichier a bien Ã©tÃ© tÃ©lÃ©chargÃ©, soumettez le pour enregistrer les donnÃ©es.
 							            <input type="submit" class="btn btn-primary" value="Soumettre cette grille" />
 							        </div>
 								</div>
@@ -170,7 +171,6 @@
         var ligne = -1;
         
         var html = '';
-//         html += '<form method="POST" action="./../CreationEleve" class="form-horizontal">';
         for(var row in data) {
           ligne += 1;
           var colonne = -1;
@@ -184,9 +184,8 @@
         }
         html += '<input type="hidden" id="ligne" name="ligne" value="'+ligne+'"/>';
         html += '<input type="hidden" id="colonne" name="colonne" value="'+colonne+'"/>';
+        html += '<input type="hidden" id="gID" name="gID" value="'+<%=gID%>+'"/>';
         html += '<br /><br />';
-//         html +='<input type="submit" class="btn btn-primary" value="Soumettre cette grille" />';
-//         html += '</form>';
         $('#contents').html(html);
         $('.alert').show()
       };

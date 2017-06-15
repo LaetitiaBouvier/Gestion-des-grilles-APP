@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ include file = "./../html/headCommun.html" %>  
+  <%--   <%@ include file = "./../html/headCommun.html" %>   --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<%@ include file = "NavBar.jsp" %>
+	<%-- <%@ include file = "NavBar.jsp"%> --%>
 	<div id="wrapper" class="container">
 	
 		<div id="page-wrapper" style="min-height: 683px">
