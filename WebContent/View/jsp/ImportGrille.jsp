@@ -41,7 +41,7 @@
 								</div>
 								<div class="row" style=" margin-bottom: 10px;">
 								  	<div class="col-md-6" style=" margin-left: 20px; margin-bottom: 10px;">
-								  		<h6>Veillez à ne pas laisser de champ vide, inscrire un point "." dans les cases vides.</h6><br/><br/>
+								  		<h6>Veillez à ne pas laisser de champ vide : il faut réécrire toutes les informations précédant chaque sous-point.</h6><br/><br/>
 								  	</div>
 							  	</div>
 							</div>
