@@ -170,7 +170,9 @@ public class CreationCompetencesServlet extends HttpServlet {
 				finally {
 					// Close the database connection:
 					em.close();
+					
 				}
+		request.getRequestDispatcher("/View/jsp/ImportGrille.jsp").forward(request, response);
 			}
 
 			/**
