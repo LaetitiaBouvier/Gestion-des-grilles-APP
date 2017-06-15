@@ -28,15 +28,17 @@
 
 						<div id="dataTables_wrapper" class="dataTables_wrapper form-inline no-footer">
 							<div class="row">
-								<div class="col-md-8">
+								<div class="col-md-4">
 									<h5>
 										<small>
-											Veuillez sélectionner un fichier CSV à importer.<br/>
+											Veuillez sélectionner un fichier CSV à importer.<br/><br/>
 											Pour connaître la forme du fichier à importer, cliquer sur "Créer un fichier CSV à partir d'un fichier type"
 										</small>
 									</h5>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-2">
+								</div>
+								<div class="col-md-6">
 									<div class="">
 					                    <div class="panel panel-warning">
 					                        <div class="panel-heading">
