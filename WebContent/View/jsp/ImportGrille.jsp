@@ -23,19 +23,9 @@
 						<h3>Liste des compétences, sous-compétences, points et sous-points</h3>
 					</div>
 					<div class="panel-body">
-<<<<<<< HEAD
-=======
-
-						<form method="POST" action="../../CreationEleveServlet" class="form-horizontal">
->>>>>>> branch 'camille2' of https://github.com/LaetitiaBouvier/Gestion-des-grilles-APP.git
 
 					<form method="POST" action="../../CreationEleveServlet" class="form-horizontal">
 						<div id="dataTables_wrapper" class="dataTables_wrapper form-inline no-footer">
-<<<<<<< HEAD
-=======
-							
-
->>>>>>> branch 'camille2' of https://github.com/LaetitiaBouvier/Gestion-des-grilles-APP.git
 							<div class="row" style="margin-bottom: 10px;">
 								<div class="col-md-8" style=" margin-left: 20px; margin-bottom: 10px;">
 									<br/><br/><h6>Merci de veiller à remplir le tableau de la façon suivante et d'utiliser l'entête présentée sur la première ligne de votre fichier .csv.</h6>
@@ -57,11 +47,7 @@
 										Veuillez sélectionner un fichier CSV à importer.<br/><br/>
 									</h6>
 								</div>
-<<<<<<< HEAD
-								<div class="col-md-4">		
-=======
 								<div class="col-md-4">								
->>>>>>> branch 'camille2' of https://github.com/LaetitiaBouvier/Gestion-des-grilles-APP.git
 									<div id="inputs" class="clearfix">
 							    		<input type="file" id="files" name="files[]" multiple />
 							 		 </div>
