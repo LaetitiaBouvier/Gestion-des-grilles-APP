@@ -37,7 +37,7 @@ public class ObjectDbTestServlet extends HttpServlet {
 //			System.out.println(enu.nextElement());
 //		}
 		
-		String code = "initializeDataBase";
+		String code = "emptyDataBase";
 		request.setAttribute("code", code);
 		request.getRequestDispatcher("ObjectDBUtilServlet").include(request,response);
 		request.removeAttribute("code");

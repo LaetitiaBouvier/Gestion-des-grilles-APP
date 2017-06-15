@@ -91,6 +91,13 @@ public class NavBarServlet extends HttpServlet {
 			
 			request.getRequestDispatcher("/View/jsp/Navigation.jsp").forward(request, response);
 		}
+		else if(onglet.equals("Déconnexion"))
+		{
+			HttpSession session = request.getSession(false);
+			session.invalidate();
+			
+			request.getRequestDispatcher("/View/jsp/LoginPage.jsp").forward(request, response);
+		}
 		else
 		{
 			String competenceSelectedTitle = onglet;

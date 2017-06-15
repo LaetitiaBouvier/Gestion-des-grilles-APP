@@ -47,6 +47,7 @@ public class LDAPaccess implements Serializable
 		String employeeNumber = null;
 		String mail = null;
 		String messageErreur = "LOGIN INVALIDE";
+		
 		try
 		{
 
@@ -106,10 +107,12 @@ public class LDAPaccess implements Serializable
 				
 				ctx.close();
 			}
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			System.err.println(e);
-			throw (new Exception(messageErreur));
+			return null;
+//			throw (new Exception(messageErreur));
 		}
 
 		LDAPObject reponse = new LDAPObject(login, mdp, nom, nomFamille, prenom, type, employeeNumber, mail);

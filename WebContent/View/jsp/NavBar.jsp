@@ -34,7 +34,7 @@
 %>
 
 <!-- NavBar -->
-<div class="col-md-2 col-sm-2" style="position: fixed;">
+<div class="col-md-2 col-sm-2" style="position: fixed; z-index:50;" >
 	<!-- Navigation -->
 	<nav class="navbar navbar-default navbar-static-top" role="navigation"
 		style="border: none;">
@@ -79,12 +79,14 @@
 							<%=numero%></p>
 							
 						<div class="text-center" style="margin-bottom: 3px;">
-							<button type="button" class="btn btn-primary">déconnexion</button>
+							<form action="NavBarServlet" method="post">
+								<input type="submit" name="submitbutton" value="Déconnexion" class="btn btn-primary"></input>
+							</form>
 						</div>
 
 					</li>
 					<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------- !-->
-					<li class="sidebar-search">
+				<!-- 	<li class="sidebar-search">
 						<div class="input-group custom-search-form">
 							<input type="text" class="form-control" placeholder="Search...">
 							<span class="input-group-btn">
@@ -92,8 +94,8 @@
 									<i class="fa fa-search"></i>
 								</button>
 							</span>
-						</div> <!-- /input-group -->
-					</li>
+						</div> /input-group
+					</li> -->
 					<li class="myAccordion">
 						<div class="panel-group" id="NavCompetenceAccordion">
 						
@@ -106,8 +108,7 @@
 												<%-- <a data-toggle="collapse"
 											data-parent="#NavCompetenceAccordion"
 											href="#CollapseNavCompetenceAccordion<%=i%>"><%=nomCompetence%></a> --%>
-												<input type="submit" name="submitbutton"
-													value="Navigation">
+												<input type="submit" name="submitbutton" value="Navigation" style="border:none;background-color:#f8f8f8;">
 											</h4>
 										</form>
 									</div>
@@ -144,8 +145,7 @@
 												<%-- <a data-toggle="collapse"
 											data-parent="#NavCompetenceAccordion"
 											href="#CollapseNavCompetenceAccordion<%=i%>"><%=nomCompetence%></a> --%>
-												<input type="submit" name="submitbutton"
-													value="Vue d'ensemble">
+												<input type="submit" name="submitbutton" value="Vue d'ensemble" style="border:none;background-color:#f8f8f8;">
 											</h4>
 										</form>
 									</div>
@@ -171,9 +171,6 @@
 											</div> --%>
 										</div>
 									</div>
-						
-						
-						
 							<%
 								ArrayList<Competence> competencesList = competences.get(grille);
 								for (int i = 0; i < competencesList.size(); i++) {
@@ -200,8 +197,7 @@
 												<%-- <a data-toggle="collapse"
 											data-parent="#NavCompetenceAccordion"
 											href="#CollapseNavCompetenceAccordion<%=i%>"><%=nomCompetence%></a> --%>
-												<input type="submit" name="submitbutton"
-													value="<%=nomCompetence%>">
+												<input type="submit" name="submitbutton" value="<%=nomCompetence%>" style="border:none;background-color:#f8f8f8;">
 											</h4>
 										</form>
 									</div>

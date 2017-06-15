@@ -59,35 +59,41 @@ public class LoginServlet extends HttpServlet {
 
 			if(("jbond").equals(id) && ("jesuisunespion").equals(pw))
 			{
+				
+				
+				
 				List<User> userList = em.createQuery("SELECT c FROM User c WHERE numero='007'", User.class).getResultList();
-				User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userList);
-				session.removeAttribute("user");
-				session.setAttribute("user", user);
 				
-				session.removeAttribute("userFill");
-				session.setAttribute("userFill", user);
-
-				fillSession(em, session, user);
-
-				request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
-				//				List<User> userList = em.createQuery("SELECT c FROM User c WHERE numero='007'", User.class).getResultList();
-				//				User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userList);
-				//				session.setAttribute("user", user);
-			}
-			else if (("test").equals(id) && ("test").equals(pw))
-			{
-				List<User> userList = em.createQuery("SELECT c FROM User c WHERE numero='0000'", User.class).getResultList();
-				User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userList);
-				session.removeAttribute("user");
-				session.setAttribute("user", user);
-				
-				session.removeAttribute("userFill");
-				session.setAttribute("userFill", user);
-
-				fillSession(em, session, user);
-
-				request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
-//				request.getRequestDispatcher("/View/jsp/DetailCompetenceJS.jsp").forward(request, response);
+				if(userList.size() != 0)
+				{
+					User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userList);
+					session.removeAttribute("user");
+					session.setAttribute("user", user);
+					
+					session.removeAttribute("userFill");
+					session.setAttribute("userFill", user);
+					
+					fillSession(em, session, user);
+					request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
+				}
+				else
+				{
+					String code = "initializeDataBase";
+					request.setAttribute("code", code);
+					request.getRequestDispatcher("ObjectDBUtilServlet").include(request,response);
+					request.removeAttribute("code");
+					
+					List<User> uList = em.createQuery("SELECT c FROM User c WHERE numero='007'", User.class).getResultList();
+					User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(uList);
+					session.removeAttribute("user");
+					session.setAttribute("user", user);
+					
+					session.removeAttribute("userFill");
+					session.setAttribute("userFill", user);
+					
+					fillSession(em, session, user);
+					request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
+				}
 			}
 			else
 			{
@@ -101,20 +107,15 @@ public class LoginServlet extends HttpServlet {
 
 				List<User> userList = em.createQuery("SELECT c FROM User c WHERE numero='"+test.getNumber()+"'", User.class).getResultList();
 				User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userList);
+				session.removeAttribute("user");
 				session.setAttribute("user", user);
+				
+				session.removeAttribute("userFill");
+				session.setAttribute("userFill", user);
 
-				if(user.isRespoModule()){
-
-				}
-				else if(user.isTuteur()){
-
-				}
-				else{
-					fillSession(em, session, user);
-					request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
-				}
+				fillSession(em, session, user);
+				request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
 			}
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
