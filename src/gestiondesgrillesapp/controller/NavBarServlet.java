@@ -80,6 +80,14 @@ public class NavBarServlet extends HttpServlet {
 			
 			request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
 		}
+		else if(onglet.equals("ImportEleves"))
+		{
+			request.getRequestDispatcher("/View/jsp/ImportEleves.jsp").forward(request, response);
+		}
+		else if(onglet.equals("ImportTuteur"))
+		{
+			request.getRequestDispatcher("/View/jsp/ImportTuteur.jsp").forward(request, response);
+		}
 		else if(onglet.equals("Navigation"))
 		{
 			HttpSession session = request.getSession(false);

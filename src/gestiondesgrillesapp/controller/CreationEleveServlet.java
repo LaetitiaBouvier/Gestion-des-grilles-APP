@@ -340,6 +340,7 @@ public class CreationEleveServlet extends HttpServlet {
     			em.getTransaction().rollback();
     		em.close();
     	}
+    	request.getRequestDispatcher("/View/jsp/ImportEleves.jsp").forward(request, response);
     }
 }
 

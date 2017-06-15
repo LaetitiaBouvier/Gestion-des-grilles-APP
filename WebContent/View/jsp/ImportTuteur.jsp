@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Import Eleve</title>
+<title>Import Tuteur</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -25,7 +25,7 @@
 						<h3>Liste des élèves</h3>
 					</div>
 					<div class="panel-body">
-						<form method="POST" action="CreationEleveServlet" class="form-horizontal">
+						<form method="POST" action="CreationTuteurServlet" class="form-horizontal">
 							<div id="dataTables_wrapper" class="dataTables_wrapper form-inline no-footer">
 								<div class="row" style="margin-bottom: 10px;">
 									<div class="col-md-8" style=" margin-left: 20px; margin-bottom: 10px;">

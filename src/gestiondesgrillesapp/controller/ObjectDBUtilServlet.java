@@ -713,6 +713,8 @@ public class ObjectDBUtilServlet extends HttpServlet{
 				
 			grilleModel.addCompetenceID(competenceTravailEnEquipe.getID());
 			
+			
+			
 			//  ____________________________________
 			//  Enregistrement de la MAJ des objets dans la BDD :
 							
