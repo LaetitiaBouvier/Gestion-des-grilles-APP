@@ -6,14 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Création Grille de Compétences d'APP</title>
-<script
-		src="./../js/jquery.min.js"></script>
-	<link href="./../css/bootstrap.min.css" rel="stylesheet">
-	<script
-		src="./../js/bootstrap.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/js/jquery.csv.js"></script>
+ 
 </head>
 <body>
-	<%@ include file = "NavBar.jsp" %>
+<%-- 	<%@ include file = "NavBar.jsp" %> --%>
 	<div id="wrapper" class="container">
 		<div id="page-wrapper" style="min-height: 683px;">
 			<div class="row">

@@ -45,6 +45,7 @@ public class SousCompetence {
 		this.coefficient = 0.;
 		
 		if(contenu == null || contenu.isEmpty()){
+			System.out.println("==>"+contenu+"<==");
 			throw new IllegalArgumentException("Il faut absoluement qu'une sous-compétence possède un contenu !");
 		}else{
 			this.contenu = contenu;
