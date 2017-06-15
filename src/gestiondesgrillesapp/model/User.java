@@ -162,6 +162,14 @@ public class User {
 		this.bureauTuteur = bureauTuteur;
 	}
 	
+	public ArrayList<Long> getGroupesTuteurIDs(){
+		return groupesTuteurIDs;
+	}
+	
+	public void setGroupesTuteursIDs(ArrayList<Long> groupesTuteurIDs){
+		this.groupesTuteurIDs = groupesTuteurIDs;
+	}
+	
 	public boolean isRespoModule() {
 		return isRespoModule;
 	}

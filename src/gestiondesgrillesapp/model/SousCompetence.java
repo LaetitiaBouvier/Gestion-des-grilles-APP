@@ -41,7 +41,7 @@ public class SousCompetence {
 		this.commentaireEquipe = "";
 		this.commentaireTuteurTuteur = "";
 		this.commentaireIndividuel = "";
-		this.niveau = "";
+		this.niveau = "Non assigné";
 		this.coefficient = 0.;
 		
 		if(contenu == null || contenu.isEmpty()){

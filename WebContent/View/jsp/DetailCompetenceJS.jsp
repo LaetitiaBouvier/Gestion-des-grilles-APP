@@ -53,12 +53,14 @@
 						class="fa fa-angle-double-down fa-2x pull-right fa-inverse myDropDownButton"></span></a>
 				</div>
 				<!-- commentaire tuteur a tuteur -->
+				<% if(!userIsAStudent) {%>
 				<form class="jsCallText" method="POST" action="DetailCompetenceJSServlet">
 					<div>
 						<textarea class="form-control myBoxSize myTuTu" placeholder="commentaire tuteur a tuteur" name="CommentaireTuteurTuteurSousCompetence_<%=sousCompetence.getContenu()%>"><%=sousCompetence.getCommentaireTuteurTuteur()%></textarea>
 						<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
 					</div>
 				</form>
+				<%} %>
 			</div>
 			<!-- colone observation sur l'équipe -->
 			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
@@ -69,8 +71,10 @@
 					<form class="jsCallText" method="POST" action="DetailCompetenceJSServlet">
 						<div>
 <!--Attention au nb d'élèves ! 84-1 pour 5 élèves   -->
-							<textarea class="form-control " placeholder="write here the evaluation of the team" name="CommentaireEquipeSousCompetence_<%=sousCompetence.getContenu()%>" style="height:<%=16.6*membresSousGroupe.size()%>vh;"><%=sousCompetence.getCommentaireEquipe()%></textarea>
-							<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+							<textarea <% if(userIsAStudent){ %> <%=("readonly=\"readonly\"") %> <%} %>class="form-control " placeholder="write here the evaluation of the team" name="CommentaireEquipeSousCompetence_<%=sousCompetence.getContenu()%>" style="height:<%=16.6*membresSousGroupe.size()%>vh;"><%=sousCompetence.getCommentaireEquipe()%></textarea>
+							<% if(!userIsAStudent) {%>
+							<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>
+							<%} %>
 						</div>
 					</form>
 				</div>
@@ -90,11 +94,13 @@
 					%>
 					<form class="jsCallText myBoxSizePlus" method="POST" action="DetailCompetenceJSServlet">
 						<div>
-							<textarea 	class="form-control myBoxSize"
+							<textarea 	<% if(userIsAStudent){ %> <%=("readonly=\"readonly\"") %> <%} %> class="form-control myBoxSize"
 										<%-- <%if(sousCompetenceSelected.getCommentaireIndividuel().equals("")){%> placeholder="write here the evaluation of Eleve" <%}%> --%>
 										placeholder="write here the evaluation of Eleve"
 										name="CommentaireIndividuelSousCompetence_<%=sousCompetenceSelected.getID()%>"><%=sousCompetenceSelected.getCommentaireIndividuel()%></textarea>
+							<% if(!userIsAStudent){ %> 
 							<button type="submit" class="btn btn-primary mySaveButton fa fa-floppy-o"></button>	
+							<%} %>
 						</div>
 					</form>
 					<%
@@ -113,17 +119,19 @@
 					<form class="jsCallText myBoxSizePlus" method="POST" action="DetailCompetenceJSServlet">
 						<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-2.1vh;">
 							<select class="selectpicker selectwidthauto" name="NiveauSousCompetence_<%=sousCompetenceSelected.getID()%>">
-								<option value="Non assigné"	<% if(sousCompetenceSelected.getNiveau().equals("Non assigné"))	{ %> <%=("selected")%> <% } %>>Non assigné</option>
-								<option value="Au dela"		<% if(sousCompetenceSelected.getNiveau().equals("Au dela"))		{ %> <%=("selected")%> <% } %>>Au dela</option>
-								<option value="Attendu"		<% if(sousCompetenceSelected.getNiveau().equals("Attendu"))		{ %> <%=("selected")%> <% } %>>Attendu</option>
-								<option value="Très proche"	<% if(sousCompetenceSelected.getNiveau().equals("Très proche"))	{ %> <%=("selected")%> <% } %>>Très proche</option>
-								<option value="Proche"		<% if(sousCompetenceSelected.getNiveau().equals("Proche"))		{ %> <%=("selected")%> <% } %>>Proche</option>
-								<option value="Loin"		<% if(sousCompetenceSelected.getNiveau().equals("Loin"))		{ %> <%=("selected")%> <% } %>>Loin</option>
+								<option <% if(userIsAStudent){ %> <%=("disabled=\"disabled\"") %> <%} %> value="Non assigné"	<% if(sousCompetenceSelected.getNiveau().equals("Non assigné"))	{ %> <%=("selected")%> <% } %>>Non assigné</option>
+								<option <% if(userIsAStudent){ %> <%=("disabled=\"disabled\"") %> <%} %> value="Au dela"		<% if(sousCompetenceSelected.getNiveau().equals("Au dela"))		{ %> <%=("selected")%> <% } %>>Au dela</option>
+								<option <% if(userIsAStudent){ %> <%=("disabled=\"disabled\"") %> <%} %> value="Attendu"		<% if(sousCompetenceSelected.getNiveau().equals("Attendu"))		{ %> <%=("selected")%> <% } %>>Attendu</option>
+								<option <% if(userIsAStudent){ %> <%=("disabled=\"disabled\"") %> <%} %> value="Très proche"	<% if(sousCompetenceSelected.getNiveau().equals("Très proche"))	{ %> <%=("selected")%> <% } %>>Très proche</option>
+								<option <% if(userIsAStudent){ %> <%=("disabled=\"disabled\"") %> <%} %> value="Proche"			<% if(sousCompetenceSelected.getNiveau().equals("Proche"))		{ %> <%=("selected")%> <% } %>>Proche</option>
+								<option <% if(userIsAStudent){ %> <%=("disabled=\"disabled\"") %> <%} %> value="Loin"			<% if(sousCompetenceSelected.getNiveau().equals("Loin"))		{ %> <%=("selected")%> <% } %>>Loin</option>
 							</select>	
 						</div>
+						<% if(!userIsAStudent){ %> 
 						<div style="position:relative;">
 							<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
 						</div>	
+						<%} %>
 					</form>
 					<%
 					}
@@ -204,11 +212,13 @@
 								if(sousPointSelected == null) throw new RuntimeException("Le sous point sélectionnée ne doit pas être null !");
 							%>
 							<form class="jsCallText myBoxSizeDDPlus" method="POST" action="DetailCompetenceJSServlet">
+								<% if(!userIsAStudent){ %>
 								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 									<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
 								</div>
+								<%} %>
 								<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-									<textarea class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve" name="CommentaireIndividuelSousPoint_<%=sousPointSelected.getID()%>"><%=sousPointSelected.getCommentaireIndividuel()%></textarea>
+									<textarea <% if(userIsAStudent){ %> <%=("readonly=\"readonly\"") %> <%} %> class="form-control myBoxSizeDD" placeholder="write here the evaluation of Eleve" name="CommentaireIndividuelSousPoint_<%=sousPointSelected.getID()%>"><%=sousPointSelected.getCommentaireIndividuel()%></textarea>
 								</div>
 							</form>
 							<%
@@ -227,14 +237,16 @@
 							<form class="jsCallText myBoxSizeDDPlus" method="POST" action="DetailCompetenceJSServlet">
 								<div class="btn-group bootstrap-select open col-xs-12" style="margin-left:-2.1vh;">
 									<select class="selectpicker selectwidthauto" name="NiveauSousPoint_<%=sousPointSelected.getID()%>">
-										<option value="Non assigné"	<% if(sousPointSelected.getNiveau().equals("Non assigné"))	{ %> <%=("selected")%> <% } %>>Non assigné</option>
-										<option value="Acquis"		<% if(sousPointSelected.getNiveau().equals("Acquis")) 		{ %> <%=("selected")%> <% } %>>Acquis</option>
-										<option value="Non acquis"	<% if(sousPointSelected.getNiveau().equals("Non acquis")) 	{ %> <%=("selected")%> <% } %>>Non acquis</option>
+										<option <% if(userIsAStudent){ %> <%=("disabled=\"disabled\"") %> <%} %> value="Non assigné"	<% if(sousPointSelected.getNiveau().equals("Non assigné"))	{ %> <%=("selected")%> <% } %>>Non assigné</option>
+										<option <% if(userIsAStudent){ %> <%=("disabled=\"disabled\"") %> <%} %> value="Acquis"			<% if(sousPointSelected.getNiveau().equals("Acquis")) 		{ %> <%=("selected")%> <% } %>>Acquis</option>
+										<option <% if(userIsAStudent){ %> <%=("disabled=\"disabled\"") %> <%} %> value="Non acquis"		<% if(sousPointSelected.getNiveau().equals("Non acquis")) 	{ %> <%=("selected")%> <% } %>>Non acquis</option>
 									</select>
 								</div>
+								<% if(!userIsAStudent){ %>
 								<div style="position:relative;">
 									<button type="submit" class="btn btn-primary fa fa-floppy-o"></button>
 								</div>
+								<%} %>
 							</form>
 							<%
 							}

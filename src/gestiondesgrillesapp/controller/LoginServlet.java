@@ -18,6 +18,7 @@ import gestiondesgrillesapp.ldap.LDAPObject;
 import gestiondesgrillesapp.ldap.LDAPaccess;
 import gestiondesgrillesapp.model.Competence;
 import gestiondesgrillesapp.model.Grille;
+import gestiondesgrillesapp.model.Groupe;
 import gestiondesgrillesapp.model.Point;
 import gestiondesgrillesapp.model.SousCompetence;
 import gestiondesgrillesapp.model.SousGroupe;
@@ -58,6 +59,13 @@ public class LoginServlet extends HttpServlet {
 
 			if(("jbond").equals(id) && ("jesuisunespion").equals(pw))
 			{
+				List<User> userList = em.createQuery("SELECT c FROM User c WHERE numero='007'", User.class).getResultList();
+				User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userList);
+				session.setAttribute("user", user);
+
+				fillSession(em, session, user);
+
+				request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
 				//				List<User> userList = em.createQuery("SELECT c FROM User c WHERE numero='007'", User.class).getResultList();
 				//				User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userList);
 				//				session.setAttribute("user", user);
@@ -70,7 +78,8 @@ public class LoginServlet extends HttpServlet {
 
 				fillSession(em, session, user);
 
-				request.getRequestDispatcher("/View/jsp/DetailCompetenceJS.jsp").forward(request, response);
+				request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
+//				request.getRequestDispatcher("/View/jsp/DetailCompetenceJS.jsp").forward(request, response);
 			}
 			else
 			{
@@ -79,16 +88,12 @@ public class LoginServlet extends HttpServlet {
 				LDAPObject test = access.LDAPget(id, pw);
 				if (test == null) {
 					System.out.println("login invalide");
-					System.exit(1);
+					request.getRequestDispatcher("/View/jsp/LoginPage.jsp").forward(request, response);
 				}
-				System.out.println(test.toString());
-				System.out.println(test.getNumber());
 
 				List<User> userList = em.createQuery("SELECT c FROM User c WHERE numero='"+test.getNumber()+"'", User.class).getResultList();
 				User user = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userList);
 				session.setAttribute("user", user);
-
-				System.out.println(user.getEmail());
 
 				if(user.isRespoModule()){
 
@@ -98,6 +103,7 @@ public class LoginServlet extends HttpServlet {
 				}
 				else{
 					fillSession(em, session, user);
+					request.getRequestDispatcher("/View/jsp/VueDEnsemble.jsp").forward(request, response);
 				}
 			}
 
@@ -114,18 +120,36 @@ public class LoginServlet extends HttpServlet {
 
 	public static void fillSession(EntityManager em, HttpSession session, User user)
 	{
+		SousGroupe sousGroupe = null;
+		
+		if(user.isTuteur())
+		{
+			Long firstGroupeID = user.getGroupesTuteurIDs().get(0);
+			
+			List<Groupe> groupeTemp = em.createQuery("SELECT c FROM Groupe c WHERE id="+firstGroupeID, Groupe.class).getResultList();
+			Groupe firstGroupe = (Groupe) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(groupeTemp);
+			
+			long firstSousGroupeID = firstGroupe.getSousGroupesIDs().get(0);
+			
+			List<SousGroupe> sousGroupeTemp = em.createQuery("SELECT c FROM SousGroupe c WHERE id="+firstSousGroupeID, SousGroupe.class).getResultList();
+			sousGroupe = (SousGroupe) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousGroupeTemp);
+		}
+		else
+		{
+			List<SousGroupe> sousGroupeTemp = em.createQuery("SELECT c FROM SousGroupe c WHERE id="+user.getSousGroupeEleveID(), SousGroupe.class).getResultList();
+			sousGroupe = (SousGroupe) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousGroupeTemp);
+		}
+		
+		if(sousGroupe == null) throw new RuntimeException("Le sous groupe ne doit pas être null !");
+		
 		ArrayList<User> membresSousGroupe = new ArrayList<>();
-
-		List<SousGroupe> sousGroupeTemp = em.createQuery("SELECT c FROM SousGroupe c WHERE id="+user.getSousGroupeEleveID(), SousGroupe.class).getResultList();
-		SousGroupe sousGroupe = (SousGroupe) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(sousGroupeTemp);
-
 		for(Long eleveID : sousGroupe.getElevesIDs())
 		{
 			List<User> userTemp = em.createQuery("SELECT c FROM User c WHERE id="+eleveID, User.class).getResultList();
 			User userMembre = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(userTemp);
 			membresSousGroupe.add(userMembre);
 		}
-
+		
 		HashMap<String, Grille> grillesMembres = new HashMap<>();
 		HashMap<Grille, ArrayList<Competence>> competences = new HashMap<>();
 		HashMap<Competence, ArrayList<SousCompetence>> sousCompetences = new HashMap<>();
@@ -191,7 +215,28 @@ public class LoginServlet extends HttpServlet {
 				}
 			}
 		}
-
+		
+		List<Groupe> groupesTemp = em.createQuery("SELECT c FROM Groupe c WHERE id="+membresSousGroupe.get(0).getGroupeID(), Groupe.class).getResultList();
+		Groupe groupe = (Groupe) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(groupesTemp);
+		
+		ArrayList<User> tuteursList = new ArrayList<User>();
+		
+		for(long tuteurID : groupe.getTuteursIDs())
+		{
+			List<User> tuteursTemp = em.createQuery("SELECT c FROM User c WHERE id="+tuteurID, User.class).getResultList();
+			User tuteur = (User) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(tuteursTemp);
+			
+			tuteursList.add(tuteur);
+		}
+		
+		session.removeAttribute("groupe");
+		session.setAttribute(	"groupe", groupe);
+		session.removeAttribute("tuteursList");
+		session.setAttribute(	"tuteursList", tuteursList);
+		session.removeAttribute("membresSousGroupe");
+		session.setAttribute(   "membresSousGroupe", membresSousGroupe);
+		session.removeAttribute("sousGroupe");
+		session.setAttribute(	"sousGroupe", sousGroupe);
 		session.removeAttribute("grillesMembres");
 		session.setAttribute(   "grillesMembres", grillesMembres);
 		session.removeAttribute("competences");
@@ -206,9 +251,13 @@ public class LoginServlet extends HttpServlet {
 		session.setAttribute(   "sousPoints", sousPoints);
 		session.removeAttribute("sousPointsHashContent");
 		session.setAttribute(	"sousPointsHashContent", sousPointsHashContent);
-		session.removeAttribute("membresSousGroupe");
-		session.setAttribute(   "membresSousGroupe", membresSousGroupe);
+		
 		Grille grilleUtilisateur = grillesMembres.get(user.getNumero());
+		if(user.isTuteur()) grilleUtilisateur = grillesMembres.get(membresSousGroupe.get(0).getNumero());
+		
+		session.removeAttribute("grilleUtilisateur");
+		session.setAttribute(   "grilleUtilisateur", grilleUtilisateur);
+		
 		System.out.println("\nServlet : competenceSelected = "+competences.get(grilleUtilisateur).get(0).getTitre());
 		session.removeAttribute("competenceSelected");
 		session.setAttribute(   "competenceSelected", competences.get(grilleUtilisateur).get(0));

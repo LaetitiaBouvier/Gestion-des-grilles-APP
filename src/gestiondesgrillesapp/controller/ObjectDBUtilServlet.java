@@ -512,6 +512,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceEchanger.addPointID(pointEcouter.getID());
 					sousCompetenceEchanger.addPointID(pointDialoguer.getID());
 					sousCompetenceEchanger.setCompetenceID(competenceCommunication.getID());
+					sousCompetenceEchanger.setCoefficient(1.0);
 							
 							sousPtCommuniquerOral1.setPointID(pointCommuniquerOral.getID());
 						pointCommuniquerOral.addSousPointID(sousPtCommuniquerOral1.getID());
@@ -524,6 +525,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceCommuniquerOral.addPointID(pointCommuniquerOral.getID());
 					sousCompetenceCommuniquerOral.addPointID(pointAnalyserOral.getID());
 					sousCompetenceCommuniquerOral.setCompetenceID(competenceCommunication.getID());
+					sousCompetenceCommuniquerOral.setCoefficient(1.0);
 							
 							sousPtCommuniquer1.setPointID(pointCommuniquerEcrit.getID());
 						pointCommuniquerEcrit.addSousPointID(sousPtCommuniquer1.getID());
@@ -536,11 +538,13 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceCommuniquerEcrit.addPointID(pointCommuniquerEcrit.getID());
 					sousCompetenceCommuniquerEcrit.addPointID(pointAnalyserEcrit.getID());
 					sousCompetenceCommuniquerEcrit.setCompetenceID(competenceCommunication.getID());
+					sousCompetenceCommuniquerEcrit.setCoefficient(1.0);
 							
 				competenceCommunication.addSousCompetenceID(sousCompetenceEchanger.getID());
 				competenceCommunication.addSousCompetenceID(sousCompetenceCommuniquerOral.getID());
 				competenceCommunication.addSousCompetenceID(sousCompetenceCommuniquerEcrit.getID());
 				competenceCommunication.setGrilleID(grilleModel.getEleveID());
+				competenceCommunication.setCoefficient(1.0);
 				
 			grilleModel.addCompetenceID(competenceCommunication.getID());
 			//  ____________________________________
@@ -659,6 +663,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceEquipe.addPointID(pointParticiper.getID());
 					sousCompetenceEquipe.addPointID(pointAnimer.getID());
 					sousCompetenceEquipe.setCompetenceID(competenceTravailEnEquipe.getID());
+					sousCompetenceEquipe.setCoefficient(1.0);
 						
 							sousPtDetecter1.setPointID(pointDetecter.getID());
 						pointDetecter.addSousPointID(sousPtDetecter1.getID());
@@ -671,6 +676,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceConflits.addPointID(pointDetecter.getID());
 					sousCompetenceConflits.addPointID(pointApporter.getID());
 					sousCompetenceConflits.setCompetenceID(competenceTravailEnEquipe.getID());
+					sousCompetenceConflits.setCoefficient(1.0);
 					
 							sousPtEmettre1.setPointID(pointEmettre.getID());
 						pointEmettre.addSousPointID(sousPtEmettre1.getID());
@@ -683,6 +689,7 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceProposition.addPointID(pointEmettre.getID());
 					sousCompetenceProposition.addPointID(pointJustifier.getID());
 					sousCompetenceProposition.setCompetenceID(competenceTravailEnEquipe.getID());
+					sousCompetenceProposition.setCoefficient(1.0);
 					
 							sousPtUtiliser1.setPointID(pointUtiliser.getID());
 						pointUtiliser.addSousPointID(sousPtUtiliser1.getID());
@@ -695,12 +702,14 @@ public class ObjectDBUtilServlet extends HttpServlet{
 					sousCompetenceOutilsCollaboratif.addPointID(pointUtiliser.getID());
 					sousCompetenceOutilsCollaboratif.addPointID(pointOrganiser.getID());
 					sousCompetenceOutilsCollaboratif.setCompetenceID(competenceTravailEnEquipe.getID());
+					sousCompetenceOutilsCollaboratif.setCoefficient(1.0);
 					
 				competenceTravailEnEquipe.addSousCompetenceID(sousCompetenceEquipe.getID());
 				competenceTravailEnEquipe.addSousCompetenceID(sousCompetenceConflits.getID());
 				competenceTravailEnEquipe.addSousCompetenceID(sousCompetenceProposition.getID());
 				competenceTravailEnEquipe.addSousCompetenceID(sousCompetenceOutilsCollaboratif.getID());
 				competenceTravailEnEquipe.setGrilleID(grilleModel.getEleveID());
+				competenceTravailEnEquipe.setCoefficient(1.0);
 				
 			grilleModel.addCompetenceID(competenceTravailEnEquipe.getID());
 			

@@ -5,6 +5,9 @@
 <%
 	HttpSession sess = request.getSession(false);
 	User user = (User) sess.getAttribute("user");
+	
+	boolean userIsAStudent = !user.isTuteur() || !user.isRespoModule();
+	
 	String prenom;
 	String nom;
 	String numero;
@@ -19,7 +22,7 @@
 	}
 	
 	HashMap<String, Grille> grillesMembres = (HashMap<String, Grille>) sess.getAttribute("grillesMembres");
-	Grille grille = grillesMembres.get(user.getNumero());
+	Grille grille = (Grille) sess.getAttribute("grilleUtilisateur");
 
 	HashMap<Grille, ArrayList<Competence>> competences = (HashMap<Grille, ArrayList<Competence>>) sess.getAttribute("competences");
 	HashMap<Competence, ArrayList<SousCompetence>> sousCompetences = (HashMap<Competence, ArrayList<SousCompetence>>) sess.getAttribute("sousCompetences");
@@ -74,6 +77,7 @@
 							<%=prenom%>
 							-
 							<%=numero%></p>
+							
 						<div class="text-center" style="margin-bottom: 3px;">
 							<button type="button" class="btn btn-primary">déconnexion</button>
 						</div>
@@ -208,7 +212,6 @@
 	</nav>
 </div>
 <div class="col-md-2 col-sm-2"></div>
-
 
 <!-- jQuery -->
 <script

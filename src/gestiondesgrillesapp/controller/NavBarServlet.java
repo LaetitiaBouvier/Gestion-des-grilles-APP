@@ -54,7 +54,7 @@ public class NavBarServlet extends HttpServlet {
 			
 			User user = (User) sess.getAttribute("user");
 			HashMap<String, Grille> grillesMembres = (HashMap<String, Grille>) sess.getAttribute("grillesMembres");
-			Grille grille = grillesMembres.get(user.getNumero());
+			Grille grille = (Grille) sess.getAttribute("grilleUtilisateur");
 			
 			HashMap<Grille, ArrayList<Competence>> competencesList = (HashMap<Grille, ArrayList<Competence>>) sess.getAttribute("competences");
 			System.out.println(competencesList.size());
