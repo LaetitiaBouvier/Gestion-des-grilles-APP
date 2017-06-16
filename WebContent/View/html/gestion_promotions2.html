@@ -16,13 +16,13 @@
 		<div id="page-wrapper" style="min-height: 683px">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Gestion des promotions</h1>
+					<h1 class="page-header">Ajout des eleves</h1>
 				</div>
 			</div>
 			<div class="row">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Gestion des promotions
+						Ajout des eleves
 					</div>
 					<div class="panel-body">
 						<div class="row">
@@ -33,7 +33,7 @@
 								<div class="col-md-10" style="margin-left: 50px;">
 									<div class="alert alert-success alert-dismissable" style="display:none;">
 									    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-							            <strong>Success!</strong> Votre fichier a bien été télécharger. Veuillez vous rediriger <a href="gestion_promotions.html"> vers la page d'importation de fichier</a> pour que vous puissiez importer le fichier.
+							            <strong>Success!</strong> Votre fichier a bien été téléchargé. Veuillez vous rediriger <a href="gestion_promotions.html"> vers la page d'importation de fichier</a> pour que vous puissiez importer le fichier.
 							        </div>
 								</div>
 							</div>
@@ -57,7 +57,7 @@
 $('#my').jexcel({
     csv:'./../csv/import_promotions.csv',
     csvHeaders:true,
-    colWidths: [80, 80, 80, 80, 80, 100],
+    colWidths: [150, 150, 150, 200, 80, 80, 100],
 });
 
 $('#download').on('click', function () {

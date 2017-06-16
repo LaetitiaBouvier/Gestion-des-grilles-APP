@@ -16,13 +16,13 @@
 		<div id="page-wrapper" style="min-height: 683px">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Ajout des competences</h1>
+					<h1 class="page-header">Ajout des tuteurs</h1>
 				</div>
 			</div>
 			<div class="row">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Ajout des competences, sous-competences, points, sous-points
+						Ajout des tuteurs
 					</div>
 					<div class="panel-body">
 						<div class="row">
@@ -55,9 +55,9 @@
 
 <script>
 $('#my').jexcel({
-    csv:'./../csv/import_grille.csv',
+    csv:'./../csv/import_tuteurs.csv',
     csvHeaders:true,
-    colWidths: [120, 120, 80, 170, 150, 100, 100],
+    colWidths: [150, 150, 150, 150, 100, 200],
 });
 
 $('#download').on('click', function () {

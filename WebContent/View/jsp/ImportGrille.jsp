@@ -72,9 +72,9 @@
 				                                </div>
 				                            </div>
 				                        </div>
-				                        <a href="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/html/gestion_promotions2.html">
+				                        <a href="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/html/gestion_promotions.html">
 				                            <div class="panel-footer">
-				                                <span class="pull-left">View Details</span>
+				                                <span class="pull-left">Acces</span>
 				                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 				                                <div class="clearfix"></div>
 				                            </div>

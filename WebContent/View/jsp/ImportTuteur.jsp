@@ -33,7 +33,7 @@
 									</div>
 									<div class="row" style="margin-bottom: 10px;">
 										<div class="col-md-12" style=" margin-left: 20px; margin-bottom: 10px;">		
-										  	<img class="center-block"  src="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/ressources/tableauEleves.png" style="width:60%;"/>
+										  	<img class="center-block"  src="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/ressources/tableauTuteurs.png" style="width:60%;"/>
 									  	</div>
 									</div>
 									<div class="row" style=" margin-bottom: 10px;">
@@ -69,9 +69,9 @@
 					                                </div>
 					                            </div>
 					                        </div>
-					                        <a href="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/html/gestion_promotions2.html">
+					                        <a href="https://raw.githack.com/LaetitiaBouvier/Gestion-des-grilles-APP/master/WebContent/View/html/gestion_promotions3.html">
 					                            <div class="panel-footer">
-					                                <span class="pull-left">View Details</span>
+					                                <span class="pull-left">Acces</span>
 					                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					                                <div class="clearfix"></div>
 					                            </div>
