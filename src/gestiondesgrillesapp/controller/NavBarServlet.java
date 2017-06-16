@@ -88,6 +88,10 @@ public class NavBarServlet extends HttpServlet {
 		{
 			request.getRequestDispatcher("/View/jsp/ImportTuteur.jsp").forward(request, response);
 		}
+		else if(onglet.equals("ImportGrille"))
+		{
+			request.getRequestDispatcher("/View/jsp/CreationGrille.jsp").forward(request, response);
+		}
 		else if(onglet.equals("Navigation"))
 		{
 			HttpSession session = request.getSession(false);

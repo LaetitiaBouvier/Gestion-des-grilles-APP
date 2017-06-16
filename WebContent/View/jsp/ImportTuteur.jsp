@@ -16,13 +16,13 @@
 		<div id="page-wrapper" style="min-height: 683px">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Import des élèves</h1>
+					<h1 class="page-header">Import de tuteur</h1>
 				</div>
 			</div>
 			<div class="row">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3>Liste des élèves</h3>
+						<h3>Liste des tuteurs</h3>
 					</div>
 					<div class="panel-body">
 						<form method="POST" action="CreationTuteurServlet" class="form-horizontal">

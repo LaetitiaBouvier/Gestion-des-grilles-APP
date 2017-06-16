@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import gestiondesgrillesapp.model.Grille;
 import gestiondesgrillesapp.model.Groupe;
 import gestiondesgrillesapp.model.User;
 
@@ -50,7 +51,7 @@ public class NavigationServlet extends HttpServlet {
 			BufferedReader br = new BufferedReader(new InputStreamReader (request.getInputStream()));
 //			String content = parse(br.readLine());
 			String content = br.readLine();
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ==> id model : "+content);
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ==> id content : "+content);
 			
 			long modelID  = Long.parseLong(content.split(Pattern.quote("+"))[0]);
 			long groupeID = Long.parseLong(content.split(Pattern.quote("+"))[1]);
@@ -61,6 +62,14 @@ public class NavigationServlet extends HttpServlet {
 			Groupe groupe = (Groupe) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(groupeListTemp);
 			
 			ArrayList<User> groupeUsers = hashUsersGroupe.get(groupe);
+			
+			List<Grille> grilleModelList = em.createQuery("SELECT c FROM Grille c WHERE id="+modelID, Grille.class).getResultList();
+			Grille model = (Grille) ObjectDBUtilServlet.extractOnlyOneObjectManagingExceptions(grilleModelList);
+			
+			for(User user : groupeUsers)
+			{
+				ObjectDBUtilServlet.associateStudentToGrid(em, user, model);
+			}
 		}
 		finally
 		{

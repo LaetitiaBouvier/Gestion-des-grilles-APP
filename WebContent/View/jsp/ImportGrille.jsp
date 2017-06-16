@@ -11,8 +11,8 @@
 
 <body>
 	
-<%-- 	<%@ include file = "NavBar.jsp" %> --%>
-	<div id="wrapper" class="container">
+	<%@ include file = "NavBar.jsp" %>
+	<div id="wrapper" class="container col-lg-10 col-sm-10 col-sm-12 col-xs-12">
 	
 		<div id="page-wrapper" style="min-height: 683px">
 			<div class="row">

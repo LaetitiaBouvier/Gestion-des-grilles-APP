@@ -12,8 +12,8 @@
  
 </head>
 <body>
-<%-- 	<%@ include file = "NavBar.jsp" %> --%>
-	<div id="wrapper" class="container">
+	<%@ include file = "NavBar.jsp" %>
+	<div id="wrapper" class="container col-lg-10 col-sm-10 col-sm-12 col-xs-12">
 		<div id="page-wrapper" style="min-height: 683px;">
 			<div class="row">
 				<div class="col-lg-12">
@@ -32,7 +32,7 @@
 								<div role="tabpanel" class="tab-pane active" id="grille">
 									<div class="container" style="margin-top: 30px;">
 										
-										<form method="POST" action="../../CreationGrilleServlet" class="form-horizontal">
+										<form method="POST" action="CreationGrilleServlet" class="form-horizontal">
 											
 											<div class="form-group">
 												<label for="nom_grille" class="col-sm-2 control-label">Nom de la Grille</label>

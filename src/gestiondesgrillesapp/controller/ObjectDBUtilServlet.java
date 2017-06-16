@@ -107,9 +107,9 @@ public class ObjectDBUtilServlet extends HttpServlet{
 				}
 	}
 	
-	public void associateStudentToGrid(EntityManager em, User eleve, Grille grilleModel){
+	public static void associateStudentToGrid(EntityManager em, User eleve, Grille grilleModel){
 
-		Grille grilleCopy = grilleModelDeepCopy(grilleModel, eleve.getID());
+		Grille grilleCopy = grilleModelDeepCopy(em, grilleModel, eleve.getID());
 
 		if(grilleCopy == null){
 			throw new RuntimeException("Une erreur est survenue au moment de copier la grille \"model\" pour associer la copie à l'élève !");
@@ -122,11 +122,11 @@ public class ObjectDBUtilServlet extends HttpServlet{
 		em.getTransaction().commit();	// Ici on MAJ seulement "eleve"
 	}
 	
-	public Grille grilleModelDeepCopy(Grille grilleModel, long eleveID){
+	public static Grille grilleModelDeepCopy(EntityManager em, Grille grilleModel, long eleveID){
 
-		// Obtain a database connection:
-		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-		EntityManager em = emf.createEntityManager();
+//		// Obtain a database connection:
+//		EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+//		EntityManager em = emf.createEntityManager();
 		
 		Grille grilleModelCopy = null;
 
